@@ -1,0 +1,83 @@
+[
+ {
+  "slide": 3,
+  "fig": 1,
+  "svgIndex": 0,
+  "file": "slide03-fig1.png",
+  "title": "Iceberg — above the waterline the HubSpot UI that executives see; below it the custom integration layer, each built item a block sized by its weeks on the weekly-report list where recorded",
+  "width": 797,
+  "height": 664
+ },
+ {
+  "slide": 5,
+  "fig": 1,
+  "svgIndex": 0,
+  "file": "slide05-fig1.png",
+  "title": "Sports pitch, Team A — a defensive formation in one colour packed into its own half; the opponent's half is empty except for three callouts with the measured practical examples",
+  "width": 1200,
+  "height": 631
+ },
+ {
+  "slide": 7,
+  "fig": 1,
+  "svgIndex": 0,
+  "file": "slide07-fig1.png",
+  "title": "The cardinality trap — final_customer as a string on the deal (left) versus a Company association (right); 116 string-only deals are related to nothing; 927 deals carry both representations",
+  "width": 1200,
+  "height": 623
+ },
+ {
+  "slide": 8,
+  "fig": 1,
+  "svgIndex": 0,
+  "file": "slide08-fig1.png",
+  "title": "Speedometer — three gauges (logical, business, data modelling); each needle sits at the measured share of the 1,972 live deals touched by the problem, amber to red; the evidence line sits under each gauge",
+  "width": 1200,
+  "height": 380
+ },
+ {
+  "slide": 9,
+  "fig": 1,
+  "svgIndex": 0,
+  "file": "slide09-fig1.png",
+  "title": "BUSINESS gauge — needle at 45.5%: 897 of 1,972 deals · mislabelled year field",
+  "width": 220,
+  "height": 131
+ },
+ {
+  "slide": 9,
+  "fig": 2,
+  "svgIndex": 1,
+  "file": "slide09-fig2.png",
+  "title": "DATA MODELLING gauge — needle at 52.9%: 1,043 of 1,972 deals · customer as text",
+  "width": 220,
+  "height": 131
+ },
+ {
+  "slide": 10,
+  "fig": 1,
+  "svgIndex": 0,
+  "file": "slide10-fig1.png",
+  "title": "The messy landlord — one HubSpot portal drawn as a house: tenants SEALSQ, IC'Alps and WISeKey inside, a hole in the floor (the foundation data layer), Miraex, WeCan and SEALSQUANTUM at the door, and a single Business Unit sign",
+  "width": 1200,
+  "height": 562
+ },
+ {
+  "slide": 11,
+  "fig": 1,
+  "svgIndex": 0,
+  "file": "slide11-fig1.png",
+  "title": "Team B, the intended team — sales, marketing, hands-off and technical operations in four colours, spread over both halves and connected by passing lines",
+  "width": 797,
+  "height": 664
+ },
+ {
+  "slide": 21,
+  "fig": 1,
+  "svgIndex": 0,
+  "file": "slide21-fig1.png",
+  "title": "Where it lives, what it is built on — HubSpot in the centre, StackSync, Google Cloud (BigQuery, DBT, Cloud Run, Compute Engine), the planned hermes VPS, the laptop and GitHub; hatched blocks are not backed up to git, dashed blocks are planned and not deployed",
+  "width": 1200,
+  "height": 664
+ }
+]
