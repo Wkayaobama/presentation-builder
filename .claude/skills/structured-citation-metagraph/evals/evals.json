@@ -1,0 +1,23 @@
+{
+  "skill_name": "structured-citation-metagraph",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We run our billing on Stripe plus a Postgres warehouse and a dbt project in this repo, and leadership wants a 15-slide deck comparing three options for next year (keep the in-house pipeline, move reporting to Metabase Cloud, or hire a fractional analytics partner). It must only state things we can prove from the repo, the dbt docs, the last two board decks in docs/, and public pricing pages, with a citation on every number, and it must not recommend an option. Build it.",
+      "expected_output": "A brief.md boundary, explorer outputs per source family, metagraph.json passing citation_graph.py, an evidence ledger with verification counts, a deck whose numbers carry data-claim ids, deck_cites_check.py passing, and no sentence recommending an option.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Audit what we actually built around our HubSpot portal over the last two quarters: the sync scripts in ops/, the Zapier zaps described in the Notion export I attached, and the live portal (read-only). I want a ranked keep / simplify / consolidate / pay-for list and a short grounded deck for the COO, every claim traceable, metaphors allowed only if labelled as illustrative.",
+      "expected_output": "An implementation-health-check.md with one verdict word per item and evidence ids, a metagraph with health_verdict edges, a verified ledger, and a deck where unmeasured story elements are labelled illustrative.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Turn the attached market-sizing memo into a sceptic-proof slide deck: every figure must cite the page of the source report or the URL it came from, anything the memo asserts without a source has to be flagged, and I want the evidence graph so the finance team can inspect the neighbourhood of each number.",
+      "expected_output": "Memo assertions split into grounded claims and unsupported elements, a metagraph.md with co-cited tables, verification verdicts, and a deck with provenance notes per slide.",
+      "files": []
+    }
+  ]
+}
