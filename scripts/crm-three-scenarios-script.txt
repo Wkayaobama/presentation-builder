@@ -1,0 +1,77 @@
+THREE STORIES, THREE SCENARIOS — THE WISEKEY GROUP CRM (HubSpot portal 9201667)
+Spoken script of the engineering manager. Target 12–15 minutes (about 2,000 spoken words at 140–150 words a minute).
+Rule of the room: this script offers no choice and no advice — it is a presentation layer, not a decision layer.
+Every paragraph ends with the claim ids it rests on; the ids resolve to projects/crm-three-scenarios/evidence-ledger.md
+(source + locator + quote, as-of 2026-10-01). Where a picture is a metaphor and not a measurement, the script says so.
+
+[Slide 1 — Title]
+Good morning. In the next fifteen minutes I will tell you two stories and show you three scenarios about the CRM we share. I will not ask you to choose anything. Every number carries a claim id that traces to a weekly report, the tracker, our repositories, a read-only query on the live portal, or a public price page. Where a picture is a metaphor, I will say so. [cites: C149, C150]
+
+[Slide 2 — Why stories]
+Why stories? Between January and September we filed 21 weekly reports in six categories, covering roughly sixty projects — self-reported; the deck itemises 38. Nobody holds sixty projects in their head. A story is a boundary: the desired outcome on one side, the measured reality on the other. The rule I was given: a presentation layer, not a decision layer — grounded truth against the scenarios, without providing a choice. [cites: C001, C149, C150]
+
+[Slide 3 — Story 1, the iceberg (1/2)]
+Story one is the iceberg. Above the waterline is what you see when you open HubSpot: dashboards, pipelines, reports. Below it is what keeps those dashboards true. The share of our work done in code rose from 41 percent in the first quarter to 53 in the third; the last reported week was 63 percent code, as the regional report, deal stages, the BIBA push, Mir-Load and lead triage all moved under the water. The deck's own line: "The Data is poor but nobody wants to look at it." [cites: C003, C025, C018, C150]
+
+[Slide 4 — Story 1, the iceberg (2/2)]
+Now the blocks under the water. The deck says: "The CRM is not autonomous, it requires constant attention to avoid data drifts." The Ic'Alps merger took nine months of preparation and four days to load — 756 deals created in May. Four hygiene items have recurred for six reported weeks, none closed. And the finding that matters most: ic-load, Mir-Load, the DBT pipeline, the Go CDC client, the BIBA push, the StackSync configuration, the Oban migration and the merge form exist in no repository available to this review. GitHub backup sits at 17 percent; the Admin slide reads "Benjamin Left with no replacement on sight". [cites: C004, C006, C102, C011, C152, C038, C012]
+
+[Slide 5 — Story 2, Team A (1/2)]
+Story two is about teams. Team A: one colour, every player in its own half — the posture is the brief's metaphor. Conversion: lead triage sat on the list in all 21 reported weeks, manual until AI auto-qualification started on 7 September — "we are losing money not being able to select the relevant leads". New customers: of 940 deals created in 2026, 798 are the Ic'Alps bulk load, and the rule separating new from existing customers is a tracker row at zero percent. Static reporting: campaign sends, dashboards, cleanup and templates are still by hand; the risk register names "Progressive abandonement of the tool in favour of legacy patterns". [cites: C150, C009, C010, C101, C044, C026, C047]
+
+[Slide 6 — Story 2, Team A (2/2): duplicates and orphans]
+The duplicates, shown with the tool we built: Hs-Logic. Its contact scan, capped at 10,000 contacts, found 281 duplicate clusters and 1,764 contacts not qualified for a CRM. The company scan found 226 duplicate clusters and 9,150 companies attached to nothing. The uncapped live query: of 13,679 companies, 12,574 — 91.9 percent — carry no deal. Two caveats: matching is exact, so fuzzy duplicates are missed, and the scan saw 73 percent of companies but only 38 percent of contacts. Floors, not counts. [cites: C051, C053, C112, C109, C055, C056]
+
+[Slide 7 — The cardinality trap]
+The most important picture in the deck: the cardinality trap. On about half our deals, the customer was typed into a text field called final customer instead of being linked as a company. Live on 1 October: 1,972 deals; 1,043 carry that text; 116 carry the text and no company at all — deals related to nothing. Worse, 927 carry both, so two representations of one fact coexist, and the associated company may be a distributor. The brief's conclusion is the need for a clean data model; each scenario is read against that sentence. [cites: C091, C095, C096, C097, C150]
+
+[Slide 8 — The speedometer (1/2): the logical data problem]
+The speedometer: three data problems, each needle at the share of the 1,972 live deals it touches. Gauge one, the logical problem: one pipeline set for several products and several companies. The product line is unassigned on 52.5 percent of deals — but 938 of those sit in the Icalps and Wisekey pipelines, where the property is not used at all: a cross-entity taxonomy gap, not a fill-rate gap. The IC'Alps-versus-SEALSQ flag is never set on deals; the split lives in the pipeline, and the company tag crosses pipelines. [cites: C093, C065, C094, C150]
+
+[Slide 9 — The speedometer (2/2): the business and the data-modelling problems]
+Gauge two, the business problem: the CRM fails to capture what the company wants. Our year fields are named by internal name and labelled by year, and the two disagree: the field named cumulative pipeline 2026 is labelled "Cumulative Pipeline 2027". Over open deals, Pipeline 2029 sums to 63,716 thousand dollars — the largest open value — so a report built by internal name can silently drop the year that matters most. Gauge three is the modelling problem: 1,043 deals with the customer as text, 116 related to nothing, 927 coexisting. The link to scenario one, in the brief's reading: the know-how that built every field here can also hide a problem behind individual prowess. [cites: C071, C105, C107, C097, C096]
+
+[Slide 10 — The messy landlord]
+Image three: the messy landlord asks the new tenant to fix the hole in the floor himself. Our property is one portal with one business unit, shared by SEALSQ, IC'Alps and WISeKey. The floor is the data layer: 91.9 percent of companies carry no deal. One tenant keeps its own house rules: IC'Alps refused the unified stage convention and the merge tooling, tracks 786 deals in a parallel stage model at the September capture, and its HubSpot team has zero members. Three more tenants wait at the door — Miraex, WeCan, SEALSQUANTUM, a load task critical at 54 percent — and seats ran out by September. Scenario two puts a partner between landlord and tenants; the tension is a metaphor, the refusals are measured. [cites: C074, C112, C007, C073, C114, C014, C036, C013, C150]
+
+[Slide 11 — Team B, the intended team]
+Image four is the team we want: sales, marketing, hands-off and technical operations, four colours, passing to each other. We are not there. The portal has 16 teams and 47 owners at the September capture; SEALSQ has 24 members, Marketing 10, and five teams are empty, including IC'ALPS. The roadmap shows zero tasks complete; "resolve critical data issues" is at 18 percent. The Madrid campaign "exposed gaps in how marketing and sales ops work together". The hands-off department exists only in the metaphor. [cites: C077, C114, C031, C037, C027, C150]
+
+[Slide 12 — Bridge: from four images to three scenarios]
+Four images, three scenarios — and the deck and tracker already point at them: the deck's next step is to assess a HubSpot partner for items one to three, and the tracker benchmarks an external partner against HubSpot Operations Hub, 54 percent of planned effort. The scenarios in the user's words: do everything yourself with the cloud stack and AI; the same plus an expert CRM partner; stop the technical process and focus on HubSpot-native tools. [cites: C017, C032, C148]
+
+[Slide 13 — Scenario 1: DIY with the cloud stack and AI]
+Scenario one, DIY. What is built: the DBT and BigQuery pipeline, ic-load, Mir-Load now on a GCP instance with its first run working, the Go CDC client the deck calls the number-one success after the merge, StackSync as the gold writer, and a hermes agent that is a scaffold with zero of 76 deployment actions done. The gate reads "none new: your time plus the ongoing cost of the open items"; at list, nothing new is priced except Oban if built and a VPS if deployed, and the largest priced recurring line is StackSync at 1,000 to 3,000 dollars a month. [cites: C148, C020, C021, C082, C137, C155]
+
+[Slide 14 — Scenario 2: DIY plus an expert CRM partner]
+Scenario two: the same engine plus a partner — "the problem is not a technical problem, it's a people and skill gap". The ruler plan already writes the partner in, and the account already offers a partner seat, which HubSpot lists as free. What a partner would absorb is on record: an eight-week freeze negotiation, the refusals, a BIBA implementation that succeeded technically while end-users were idle, two training rows at zero percent. The "understand tech" example has a trace too: the first commit of our health tool says its code was extracted from a deployed understand.tech app for this portal; whether that work was outsourced is on record only as my own statement. Retainers start at 2,000 dollars a month; the purchase order is a tracker row at zero percent, so the real number is pending. [cites: C148, C076, C115, C125, C157, C015, C007, C008, C039, C130, C033]
+
+[Slide 15 — Scenario 3: HubSpot-native tools]
+Scenario three: stop the technical process, stay HubSpot-native. By HubSpot's own documentation, Data Hub Professional — 720 dollars a month on annual billing — covers bulk duplicate management, custom duplicate rules of two per object and nine properties, formatting automation, custom code and datasets; warehouse sync needs Enterprise. What no subscription covers: a rule engine cannot rename a mislabelled year field, the portal keeps one business unit, and the HQ-grouping module "needs Data Hub or partner". The gate's warning is overlap: Data Hub on top of StackSync is 1,720 to 3,720 dollars a month at list — a ceiling, not a delta, because the portal's current tier is recorded nowhere. [cites: C148, C121, C119, C071, C074, C035, C154, C083]
+
+[Slide 16 — The gates matrix]
+The gates table is the user's, verbatim; I only tie each cell to what exists. Sampling probe: our own queries, with their traps — Breeze free-text matching returned 2 where the property filter returned 32. Rules to comply: in the agent they are prompt text, not enforcement; in the tool, two rules per object. Action layer: the Oban sync is unbuilt, the workflow catalog is at zero, and our health tool's only write tags a list; custom code needs Data Hub Professional, the workflow-action route needs no subscription. [cites: C147, C079, C088, C121, C024, C049, C060, C083]
+
+[Slide 17 — Cost lines (1/2): S1 and S2]
+The cost lines, over two slides: list prices only, no total. Scenario one in red: operator time is never priced in the repos — the only public proxy is 1,350 to 4,500 dollars of staff time per audit run, illustrative, not measured; StackSync 1,000 to 3,000 a month, the largest priced line at 12,000 to 36,000 a year; the Google Cloud, dbt, private-app and Claude lines are list unit prices with volumes unknown, and the private-app limit of 190 requests per ten seconds is the Professional and Enterprise figure while our tier is unconfirmed. Scenario two in amber adds retainers from 2,000 to 15,000 a month by scope, audits from 2,000 to 10,000, advisory by the hour and a free partner seat; the purchase order is a tracker row at zero percent, so the real number is pending. [cites: C133, C137, C155, C138, C139, C140, C141, C142, C144, C143, C130, C131, C134, C135, C132, C125, C033]
+
+[Slide 18 — Cost lines (2/2): S3 at list price, and what is not priced]
+Scenario three in blue: Data Hub at 7 dollars per seat, 720 or 2,000 a month by tier, Sales Hub seats at 90 plus 1,500 onboarding, record-count apps at 100 to 200 a month on about 41,900 records, and an overlap of 1,720 to 3,720 a month while StackSync and Data Hub both run — a ceiling, not a delta, because the portal's tier is recorded nowhere. Setup, exit, handover hours, credits and the tier delta are to be quoted. [cites: C118, C119, C120, C124, C127, C129, C117, C154, C145, C156, C005, C023]
+
+[Slide 19 — The implementation health check (1/2): ranks 1 to 8]
+The health check ranks what we built with four words — keep, simplify, consolidate, pay for — about the item, never about the scenario. The first eight: keep the DBT-BigQuery pipeline, ic-load, the Go CDC client the deck calls the number-one success after the merge, the schema snapshots and the HubSpot-native automations; pay for StackSync, which has a price and no code to keep; consolidate Mir-Load into the ic-load pattern; simplify Hs-Logic. [cites: C153, C152, C021, C042, C009]
+
+[Slide 20 — The implementation health check (2/2): ranks 9 to 15]
+Ranks nine to fifteen: simplify the IC'Alps card app and the hermes scaffold; consolidate the BIBA push that succeeded technically while end-users were idle, the Oban plan, the refused merge tooling and the dropped trials; and pay for code custody — the bus-factor line: GitHub backup at 17 percent, and the risk "Legacy knowledge disappear when key stakeholders leave the company". [cites: C153, C008, C011, C007, C023, C038, C041, C012, C085]
+
+[Slide 21 — Where it lives, what it is built on]
+One map of where it lives. HubSpot in the middle; StackSync writes the gold layer and round-trips the object ids. Google Cloud holds BigQuery and DBT, a compute instance for Mir-Load and the CDC client, and — reportedly — Cloud Run for Hs-Logic, though the repository shows only a docker-compose and a Windows laptop launch file. A VPS for the hermes agent is planned, not provisioned. Hatched items are not backed up to git. [cites: C059, C022, C020, C021, C081, C082, C152]
+
+[Slide 22 — Closing]
+This is a presentation layer, not a decision layer. Two stories, four images, three scenarios, six gates, the cost lines — and no choice offered. In the brief's words: "present grounded truth against the scenarios WITHOUT PROVIDING CHOICE but presentation only". The numbers are dated, the scans are capped, the prices are list prices. What happens next is yours. [cites: C149]
+
+[Appendix A — Evidence and method]
+For the record: the SEALSQ property set covers 1,820 of 1,960 deals captured on 14 September; on 1 October the portal held 1,972. The health scans stop at 10,000 records and duplicates are exact-match. The HubSQL probe has traps — counting an id column sums the ids, and association filters drop inside a group-by — so only plain counts are used. [cites: C062, C091, C056, C055, C116]
+
+[Appendix B — Pricing sources]
+Every price is a public list price fetched on 1 October 2026 from the vendor's page, a partner's menu or a dated blog, with its confidence tier on the slide; partner ranges are US or UK agencies in dollars. Not priced, to be quoted: Data Hub onboarding, the hermes VPS, handover hours, exit costs, credit consumption, the seat count and the tier delta. [cites: C145]

@@ -14,6 +14,7 @@ Presentation Builder/
 ├── style-references/           # Reference presentations for styling
 ├── Finished Presentations/     # Completed presentations are saved here
 ├── assets/                     # Images and media files
+├── projects/                   # Per-presentation evidence packs (brief, sources, metagraph, ledger, health check)
 ├── CLAUDE.md                   # Claude's design instructions
 └── README.md                   # This file
 ```

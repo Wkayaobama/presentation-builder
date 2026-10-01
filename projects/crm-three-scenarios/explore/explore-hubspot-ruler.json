@@ -1,0 +1,472 @@
+{
+  "role": "explore",
+  "repo": "HubSpot-Ruler",
+  "repo_git": {
+    "remote": "https://github.com/Wkayaobama/HubSpot-Ruler",
+    "branch": "claude/affectionate-brahmagupta-r8n7t5",
+    "commits": [
+      {"sha": "e7e3f42", "date": "2026-09-25 13:14:24 +0200", "msg": "Add files via upload"},
+      {"sha": "43031e9", "date": "2026-09-25 13:11:53 +0200", "msg": "Stop tracking Excel lock files. (Co-authored-by: Cursor)"},
+      {"sha": "05815c2", "date": "2026-09-25 13:11:40 +0200", "msg": "Initial commit of HubSpot-Ruler. 76 files, 33,700 insertions (Co-authored-by: Cursor)"}
+    ],
+    "note": "Whole repo landed in one upload on 2026-09-25; no incremental history. hermes-agent docs refer to a clone dir 'HB-Workflow' and ui-extension docs to a repo 'HubSpot - Worfklow' / github.com/Wkayaobama/HubSpot---Worfklow, i.e. the content was copied from an earlier repo."
+  },
+  "items": [
+    {
+      "name": "hermes-agent bridge (FastAPI webhook endpoint)",
+      "kind": "code / service",
+      "lives_in": "HubSpot-Ruler/hermes-agent/bridge/app.py (+ hermeslib/config.py, dispatch.py, security.py); target host /opt/hermes-stack on a VPS, 127.0.0.1:8787 behind Caddy",
+      "built_on": "Python FastAPI + uvicorn; HMAC-SHA256 (X-Hermes-Signature), HubSpot Signature v2 and v3 verification; 5 task templates (deal_review, contact_enrich, company_brief, revops_digest, custom); dispatch = markdown task file dropped into the Hermes harness inbox (+ optional local hook / CLI)",
+      "status": "scaffold (not deployed): every deployment value is a placeholder (agent.example.com, empty secrets); Factory workbook shows 0 of 76 deployment actions done",
+      "owner_dependency": "One operator with root on a VPS; Nous Research Hermes harness (external, self-updating installer); Anthropic API key; a dedicated HubSpot private app that does not exist yet (SCOPING: sandbox 49610528 first)",
+      "scenario_relevance": "S1 DIY: the 'Elixir sync / declarative action layer' family of self-built integrations; adds a second runtime (VPS) to maintain",
+      "gate_rows": ["Declarative action layer", "Depends on", "New cost lines"],
+      "evidence": [
+        {"source": "HubSpot-Ruler/hermes-agent/bridge/app.py", "locator": "lines 1-24, 51-97, 181-250", "quote": "Hermes Bridge — the VPS-side HTTPS entry point HubSpot workflows call ... TASK_TEMPLATES ... @app.post(\"/hooks/hubspot\")"},
+        {"source": "HubSpot-Ruler/hermes-agent/README.md", "locator": "lines 1-3", "quote": "Infrastructure scaffold for an autonomous **Hermes agent**"},
+        {"source": "HubSpot-Ruler/hermes-agent/.env.example", "locator": "lines 31-33, 45-46", "quote": "HERMES_WEBHOOK_SECRET= ... BRIDGE_PUBLIC_BASE_URL=https://agent.example.com ... HUBSPOT_PRIVATE_APP_TOKEN= ... HUBSPOT_PORTAL_ID=49610528"},
+        {"source": "xlsx Factory/agent-deployment-workbook.xlsx sheet Overview", "locator": "row 22", "quote": "TOTAL | 76 | 0 | 0"}
+      ]
+    },
+    {
+      "name": "hermes-agent Telegram scraper (RevOps radar)",
+      "kind": "code / scheduled job",
+      "lives_in": "HubSpot-Ruler/hermes-agent/scraper/ (scrape_telegram.py, digest.py, make_session.py, sources.yaml); systemd hermes-scraper.service + .timer",
+      "built_on": "Python httpx + BeautifulSoup (zero-auth t.me/s/ preview) or Telethon MTProto user session; keyword scoring into a markdown knowledge inbox; timer 05,11,17,23:30 UTC (4x/day)",
+      "status": "scaffold: sources.yaml ships with REPLACE_ME_* channel placeholders; SCOPING says no English RevOps Telegram channel could be verified",
+      "owner_dependency": "Operator's own Telegram sources; a dedicated aged Telegram account for MTProto mode; untrusted-content guardrails live only in a SKILL.md prompt",
+      "scenario_relevance": "S1 DIY: AI self-improvement loop ('More usage -> more skills') built in-house",
+      "gate_rows": ["Depends on"],
+      "evidence": [
+        {"source": "HubSpot-Ruler/hermes-agent/scraper/sources.yaml", "locator": "lines 16-25", "quote": "PLACEHOLDERS — replace with the channels you actually follow. ... username: REPLACE_ME_revops_channel"},
+        {"source": "HubSpot-Ruler/hermes-agent/docs/SCOPING.md", "locator": "lines 83-90", "quote": "research could not verify any active English-language RevOps/GTM channels"},
+        {"source": "HubSpot-Ruler/hermes-agent/provision/systemd/hermes-scraper.timer", "locator": "line 5", "quote": "OnCalendar=*-*-* 05,11,17,23:30:00"}
+      ]
+    },
+    {
+      "name": "hermes-agent VPS provisioning (setup-vps.sh, systemd units, Caddyfile) + Factory deployment workbook",
+      "kind": "infra scripts + runbook",
+      "lives_in": "HubSpot-Ruler/hermes-agent/provision/*, docs/VPS-SETUP.md, HubSpot-Ruler/Factory/agent-deployment-workbook.xlsx",
+      "built_on": "bash + apt + ufw + rsync to /opt/hermes-stack; python venv; systemd; Caddy TLS (Let's Encrypt); Hostinger KVM2-class Ubuntu VPS (guide baseline); Nous Research installer curl|bash",
+      "status": "not started: workbook has 10 phase sheets, 76 actions, all 'TODO', 0 DONE; Caddyfile domain is agent.example.com; setup script clones 'HB-Workflow' (old repo name)",
+      "owner_dependency": "Single root operator; 5 scoping decisions still open (channel list, first triggers, bridge domain, write surface, Telegram allowed IDs)",
+      "scenario_relevance": "S1 DIY cost line: operator time + a VPS + LLM tokens (no amounts in repo)",
+      "gate_rows": ["New cost lines", "Depends on"],
+      "evidence": [
+        {"source": "xlsx Factory/agent-deployment-workbook.xlsx sheet Overview", "locator": "rows 3, 12-22", "quote": "Locked decisions (2026-07-13, docs/SCOPING.md): trigger = workflow-action component | brain = Anthropic API | scraping = zero-auth t.me/s/ web preview first | HubSpot = dedicated private app, sandbox 49610528 before prod 9201667 ... TOTAL 76 actions, Done 0"},
+        {"source": "HubSpot-Ruler/hermes-agent/provision/Caddyfile", "locator": "line 8", "quote": "agent.example.com {"},
+        {"source": "HubSpot-Ruler/hermes-agent/docs/SCOPING.md", "locator": "lines 12-21", "quote": "Still open (answers welcome anytime) 1. Channel list ... 2. First workflow triggers ... 3. Bridge domain ... 4. Agent write surface ... 5. Telegram allowed user IDs"},
+        {"source": "HubSpot-Ruler/hermes-agent/docs/VPS-SETUP.md", "locator": "lines 8-11, 23", "quote": "VPS: Ubuntu 22.04/24.04, >=2 vCPU / 8 GB (guide baseline: Hostinger KVM2) ... git clone <this repo> && cd HB-Workflow"}
+      ]
+    },
+    {
+      "name": "HubSpot trigger Option B: projects-platform workflow-action component 'Trigger Hermes Agent' (DECIDED)",
+      "kind": "HubSpot app component manifest",
+      "lives_in": "HubSpot-Ruler/hermes-agent/hubspot/workflow-action/hermes-trigger-hsmeta.json + README.md; to be promoted into ui-extension/src/app/workflow-actions/",
+      "built_on": "HubSpot developer platform 2026.03 workflow-action component on the existing private static-auth IcAlps app; HubSpot posts native payload signed with X-HubSpot-Signature v2; HubSpot-managed retries up to 3 days",
+      "status": "staged (validated schema, not uploaded): actionUrl still https://agent.example.com/hooks/hubspot; promotion playbook = sandbox 49610528 then prod 9201667; open item: where a static-auth 2026.03 app surfaces the client secret for v2 signing",
+      "owner_dependency": "Requires NO Operations Hub / Data Hub subscription (just workflows) — this is the route chosen to avoid the Ops Hub gate; depends on the live IcAlps app install (reauthorize on Distribution tab)",
+      "scenario_relevance": "S1 DIY path around the S3 gate: engineering effort substitutes for a HubSpot subscription tier",
+      "gate_rows": ["Declarative action layer", "New cost lines"],
+      "evidence": [
+        {"source": "HubSpot-Ruler/hermes-agent/docs/ARCHITECTURE.md", "locator": "lines 115-132", "quote": "Decided 2026-07-13: Option B is the trigger ... workflow-action components are explicitly supported for distribution: private + auth.type: static apps and — unlike custom code actions — require **no Operations/Data Hub subscription** (just workflows)"},
+        {"source": "HubSpot-Ruler/hermes-agent/hubspot/workflow-action/hermes-trigger-hsmeta.json", "locator": "lines 2-5", "quote": "\"uid\": \"hermes_trigger\", \"type\": \"workflow-action\", ... \"actionUrl\": \"https://agent.example.com/hooks/hubspot\""},
+        {"source": "HubSpot-Ruler/hermes-agent/hubspot/workflow-action/README.md", "locator": "lines 45-53", "quote": "Where a static-auth 2026.03 projects app surfaces the **client secret** used for v2 signing is not documented"}
+      ]
+    },
+    {
+      "name": "HubSpot trigger Option A: workflow Custom-code action hermesTrigger.js (fallback) and Option C native 'Send a webhook' action",
+      "kind": "copy-paste workflow snippet (code lives portal-side)",
+      "lives_in": "HubSpot-Ruler/hermes-agent/hubspot/workflow-custom-code/hermesTrigger.js",
+      "built_on": "HubSpot custom-code action runtime (Node v20, 20 s / 128 MB, axios preloaded); HMAC-SHA256 signing with HERMES_WEBHOOK_SECRET; outputs hermes_status / hermes_task_id",
+      "status": "scaffold (documented fallback, not pasted into any workflow); explicitly gated: 'Requires Operations Hub Professional+' (Option A) and 'Also Data Hub Pro+ gated' (Option C)",
+      "owner_dependency": "Portal subscription tier (Operations Hub, now 'Data Hub', Professional/Enterprise) — the repo never records which tier portal 9201667 has (SCOPING Q1.1 is an open question)",
+      "scenario_relevance": "S3 gate evidence: the features HubSpot-native automation needs (custom code, webhook action) sit behind Ops Hub / Data Hub Pro+",
+      "gate_rows": ["Declarative action layer", "New cost lines"],
+      "evidence": [
+        {"source": "HubSpot-Ruler/hermes-agent/hubspot/workflow-custom-code/hermesTrigger.js", "locator": "lines 1-4", "quote": "Paste this into a Custom code action in any HubSpot workflow to trigger the Hermes agent on the VPS. Requires Operations Hub Professional+."},
+        {"source": "HubSpot-Ruler/hermes-agent/docs/ARCHITECTURE.md", "locator": "lines 134-150", "quote": "Option A — custom code action (quickest if Ops Hub/Data Hub Pro+) ... Constraint: Operations Hub (now \"Data Hub\") Professional/Enterprise; code lives portal-side ... Option C — native \"Send a webhook\" action. Zero code, but also gated to Data Hub Pro/Ent ... public \"endpoint functions\" require Content Hub Enterprise"},
+        {"source": "HubSpot-Ruler/hermes-agent/docs/SCOPING.md", "locator": "lines 40-44", "quote": "Does portal 9201667 have Operations Hub / Data Hub Professional or Enterprise? → gates A and C only."}
+      ]
+    },
+    {
+      "name": "hermes-agent seed skills (revops-radar, hubspot-crm + hs_api.py, inbox-sweep, skill-authoring)",
+      "kind": "agent skill prompts + stdlib Python CLI",
+      "lives_in": "HubSpot-Ruler/hermes-agent/skills/revops/*/SKILL.md, skills/revops/hubspot-crm/hs_api.py",
+      "built_on": "Hermes skills layout (~/.hermes/skills/<category>/<skill>/SKILL.md, YAML frontmatter); hs_api.py = stdlib urllib CLI over /crm/v3 (get, search, associations, note, task, update) with private-app token; 429 single 10 s retry",
+      "status": "scaffold v0.1.0, never seeded into a harness (Factory phase 6 all TODO)",
+      "owner_dependency": "Write guardrails are prompt-level only (Notes/Tasks by default, no deletes, property updates only on explicit instruction); portal/pipeline IDs hardcoded per portal",
+      "scenario_relevance": "S1 'Rules to comply' is enforced by prompt text, not by HubSpot's rule engine",
+      "gate_rows": ["Rules to comply", "Declarative action layer"],
+      "evidence": [
+        {"source": "HubSpot-Ruler/hermes-agent/skills/revops/hubspot-crm/SKILL.md", "locator": "lines 52-75", "quote": "NEVER delete or merge records. NEVER touch pipeline/stage definitions ... IcAlps deal pipeline ids are PER-PORTAL: prod 766126206 / stage 1116419644 (Identified); sandbox 763145477 / 1113385378"},
+        {"source": "HubSpot-Ruler/hermes-agent/skills/revops/hubspot-crm/hs_api.py", "locator": "lines 1-9, 24-32", "quote": "Stdlib-only on purpose ... ASSOCIATION_TYPE_IDS = {(\"notes\",\"contact\"): 202, (\"notes\",\"company\"): 190, (\"notes\",\"deal\"): 214, (\"tasks\",\"contact\"): 204, (\"tasks\",\"company\"): 192, (\"tasks\",\"deal\"): 216}"}
+      ]
+    },
+    {
+      "name": "ui-extension: IcAlps CRM Card app — 5 UI-extension cards (edit IcAlps deal props; create deal/contact/company from record with silent association)",
+      "kind": "HubSpot private app (UI extension)",
+      "lives_in": "HubSpot-Ruler/ui-extension/ (hsproject.json, src/app/app-hsmeta.json, src/app/cards/*.tsx, *-hsmeta.json, three property registries icalpsPropertyConfig.ts / contactIcalpsPropertyConfig.ts / companyIcalpsPropertyConfig.ts)",
+      "built_on": "HubSpot developer platform 2026.03 (migrated from 2025.2 because 2025.2 has no serverless runtime); React + @hubspot/ui-extensions; distribution private, auth static; scopes deals/contacts/companies/custom objects/owners read-write; hs CLI project upload/deploy/install",
+      "status": "deployed as evidenced by docs: installed on sandbox 49610528 (appId 37141512) and prod 9201667 (appId 37414115, cutover 2026-04-22). CONTRADICTION: ui-extension/CLAUDE.md env map still says prod 'not yet installed'. The brief's deck reports the IC'Alps merge tooling (React entry form) as 'Failed (IC'Alps refused to use it in the end)'",
+      "owner_dependency": "One developer; manual three-gate release (build, deploy, Install/reauthorize on Distribution tab); portal constants (pipeline 766126206 / stage 1116419644) hardcoded in createIcAlpsDeal.js; IC'Alps user adoption",
+      "scenario_relevance": "S1 iceberg: the emerged UI (cards) sits on submerged custom code; S2 landlord: tooling built for the tenant (IC'Alps) was refused",
+      "gate_rows": ["Schema blueprint", "Declarative action layer"],
+      "evidence": [
+        {"source": "HubSpot-Ruler/ui-extension/README.md", "locator": "lines 3-7, 13-23", "quote": "Prod: wisekeysa / portal 9201667 — installed as of 2026-04-22, appId 37414115 ... Cards (5)"},
+        {"source": "HubSpot-Ruler/ui-extension/docs/ARCHITECTURE.md", "locator": "lines 9, 167-178, 241-245", "quote": "Installed on both sandbox 49610528 (appId 37141512) and prod 9201667 / wisekeysa (appId 37414115, cutover 2026-04-22). Five cards + four serverless functions + three IcAlps property registries"},
+        {"source": "HubSpot-Ruler/ui-extension/CLAUDE.md", "locator": "lines 196-199", "quote": "| prod | wisekeysa | 9201667 | not yet installed; cutover playbook in docs/ARCHITECTURE.md §5 |"},
+        {"source": "HubSpot-Ruler/ui-extension/README.md", "locator": "lines 127-129", "quote": "Originally scaffolded on platform 2025.2. Migrated to 2026.03 because 2025.2 does not support serverless functions — app-function builds stalled at 600s"},
+        {"source": "HubSpot-Ruler/ui-extension/src/app/functions/createIcAlpsDeal.js", "locator": "lines 2-4, 23-24", "quote": "Pipeline + dealstage are forced to Icalps_hardware / Identified because the IcAlps user tracks stage via icalps_stage, not the native dealstage. ... DEFAULT_PIPELINE = '766126206'; DEFAULT_DEALSTAGE = '1116419644'"},
+        {"source": "projects/crm-three-scenarios/brief.md", "locator": "section 2c lines 156-160", "quote": "Merge tooling (serverless workflow, React entry form, code review with a temporary contributor) = \"Failed (IC'Alps refused to use it in the end)\""}
+      ]
+    },
+    {
+      "name": "ui-extension: 4 serverless app-functions (update_deal_properties, create_icalps_deal, create_icalps_contact, create_icalps_company)",
+      "kind": "HubSpot serverless functions",
+      "lives_in": "HubSpot-Ruler/ui-extension/src/app/functions/*.js + *-hsmeta.json",
+      "built_on": "Node 18+ native fetch against api.hubapi.com /crm/v3/objects/{deals|contacts|companies}; PRIVATE_APP_ACCESS_TOKEN auto-injected on platform 2026.03; HUBSPOT_DEFINED association typeIds 3/5 (deal), 1 (contact->company), 2 (company->contact)",
+      "status": "deployed with the app (same cutover 2026-04-22); known schema debt documented: icalps_companyaddress and icalps_address_postcode typed as number on the portal",
+      "owner_dependency": "validate does not execute functions — runtime errors only surface after upload (build #13 'Identifier body already declared' lesson); hubspot_owner_id picker deferred",
+      "scenario_relevance": "S1: submerged part of the iceberg; S3: 'Data-quality schema cleanup ... belongs in the portal's property config, not this card'",
+      "gate_rows": ["Schema blueprint", "Rules to comply"],
+      "evidence": [
+        {"source": "HubSpot-Ruler/ui-extension/docs/ARCHITECTURE.md", "locator": "lines 19-23, 142-146, 237", "quote": "update_deal_properties — PATCH /crm/v3/objects/deals/{id} ... validate-project does NOT execute serverless functions ... icalps_companyaddress and icalps_address_postcode are typed as number on the portal ... Fix belongs in the portal's property config, not this card."},
+        {"source": "HubSpot-Ruler/ui-extension/src/app/app-hsmeta.json", "locator": "lines 7-22", "quote": "\"distribution\": \"private\", \"auth\": {\"type\": \"static\", \"requiredScopes\": [\"oauth\", \"crm.objects.deals.read\", \"crm.objects.deals.write\", ... \"crm.objects.owners.read\"]}"}
+      ]
+    },
+    {
+      "name": "Data-Toolkit: hubspot_crm_schema.json, prompt_property_map.json, Prompt_Resource.md, HubSpot_Prompt_Property_Map.xlsx",
+      "kind": "reference data / prompt-to-property map (schema snapshot)",
+      "lives_in": "HubSpot-Ruler/Data-Toolkit/",
+      "built_on": "Captured 2026-09-14 via the HubSpot MCP connector (search_properties / get_properties / query_crm_data / tool_guidance), HubSQL; hand-curated derivation rules R1-R11",
+      "status": "staged reference artefact (one-off snapshot, no refresh mechanism in repo): 11 derivation rules, 14 HubSQL rules, 43 prompt intents, 7 pipelines, 49 deal stages, 47 owners, 16 teams, 68-row year-metric resolver (19 flagged RECYCLED), 565 DEAL / 40 COMPANY / 24 CONTACT / 32 TICKET / 43 ACTIVITIES property rows, 36-row live product distribution, 2 validated queries",
+      "owner_dependency": "Manual capture by one operator; type_source 'inferred' rows must be re-verified before use",
+      "scenario_relevance": "S1 'Sampling probe' (HubSQL/Breeze) and 'Schema blueprint' (blueprint cards) — this is the current, non-code blueprint",
+      "gate_rows": ["Sampling probe", "Schema blueprint"],
+      "evidence": [
+        {"source": "HubSpot-Ruler/Data-Toolkit/hubspot_crm_schema.json", "locator": "lines 2-7 (meta) + python structure dump", "quote": "\"captured\": \"2026-09-14\", \"portal_owner_count\": 47 ... derivation_rules 11, hubsql_rules 14, pipelines 7, deal_stages 49, owners 47, teams 16, year_metric_resolver 68 (19 with drift), objects DEAL 565 / COMPANY 40 / CONTACT 24 / TICKET 32 / ACTIVITIES 43"},
+        {"source": "HubSpot-Ruler/Data-Toolkit/Prompt_Resource.md", "locator": "lines 1-12", "quote": "Captured 2026-09-14 from the live portal ... SELECT COUNT(*) FROM DEAL WHERE prod___product_name_new_ = 'QVault TPM IOT' -- 32 (live) ... Breeze free-text on the deal name returned 2."},
+        {"source": "xlsx Data-Toolkit/HubSpot_Prompt_Property_Map.xlsx", "locator": "sheets: README, Prompt Map (A1:K44), Derivation Rules, Deal Properties (A1:O566), Year Resolver (A1:G69), Enum Values (A1:G473), Deal (Ontology), Company, Contact, Ticket, Activities, HubSQL Rules, Product Distribution (A1:B41), Validated Queries", "quote": "Unassigned | 822 ; INES | 240 ; VIC408 | 158"}
+      ]
+    },
+    {
+      "name": "SEALSQ property set (SEALSQ_Property_Resource.md, sealsq_property_set.json, SEALSQ_Property_Set.xlsx)",
+      "kind": "reference data / live utilisation measurement",
+      "lives_in": "HubSpot-Ruler/SEALSQ/",
+      "built_on": "Direct HubSpot MCP calls 2026-09-14 (no Breeze); GROUP BY / IS NOT NULL / SUM-per-pipeline measurements; scope = 4 pipelines, 1,820 of 1,960 deals",
+      "status": "staged reference artefact: 498 deal properties, 30 contact, 30 company, 14 ticket, 35 stage-timing rows, 26 utilisation measurements, 32 numeric sums; the brief's section 2b numbers trace here",
+      "owner_dependency": "One-off manual capture; 'who_to_ask' column maps properties to HubSpot team IDs",
+      "scenario_relevance": "Grounds the speedometer (three data problems) and the landlord story (one deal set, two companies)",
+      "gate_rows": ["Sampling probe", "Schema blueprint", "Rules to comply"],
+      "evidence": [
+        {"source": "HubSpot-Ruler/SEALSQ/SEALSQ_Property_Resource.md", "locator": "line 3", "quote": "Captured 2026-09-14 by direct HubSpot MCP calls (no Breeze). Scope: SealSQ Hardware, SealSQ Services, Icalps_hardware, SEALCOIN = 1,820 deals."},
+        {"source": "HubSpot-Ruler/SEALSQ/sealsq_property_set.json", "locator": "meta.sealsq_scope + top-level key counts", "quote": "deals_in_scope 1820, deals_total 1960 ... deal_properties 498, contact_properties 30, company_properties 30, ticket_properties 14, sealsq_stage_timing 35, utilisation_detail 26, numeric_sums_per_pipeline 32"},
+        {"source": "xlsx SEALSQ/SEALSQ_Property_Set.xlsx sheet README", "locator": "rows 26-29", "quote": "Deal Properties — 498 deal properties in scope ... Contact Properties (30) / Company Properties (30) / Ticket Properties (14)"}
+      ]
+    },
+    {
+      "name": "Ontology workbook (ontology_workbook_full.xlsx): entity-pair inventory, relationship lineage bronze->silver->gold, metagraph entities/edges, ingestion paths, property lineage",
+      "kind": "data-lineage workbook for the IC'Alps -> HubSpot merge pipeline",
+      "lives_in": "HubSpot-Ruler/ontology_workbook_full.xlsx (6 sheets)",
+      "built_on": "References staging.stg_* (bronze), staging.*_normalised (silver), hubspot.* mirror tables (gold, StackSync external-id) and files sql/rendered/engagement_tasks.sql, _scratch/phaseA_create_future_call_tasks.py, _scratch/phaseD_backfill_task_status.py — i.e. the DBT/BigQuery + StackSync merge pipeline, whose code is NOT in this repo",
+      "status": "staged documentation of a pipeline that ran (counts recorded) but whose code lives elsewhere; this is the closest thing to a 'metagraph' of entity relationships in the repo",
+      "owner_dependency": "StackSync (gold writer, hs_object_id 'Null until StackSync outgoing-sync round-trip'); the operator's local _scratch scripts",
+      "scenario_relevance": "S1 iceberg: the submerged merge pipeline; S1 'Rules to comply ... enforced in icload and StackSync'",
+      "gate_rows": ["Rules to comply", "Declarative action layer", "Schema blueprint"],
+      "evidence": [
+        {"source": "xlsx ontology_workbook_full.xlsx sheet 'Metagraph - Entities'", "locator": "rows 1-4", "quote": "deal | staging.stg_opportunity | Oppo_OpportunityId | staging.stg_opportunity_normalised | icalps_deal_id | hubspot.deals | id | icalps_deal_id"},
+        {"source": "xlsx ontology_workbook_full.xlsx sheet 'Relationship Lineage'", "locator": "rows 4, 11-12", "quote": "contact_primary_company ... bronze 4802 ... source_side_fill_rate 93.9% | all_types_fill_rate 37.1% ; meeting_company ... materialized 0 ... 0.0% ; meeting_contact ... 0.0%"},
+        {"source": "xlsx ontology_workbook_full.xlsx sheet 'Property Lineage'", "locator": "rows 9, 11", "quote": "unique_id ... StackSync external-id; composed as 'icalps_<id>' ... hs_object_id ... Null until StackSync outgoing-sync round-trip"},
+        {"source": "xlsx ontology_workbook_full.xlsx sheet 'Ingestion Paths'", "locator": "rows 2-4", "quote": "sql/rendered/engagement_tasks.sql ... _scratch/phaseA_create_future_call_tasks.py ... direct-insert"}
+      ]
+    },
+    {
+      "name": "Claude.md — the 'ruler' context plan (3 companies, 1 business unit, blueprint/ontology, 4 context agents + foundation model)",
+      "kind": "intent document",
+      "lives_in": "HubSpot-Ruler/Claude.md (67 lines)",
+      "built_on": "Plan text only; cites github.com/intellectronica/ruler for centralised agent-context governance; weighs Business Units vs code (Postgres/BigQuery/HubSQL)",
+      "status": "intent, not implemented: no pydantic blueprint model, no per-entity agents, no foundation model code exist in the repo; hermes-agent folder is declared 'the blueprint for interoperability between the subagent and the foundation model'",
+      "owner_dependency": "Operator + a HubSpot partner for teams/conditional property views ('orthogonal to the current implementation')",
+      "scenario_relevance": "Defines the 'Schema blueprint' gate and names the partner role (S2) and the Business Unit limitation (S3)",
+      "gate_rows": ["Schema blueprint", "Depends on"],
+      "evidence": [
+        {"source": "HubSpot-Ruler/Claude.md", "locator": "lines 4-6, 33, 41-46, 53, 55, 64, 67", "quote": "3 companies are sharing the same CRM / SEALSQ ICALPS and Wisekey ... WE only have 1 business unit, which is an iherhent limitation ... There will be 3 agents [then four listed: SEALSQ, IC'Alps, MIRAEX, WeCan] ... hermes agent folder is the blueprint for interoperability between the subagent and the foundation model"}
+      ]
+    }
+  ],
+  "facts": [
+    {
+      "id": "F01",
+      "statement": "Three companies share one HubSpot CRM (SEALSQ, IC'Alps, WISeKey) and the portal has only ONE Business Unit (brand); that single BU is meant to cover every entity that joins and is neither SEALSQ nor IC'Alps.",
+      "value": "3 companies, 1 business unit",
+      "story_link": "Image 3 Messy landlord; Scenario 3 (HubSpot-native multi-hub limits); gate 'Depends on'",
+      "evidence": [
+        {"source": "HubSpot-Ruler/Claude.md", "locator": "lines 4-6", "quote": "3 companies are sharing the same CRM / SEALSQ ICALPS and Wisekey"},
+        {"source": "HubSpot-Ruler/Claude.md", "locator": "line 33", "quote": "WE only have 1 business unit, which is an iherhent limitation, the business unit will cover all of the entities that will joins the company that are neither one of SEALSQ or ICALPS"},
+        {"source": "HubSpot-Ruler/Claude.md", "locator": "line 31", "quote": "as of now the business unit only offers that level of customisation through the forms and the content"}
+      ]
+    },
+    {
+      "id": "F02",
+      "statement": "The plan says 'There will be 3 agents' and then lists four entity contexts (SEALSQ, IC'Alps, MIRAEX, WeCan): the tenant count grew from 3 to 4 inside the same document — the landlord story's new tenants are Miraex and WeCan.",
+      "value": "3 stated, 4 listed",
+      "story_link": "Image 3 Messy landlord (new tenants); Scenario 2",
+      "evidence": [
+        {"source": "HubSpot-Ruler/Claude.md", "locator": "lines 41-46", "quote": "There will be 3 agents / 1 that gather context of company A (SEALSQ) / 1 ... (IC'Alps) / 1 ... (MIRAEX) / 1 ... (WeCan)"},
+        {"source": "projects/crm-three-scenarios/brief.md", "locator": "section 2c line 163", "quote": "3 new entities queued: Miraex, WeCan, SEALSQUANTUM"}
+      ]
+    },
+    {
+      "id": "F03",
+      "statement": "Year-metric naming debt (the BUSINESS data problem): internal property names were recycled so they no longer match their labels; the Year Resolver has 68 (metric, year) rows of which 19 are flagged RECYCLED, and the toolkit's rule R4 says to resolve years by LABEL only.",
+      "value": "68 year-metric rows, 19 recycled (28%)",
+      "story_link": "Image 2 Speedometer gauge 2 (business data problem, 'reporting 2026-2029 but omitting 2029'); Scenario 1 technical debt",
+      "evidence": [
+        {"source": "HubSpot-Ruler/SEALSQ/SEALSQ_Property_Resource.md", "locator": "line 115", "quote": "`calculation___cumulative_pipeline_2026` | Cumulative Pipeline 2027 (k$)"},
+        {"source": "HubSpot-Ruler/SEALSQ/SEALSQ_Property_Resource.md", "locator": "lines 11-12", "quote": "`DEAL:calculation___cumulative_weighted_2026` — Listed under Sales Hub → 'Pipeline 2027 field' (label Pipeline 2027 (k$)) / `DEAL:asp_in_usd_q3_2021_calculation` — ... 'Pipeline 2028 field'"},
+        {"source": "HubSpot-Ruler/Data-Toolkit/Prompt_Resource.md", "locator": "lines 23-24, 99, 115-118, 124, 149-152", "quote": "R4 YEAR-BY-LABEL ... Several internal names were recycled (weighted_2021_calculation is 'Weighted 2027 (k$)'; asp_in_usd_q2_2022_calculation is 'ARR ($K/Y)') ... `asp_in_usd_q2_2021` | ASP 2028 (Hardware Only) | RECYCLED ... `pipeline_2029__k__` | Pipeline 2029 (k$) ... `pipeline2026` | Pipeline2026 ... `amount_lost` | Weighted2027[BI] ... `num_deal_date_identified_` | Pipeline 2027[BI]"},
+        {"source": "HubSpot-Ruler/Data-Toolkit/hubspot_crm_schema.json", "locator": "year_metric_resolver (python count)", "quote": "YEAR_METRIC_RESOLVER count 68 recycled: 19"},
+        {"source": "HubSpot-Ruler/SEALSQ/SEALSQ_Property_Resource.md", "locator": "lines 93, 99", "quote": "`asp_in_usd_q2_2022_calculation` | ARR ($K/Y) ... `asp_in_usd_q2_2021_calculation` | DiffAmount (note: distinct from asp_in_usd_q2_2021 = ASP 2028)"}
+      ]
+    },
+    {
+      "id": "F04",
+      "statement": "The DATA MODELLING problem: the deal's end customer is stored as free-text STRING deal properties (`final_customer` 'OPP CUST - Final Customer', `sold_to` 'OPP CUST - Sold-to', plus `associated_company` and `associated_contact` strings) instead of an associated Company; final_customer is filled on 931 of 1,820 SEALSQ-scope deals (51.2%).",
+      "value": "final_customer 931/1,820 = 51.2% (HW 659 · Services 270 · SEALCOIN 1 · ICALPS 1); type string",
+      "story_link": "Story 2 cardinality trap; Image 2 Speedometer gauge 3 (data modelling); gate 'Schema blueprint'",
+      "evidence": [
+        {"source": "HubSpot-Ruler/SEALSQ/SEALSQ_Property_Resource.md", "locator": "line 31", "quote": "`final_customer` | 931 | 51.2% | HW 659 · Services 270 · SEALCOIN 1 · ICALPS 1"},
+        {"source": "HubSpot-Ruler/SEALSQ/SEALSQ_Property_Resource.md", "locator": "lines 83, 86-87, 89", "quote": "`final_customer` | OPP CUST - Final Customer | string ... `associated_company` | Other Associated company | string ... `associated_contact` | associated_contact | string ... `sold_to` | OPP CUST - Sold-to | string"},
+        {"source": "HubSpot-Ruler/Data-Toolkit/hubspot_crm_schema.json", "locator": "objects.DEAL[27], objects.DEAL[32]", "quote": "\"name\": \"final_customer\", \"label\": \"OPP CUST - Final Customer\", \"type\": \"string\", \"type_source\": \"verified (get_properties)\" ... \"name\": \"sold_to\", \"label\": \"OPP CUST - Sold-to\", \"type\": \"string\""},
+        {"source": "HubSpot-Ruler/Data-Toolkit/Prompt_Resource.md", "locator": "lines 63, 212-213", "quote": "P20 Final customer / end customer / sold-to | `final_customer (end) / sold_to (buyer)` ... `company_association` | Not a property. Use cross-object syntax COMPANY.name / associations.COMPANY"}
+      ]
+    },
+    {
+      "id": "F05",
+      "statement": "The LOGICAL data problem: the IC'Alps/SEALSQ split is carried by the PIPELINE, not by a property — `icalps__sealsq` is never set on deals (0%) and tagged on only 40 of 13,422 companies (0.30%) — while `product_line` is filled on only 51.3% of deals (and is a 1:1 derivation of product_hierarchy), so reporting a company-specific product line cannot be done from properties alone.",
+      "value": "icalps__sealsq deals 0/1,820 (0.0%); companies 40/13,422 (0.30%); product_line 933/1,820 (51.3%): Legacy 439 · PKI 281 · Quantum Shield 189 · ASIC 24; product_hierarchy 930 (51.1%)",
+      "story_link": "Image 2 Speedometer gauge 1 (logical problem: one pipeline, multiple products, multiple companies)",
+      "evidence": [
+        {"source": "HubSpot-Ruler/SEALSQ/SEALSQ_Property_Resource.md", "locator": "line 50", "quote": "`icalps__sealsq` | 0 | 0.0% | Never set on deals; the IC'Alps/SEALSQ split is carried by the pipeline"},
+        {"source": "HubSpot-Ruler/SEALSQ/SEALSQ_Property_Resource.md", "locator": "line 273", "quote": "`icalps__sealsq` | IC'Alps | SEALSQ | enumeration | SEALSQ-specific | 40 / 13,422 (0.30%) | Tags a company as an IC'Alps or SEALSQ account."},
+        {"source": "xlsx SEALSQ/SEALSQ_Property_Set.xlsx sheet 'Company Properties'", "locator": "row 2", "quote": "icalps__sealsq ... 40 / 13,422 (0.30%) | GROUP BY · IC'Alps 20 · SEALSQ 20"},
+        {"source": "HubSpot-Ruler/SEALSQ/SEALSQ_Property_Resource.md", "locator": "lines 30, 32", "quote": "`product_line` | 933 | 51.3% | Legacy 439 · PKI 281 · Quantum Shield 189 · ASIC 24 — 1:1 derived from product_hierarchy ... `product_hierarchy` | 930 | 51.1% | VIC 322 · PKI 278 · TPM 173 · MS600x 50 · SCR 42 · Legacy 34 · ASIC 24 · CISCO 7"},
+        {"source": "HubSpot-Ruler/SEALSQ/SEALSQ_Property_Resource.md", "locator": "lines 27-28", "quote": "`wisekey___seal` | 1,820 | 100.0% | Seal 1,798 · Wisekey 22 ... `deal_currency_code` | 1,820 | 100.0% | USD 1,033 (SealSQ HW/Services/SEALCOIN) · EUR 787 (ICALPS)"}
+      ]
+    },
+    {
+      "id": "F06",
+      "statement": "822 deals have no product assigned (`prod___product_name_new_` IS NULL) — the largest 'product' bucket in the live distribution — and Breeze free-text matching on deal names under-counts (2 vs 32 for QVault TPM IoT).",
+      "value": "Unassigned 822; QVault TPM IOT 32 (property) vs 2 (Breeze); QVault TPM 82",
+      "story_link": "Gate 'Sampling probe' (HubSQL vs Breeze); Image 2 gauge 1",
+      "evidence": [
+        {"source": "HubSpot-Ruler/Data-Toolkit/Prompt_Resource.md", "locator": "lines 9-12, 79", "quote": "SELECT COUNT(*) FROM DEAL WHERE prod___product_name_new_ = 'QVault TPM IOT' -- 32 (live) ... Breeze free-text on the deal name returned 2 ... P36 Deals with no product assigned (data quality) ... (822 deals today)"},
+        {"source": "HubSpot-Ruler/Data-Toolkit/hubspot_crm_schema.json", "locator": "product_distribution_live[0..2], validated_queries", "quote": "{'product': 'Unassigned', 'deals': 822}, {'product': 'INES', 'deals': 240}, {'product': 'VIC408', 'deals': 158} ... Breeze ... Returned 2 — matched on dealname pattern ... Under-count vs property-based 32."}
+      ]
+    },
+    {
+      "id": "F07",
+      "statement": "Lost-deal stratification is set on 333 deals (18.3% of scope): Competition/Price 89 · End of Life/Stale 73 · No Activity 68 · Product Issue 39 · Unknown 35 · Other 29.",
+      "value": "333 (18.3%)",
+      "story_link": "Story 2 Team A (failing conversion); Image 2",
+      "evidence": [
+        {"source": "HubSpot-Ruler/SEALSQ/SEALSQ_Property_Resource.md", "locator": "line 40", "quote": "`stratification_of_lost_deals` | 333 | 18.3% | Competition/Price 89 · End of Life/Stale 73 · No Activity 68 · Product Issue 39 · Unknown 35 · Other 29 (applies to lost deals only)"},
+        {"source": "HubSpot-Ruler/Data-Toolkit/hubspot_crm_schema.json", "locator": "objects.DEAL[489]", "quote": "\"name\": \"stratification_of_lost_deals\", ... \"enum_values\": [{\"value\": \"Competition\", \"label\": \"Competition/Price Issue\"}, {\"value\": \"No Activity\"...}, {\"value\": \"Product Issue\", \"label\": \"Competition/Product Issue\"}, {\"value\": \"End of Life/Stale Project\"...}"}
+      ]
+    },
+    {
+      "id": "F08",
+      "statement": "Properties that exist but are never set in SEALSQ scope: `hs_manual_forecast_category` (HubSpot-native forecast category, 0%; the custom `revenue_state` is used instead, 37.4%: Pipeline 450 · BIBA 129 · Forecast 102), `icalps__sealsq` on deals (0%), `new_design_in__` (0%), `new_design_win__` (0%). Barely used: hs_priority 2.4%, quote_status 2.1%, forecast_source 3.0%. `design_win_date` 84 (4.6%), all in SealSQ Hardware.",
+      "value": "4 never-set properties; revenue_state 681/1,820 (37.4%); design_win_date 84 (4.6%)",
+      "story_link": "Image 2 gauge 2 (business data problem: the company fails to capture what it wants); Scenario 3 (native forecast tools unused)",
+      "evidence": [
+        {"source": "HubSpot-Ruler/SEALSQ/SEALSQ_Property_Resource.md", "locator": "lines 36, 45-52", "quote": "`revenue_state` | 681 | 37.4% | Pipeline 450 · BIBA 129 · Forecast 102 ... `design_win_date` | 84 | 4.6% | All 84 in SealSQ Hardware ... `hs_manual_forecast_category` | 0 | 0.0% | HubSpot-native forecast category is NOT used in SEALSQ scope — revenue_state is the custom equivalent / `icalps__sealsq` | 0 | 0.0% / `new_design_win__` | 0 | 0.0% | Never set / `new_design_in__` | 0 | 0.0% | Never set"},
+        {"source": "xlsx SEALSQ/SEALSQ_Property_Set.xlsx sheet README", "locator": "row 36", "quote": "Never used in SEALSQ scope: hs_manual_forecast_category (HubSpot forecast category), icalps__sealsq on deals, new_design_in__, new_design_win__. Barely used: hs_priority 2%, quote_status 2%, forecast_source 3%."}
+      ]
+    },
+    {
+      "id": "F09",
+      "statement": "Portal 9201667 has 16 HubSpot teams (IDs): Marketing 2409488, IT 2669078, Sales Operations 2676541, Sales EMEA 3605328, Supply Chain 4245972, Product Management 4331717, Technical Sales (FAEs) 4331722, Sales NORAM 5533707, Sales APAC 5533710, ARESSY 12954354, IC'ALPS 63735818, SQ SALES 63735821, ST OPS 63736694, Full Sales 64779445, Sales Taiwan 70040171, SEALSQ 78924886; and 47 owners.",
+      "value": "16 teams, 47 owners",
+      "story_link": "Image 4 Team B (departments); Image 3 landlord (teams as the partition mechanism since BU is single); gate 'Depends on'",
+      "evidence": [
+        {"source": "HubSpot-Ruler/Data-Toolkit/hubspot_crm_schema.json", "locator": "teams[0..15], meta.portal_owner_count", "quote": "{\"id\": \"2409488\", \"name\": \"Marketing\"} ... {\"id\": \"63735818\", \"name\": \"IC'ALPS\"} ... {\"id\": \"78924886\", \"name\": \"SEALSQ\"} ; portal_owner_count 47"},
+        {"source": "HubSpot-Ruler/SEALSQ/SEALSQ_Property_Resource.md", "locator": "lines 58, 81, 91, 169", "quote": "Product Management (team 4331717) / Technical Sales – FAEs (4331722) ... SQ SALES (63735821) / regional Sales teams (EMEA 3605328, NORAM 5533707, APAC 5533710, Taiwan 70040171) ... Sales Operations (2676541) ... Supply Chain (4245972)"}
+      ]
+    },
+    {
+      "id": "F10",
+      "statement": "The portal has 7 deal pipelines with 49 stage IDs; deal counts at capture (2026-09-14): SealSQ Hardware 12096408 (728), SealSQ Services 13772279 (303), Icalps_hardware 766126206 (788, EUR), SEALCOIN 705868909 (1), Wisekey Services + PKI 40296576 (140), Wise.Sat 875072356 (0), Quantum & AI 934982230 (0) = 1,960 deals. Stage IDs are pipeline-specific ('Design Win' has 6 different IDs); Icalps_hardware has 8 stages incl. On-Hold 1116652341.",
+      "value": "7 pipelines, 49 stages, 1,960 deals",
+      "story_link": "Image 2 gauge 1 (one pipeline per entity carries the split); Image 3 landlord (each tenant has its own pipeline, IC'Alps keeps its own stage convention)",
+      "evidence": [
+        {"source": "HubSpot-Ruler/Data-Toolkit/Prompt_Resource.md", "locator": "lines 163-165", "quote": "**Pipelines**: `12096408` = SealSQ Hardware, `13772279` = SealSQ Services, `40296576` = Wisekey Services + PKI, `875072356` = Wise.Sat, `705868909` = SEALCOIN, `766126206` = Icalps_hardware, `934982230` = Quantum & AI ... `1116652341` = On-Hold (Icalps_hardware)"},
+        {"source": "HubSpot-Ruler/SEALSQ/sealsq_property_set.json", "locator": "meta.sealsq_scope.deals_per_pipeline", "quote": "\"SealSQ Hardware\": 728, \"SealSQ Services\": 303, \"Icalps_hardware\": 788, \"SEALCOIN\": 1, \"Wisekey Services + PKI\": 140, \"Wise.Sat\": 0, \"Quantum & AI\": 0 ; deals_total 1960"},
+        {"source": "HubSpot-Ruler/Data-Toolkit/hubspot_crm_schema.json", "locator": "deal_stages (python Counter)", "quote": "DEAL_STAGES count 49: Icalps_hardware 8, SealSQ Hardware 7, SealSQ Services 7, Wisekey Services + PKI 7, Wise.Sat 7, Quantum & AI 7, SEALCOIN 6"},
+        {"source": "HubSpot-Ruler/SEALSQ/SEALSQ_Property_Resource.md", "locator": "line 325", "quote": "`12096409` = Identified (SealSQ Hardware); ... `1437101476` = Closed Lost (Quantum & AI)"},
+        {"source": "HubSpot-Ruler/Data-Toolkit/Prompt_Resource.md", "locator": "line 27", "quote": "R6 ... IDs are pipeline-specific; 'Design Win' has 6 different IDs"}
+      ]
+    },
+    {
+      "id": "F11",
+      "statement": "IC'Alps keeps a parallel stage/status model inside the shared CRM: `icalps_stage` (786 deals: 05 Négociations 424 · 01 Identification 144 · 04 Construction propositions 111 · 02 Qualifiée 61 · 03 Evaluation technique 46) and `icalps_dealstatus` (787: Abandonné 331 · Won 328 · Lost 60 · In Progress 53 · NoGo 15) with mixed FR/EN enum values; the create-deal function forces native pipeline/stage to Identified because 'the IcAlps user tracks stage via icalps_stage, not the native dealstage'; the ICALPS pipeline uses none of the SEALSQ k$/ku forecast grid.",
+      "value": "icalps_stage 786 (43.2%), icalps_dealstatus 787 (43.2%)",
+      "story_link": "Image 3 landlord (tenant keeps own conventions; brief: 'IC'Alps refuse the deal stage unified convention'); risk 'different value granularity across entities'",
+      "evidence": [
+        {"source": "HubSpot-Ruler/SEALSQ/SEALSQ_Property_Resource.md", "locator": "lines 33-34", "quote": "`icalps_dealstatus` | 787 | 43.2% | Abandonné 331 · Won 328 · Lost 60 · In Progress 53 · NoGo 15 — = the ICALPS pipeline / `icalps_stage` | 786 | 43.2% | 05 Négociations 424 · 01 Identification 144 · 04 Construction propositions 111 · 02 Qualifiée 61 · 03 Evaluation technique 46"},
+        {"source": "HubSpot-Ruler/ui-extension/src/app/cards/icalpsPropertyConfig.ts", "locator": "lines 66-81", "quote": "icalps_dealstatus ... options: 'En cours', 'In Progress', 'Gagnée', 'Won', 'Perdue', 'Lost', 'Abandonnée', 'Abandoned', 'NoGo', 'Sleep'"},
+        {"source": "HubSpot-Ruler/ui-extension/src/app/functions/createIcAlpsDeal.js", "locator": "lines 3-4", "quote": "Pipeline + dealstage are forced to Icalps_hardware / Identified because the IcAlps user tracks stage via icalps_stage, not the native dealstage."},
+        {"source": "xlsx SEALSQ/SEALSQ_Property_Set.xlsx sheet README", "locator": "row 38", "quote": "The ICALPS pipeline (788 deals, EUR) uses none of the SEALSQ k$/ku forecast grid — it relies on amount + icalps_stage/icalps_dealstatus."}
+      ]
+    },
+    {
+      "id": "F12",
+      "statement": "Scenario 3 gate: HubSpot workflow 'Custom code' actions and the native 'Send a webhook' action require Operations Hub (now Data Hub) Professional/Enterprise; public endpoint functions require Content Hub Enterprise; a projects-platform workflow-action component needs no Ops/Data Hub. The repo never records the portal's actual subscription tier (open scoping question). Separately, serverless functions require developer platform 2026.03 (2025.2 has no runtime).",
+      "value": "Ops Hub / Data Hub Pro+ gates Options A and C; tier of portal 9201667 unknown in repo",
+      "story_link": "Gates table row 'New cost lines' / 'Declarative action layer' for S3; Scenario 3 (multiple hubs)",
+      "evidence": [
+        {"source": "HubSpot-Ruler/hermes-agent/docs/ARCHITECTURE.md", "locator": "lines 118-150, 201", "quote": "require **no Operations/Data Hub subscription** (just workflows) ... Option A — custom code action (quickest if Ops Hub/Data Hub Pro+) ... Constraint: Operations Hub (now \"Data Hub\") Professional/Enterprise ... Option C ... also gated to Data Hub Pro/Ent ... public \"endpoint functions\" require Content Hub Enterprise ... A2 ... Ops Hub Pro+ only gates Options A and C. Remaining check: portal tier if A/C wanted (SCOPING Q1)"},
+        {"source": "HubSpot-Ruler/hermes-agent/docs/SCOPING.md", "locator": "lines 34-44", "quote": "Requires **Operations Hub / Data Hub Professional+**; code lives in the portal, not git ... Does portal 9201667 have Operations Hub / Data Hub Professional or Enterprise?"},
+        {"source": "HubSpot-Ruler/hermes-agent/README.md", "locator": "lines 36-37", "quote": "**Recommended trigger**: staged `workflow-action` component ... Alternative trigger: copy-paste **custom code action** (needs Ops Hub Pro+)"},
+        {"source": "HubSpot-Ruler/ui-extension/docs/ARCHITECTURE.md", "locator": "lines 148-150", "quote": "Platform 2025.2 accepts app-function artifacts but has no runtime to host them. Builds stall at 600s."},
+        {"source": "projects/crm-three-scenarios/brief.md", "locator": "section 2d lines 194-200", "quote": "[DATA] Partner to clean CRM companies & groups ... after benchmarking an external partner against HubSpot Operations Hub ... [FEATURE] Module for grouping companies from the same HQ (needs Data Hub or partner)"}
+      ]
+    },
+    {
+      "id": "F13",
+      "statement": "The 'blueprint' idea: Claude.md asks for 'a generalised ontology ... a representation or blueprint of each entity property' as one of the first actions, possibly 'subject to a pydantic model that automatically classified each one of the properties that belongs to an entity'. What exists today is non-code: the Data-Toolkit schema snapshot (565 deal / 40 company / 24 contact / 32 ticket / 43 activity rows), the SEALSQ set (498 deal properties with 'who_to_ask' team mapping) and the ontology workbook (association lineage); no pydantic model or classifier exists in the repo.",
+      "value": "blueprint = 3 manual snapshots dated 2026-09-14; 0 lines of blueprint code",
+      "story_link": "Gate 'Schema blueprint' (blueprint cards owned by you); Story 2 need for a clean data model",
+      "evidence": [
+        {"source": "HubSpot-Ruler/Claude.md", "locator": "lines 21-24, 55", "quote": "Create a generalised ontology that contextualise all of which pertain to entity A,B.. or X / This is key having a representation or blueprint of each entity property should be one of the first action to be undertaken in the project. / Actually the blueprint layer could even be subject to a pydantic model ... The context is of course made available through the ontology (or Blueprint that generalised all of the companies properties,schema and identiy)"},
+        {"source": "HubSpot-Ruler/Data-Toolkit/hubspot_crm_schema.json", "locator": "objects (python dump)", "quote": "DEAL list 565, COMPANY list 40, CONTACT list 24, TICKET list 32, ACTIVITIES list 43"},
+        {"source": "HubSpot-Ruler/SEALSQ/sealsq_property_set.json", "locator": "top-level keys", "quote": "deal_properties 498 ... who_to_ask column maps to team IDs"},
+        {"source": "repo file listing (find)", "locator": "whole repo", "quote": "no *.py under Data-Toolkit/, SEALSQ/ or root; only hermes-agent/*.py and ui-extension JS/TSX exist"}
+      ]
+    },
+    {
+      "id": "F14",
+      "statement": "Ontology drift already measured: 18 names in the IC'Alps ontology were not found or are misnamed in the live portal (e.g. icalps_company_sector, icalps_comp_territory, icalps_department not found; icalps_company_id live name icalps_companyid; company_association / contact_association are not properties).",
+      "value": "18 drift rows",
+      "story_link": "Gate 'Schema blueprint' (cards drift without an owner); Image 3 landlord",
+      "evidence": [
+        {"source": "HubSpot-Ruler/Data-Toolkit/Prompt_Resource.md", "locator": "lines 192-213", "quote": "## 6. Ontology drift found (fix the ontology file) ... Company `icalps_company_sector` Not found ... Ticket `icalps_company_id` Live name is icalps_companyid ... Opportunity `company_association` Not a property."}
+      ]
+    },
+    {
+      "id": "F15",
+      "statement": "The IC'Alps merge lineage (ontology workbook) shows where associations were lost between source and HubSpot: contact->company source-side fill 93.9% but all-types fill 37.1%; deal->contact 82.5%; meetings->company and meetings->contact materialized 0 of 474 / 411 (0.0%); deal->company 99.7%. Bronze = staging.stg_* (ic-load), gold = hubspot.* mirror written through StackSync external-ids.",
+      "value": "meeting associations 0.0%; contact_primary_company all-types 37.1%",
+      "story_link": "Story 1 iceberg (submerged merge pipeline); Story 2 cardinality trap; S1 'Rules to comply ... enforced in icload and StackSync'",
+      "evidence": [
+        {"source": "xlsx ontology_workbook_full.xlsx sheet 'Relationship Lineage'", "locator": "rows 2-5, 11-12", "quote": "deal_primary_company ... 749 ... 747 ... 99.7% ; deal_primary_contact ... 738 ... 609 ... 82.5% ; contact_primary_company ... 4802 ... 93.9% | 37.1% ; company_icalps_primary_contact ... 2325 ... 1959 ... 84.3% ; meeting_company ... 474 ... 0 ... 0.0% ; meeting_contact ... 411 ... 0 ... 0.0%"},
+        {"source": "xlsx ontology_workbook_full.xlsx sheet 'Entity-Pair Inventory'", "locator": "rows 2-5", "quote": "deal <-> company | hubspot.associations_company_deal | 6 'Deal with Primary Company', 342 (no label) | 5 'Primary', 341 ... contact <-> company ... 279 (no label), 1 'Primary', 272 'IcAlps_PrimaryContact' ... 1 IcAlps_PrimaryContact per company"}
+      ]
+    },
+    {
+      "id": "F16",
+      "statement": "Money as stored per pipeline (SEALSQ scope, 2026-09-14): amount_in_home_currency SealSQ Hardware 524,913.6 · SealSQ Services 81,769.1 · SEALCOIN 325 · Icalps_hardware 534,168.5 (USD home currency, units as stored); hs_projected_amount_in_home_currency 182,405.4 · 20,473.9 · 65 · 138,450.6. The custom k$ weighted fields are 0 for Icalps_hardware.",
+      "value": "see statement (units as stored, not normalised)",
+      "story_link": "Image 2 gauge 2 (business data problem: multiple weighted-amount fields coexist); illustrative scale only",
+      "evidence": [
+        {"source": "xlsx SEALSQ/SEALSQ_Property_Set.xlsx sheet 'Numeric Sums'", "locator": "rows 2-5", "quote": "amount_in_home_currency | 524913.6 | 81769.1 | 325 | 534168.5 | USD (home currency) ; hs_projected_amount_in_home_currency | 182405.4 | 20473.9 | 65 | 138450.6 ; weighted_amount__k__ | 162136 | 20470.2 | 65 | 0 | k$ ; weighted_amount_calculated | 182417.8 | 20473.9 | 65 | 0"}
+      ]
+    },
+    {
+      "id": "F17",
+      "statement": "Object volumes at capture: 25,782 contacts (SEALSQ flag set on 176 = 0.68%), 13,422 companies, 1,960 deals.",
+      "value": "25,782 contacts · 13,422 companies · 1,960 deals",
+      "story_link": "Context for the Hs-Logic 10,000-record cap (brief 2a: scans are PARTIAL); Image 3 landlord (size of the property)",
+      "evidence": [
+        {"source": "HubSpot-Ruler/SEALSQ/SEALSQ_Property_Resource.md", "locator": "lines 238, 273", "quote": "`sealsq` | SEALSQ | bool | SEALSQ-specific | 176 / 25,782 (0.68%) ... `icalps__sealsq` ... 40 / 13,422 (0.30%)"},
+        {"source": "HubSpot-Ruler/SEALSQ/sealsq_property_set.json", "locator": "meta.sealsq_scope.deals_total", "quote": "\"deals_total\": 1960"}
+      ]
+    },
+    {
+      "id": "F18",
+      "statement": "Nothing in the hermes-agent stack is deployed: the deployment workbook lists 76 actions across 10 phases with 0 done; all config values are placeholders; decisions were locked 2026-07-13 but 5 scoping inputs remain open.",
+      "value": "0 / 76 actions done",
+      "story_link": "Scenario 1 DIY (open items carry ongoing cost); Story 1 iceberg (scaffolding below the waterline)",
+      "evidence": [
+        {"source": "xlsx Factory/agent-deployment-workbook.xlsx sheet Overview", "locator": "rows 11-22", "quote": "Phase | Sheet | Execution layer | Actions | Done | Progress ... 0-Prerequisites 9 0 0 ... 9-Operations 8 0 0 ... TOTAL 76 0 0"},
+        {"source": "xlsx Factory/agent-deployment-workbook.xlsx sheets 0-9", "locator": "Status column, every row", "quote": "TODO"},
+        {"source": "HubSpot-Ruler/hermes-agent/docs/SCOPING.md", "locator": "lines 3-21", "quote": "Decisions locked (2026-07-13) ... Still open (answers welcome anytime) 1-5"}
+      ]
+    },
+    {
+      "id": "F19",
+      "statement": "The IcAlps UI-extension app is the only element in this repo with deployment evidence: prod cutover 2026-04-22 on portal 9201667, appId 37414115 (sandbox 49610528, appId 37141512); but the repo's own CLAUDE.md still says prod is 'not yet installed', and the ARCHITECTURE open items list a scheduled granular-permission auto-migration (2026-06-07), a deferred owner picker, and a deferred repo hoist.",
+      "value": "1 deployed component; 1 internal contradiction",
+      "story_link": "Story 1 iceberg (emerged UI layer); health-check 'where it ended up living'",
+      "evidence": [
+        {"source": "HubSpot-Ruler/ui-extension/docs/ARCHITECTURE.md", "locator": "lines 167-169, 231-245", "quote": "Cutover completed in a dedicated session on **2026-04-22**. New prod app: **appId `37414115`** ... Open items ... Granular-permission auto-migration (2026-06-07) ... Repository layout ... Hoist to its own repo post-prod-cutover"},
+        {"source": "HubSpot-Ruler/ui-extension/CLAUDE.md", "locator": "line 199", "quote": "| prod | wisekeysa | 9201667 | not yet installed; cutover playbook in docs/ARCHITECTURE.md §5 |"}
+      ]
+    },
+    {
+      "id": "F20",
+      "statement": "Known schema-type debt on IC'Alps company properties: `icalps_companyaddress` and `icalps_address_postcode` are typed as number on the portal; the card renders them as NumberInput to match the API and defers the fix to 'the portal's property config'.",
+      "value": "2 mistyped properties",
+      "story_link": "Image 2 gauge 3 (modelling); gate 'Schema blueprint'",
+      "evidence": [
+        {"source": "HubSpot-Ruler/ui-extension/src/app/cards/companyIcalpsPropertyConfig.ts", "locator": "lines 9-12, 155-161", "quote": "icalps_companyaddress: prod types this as `number`. Known data-quality issue from PRD §3 ... icalps_address_postcode: also typed as `number` on prod."},
+        {"source": "HubSpot-Ruler/SEALSQ/SEALSQ_Property_Resource.md", "locator": "line 296", "quote": "`icalps_address_postcode` | IcAlps_Address_PostCode | string | ICALPS legacy (note: SEALSQ capture lists it as string while the card config says number — type disagreement between the two snapshots)"}
+      ]
+    },
+    {
+      "id": "F21",
+      "statement": "The S1 'Rules to comply' layer in this repo is prompt text, not enforcement: agent write guardrails (Notes/Tasks only, never delete/merge, property updates only on explicit instruction) and 'scraped content is untrusted' live in SKILL.md files; the bridge rejects unknown actions and oversize bodies (64 KB) in code.",
+      "value": "guardrails = 2 SKILL.md files + 2 code checks",
+      "story_link": "Gate 'Rules to comply' (S1 vs S3 'the tool's rule engine')",
+      "evidence": [
+        {"source": "HubSpot-Ruler/hermes-agent/skills/revops/hubspot-crm/SKILL.md", "locator": "lines 52-59", "quote": "Default write-back channel is a Note ... Update properties ONLY when the triggering task explicitly asks for it. NEVER delete or merge records."},
+        {"source": "HubSpot-Ruler/hermes-agent/docs/ARCHITECTURE.md", "locator": "line 111", "quote": "Payloads | 64 KB body cap; unknown `action` rejected; `custom` requires explicit prompt"}
+      ]
+    },
+    {
+      "id": "F22",
+      "statement": "The repo was created in a single upload on 2026-09-25 (3 commits, co-authored by Cursor) and its docs still reference the earlier repos 'HB-Workflow' and 'HubSpot - Worfklow' (github.com/Wkayaobama/HubSpot---Worfklow) — code-backup / provenance is recent and partial (brief: tracker row 'update GitHub for code backup' at 17%).",
+      "value": "3 commits, all 2026-09-25",
+      "story_link": "Scenario 1 DIY technical debt; risk 'Legacy knowledge disappears when key stakeholders leave'",
+      "evidence": [
+        {"source": "git log --stat -5 (HubSpot-Ruler)", "locator": "commits e7e3f42, 43031e9, 05815c2", "quote": "2026-09-25 13:14:24 Add files via upload / 2026-09-25 13:11:53 Stop tracking Excel lock files. / 2026-09-25 13:11:40 Initial commit of HubSpot-Ruler. 76 files changed, 33700 insertions(+)"},
+        {"source": "HubSpot-Ruler/ui-extension/src/app/app-hsmeta.json", "locator": "lines 34-37", "quote": "\"documentationUrl\": \"https://github.com/Wkayaobama/HubSpot---Worfklow\""},
+        {"source": "HubSpot-Ruler/hermes-agent/README.md", "locator": "line 44", "quote": "git clone <this repo> && cd HB-Workflow"}
+      ]
+    },
+    {
+      "id": "F23",
+      "statement": "The Data-Toolkit encodes the S1 'Sampling probe' practice: HubSQL rules (one object per query, no JOIN, max 2 associated objects, 10,000-result search ceiling on the CRM Search API), and a prompt template for business users that forbids matching on dealname.",
+      "value": "14 HubSQL rules; 43 prompt intents",
+      "story_link": "Gate 'Sampling probe' (S1: you, via HubSpot SQL queries, Breeze)",
+      "evidence": [
+        {"source": "HubSpot-Ruler/Data-Toolkit/Prompt_Resource.md", "locator": "lines 175-190, 215-225", "quote": "FROM — One object per query ... No JOIN / UNION / subqueries / CTEs ... Max 2 associated object types per query ... Do not match on dealname unless I say so."},
+        {"source": "HubSpot-Ruler/hermes-agent/docs/ARCHITECTURE.md", "locator": "lines 180-185", "quote": "CRM Search: 5 req/s **account-wide**, 200 results/page, 10,000-result ceiling per query ... Private-app rate limits: Pro portals 190 req/10s per app + 625k/day"}
+      ]
+    },
+    {
+      "id": "F24",
+      "statement": "Claude.md explicitly assigns the team split and conditional property views to 'the operator and its hubspot partner' and calls that 'orthogonal to the current implementation' — the partner role in Scenario 2 is already written into the plan.",
+      "value": "partner named in plan",
+      "story_link": "Scenario 2; Image 3 landlord (partner as intermediary); gate 'Depends on' (partner seat type exists per brief)",
+      "evidence": [
+        {"source": "HubSpot-Ruler/Claude.md", "locator": "lines 52-53", "quote": "Operator and aprtier involvment. While the underlying data layer is agentic, the splitting through teams, and conditionnal viewing of properties will be done by the operator and it's hubpsot partner so this is orthogonal to the current implementation"}
+      ]
+    }
+  ],
+  "gaps": [
+    "No code in this repo for ic-load / Mir-Load / Bq-dbt / StackSync / Go CDC / Oban-Elixir / BIBA push: the ontology workbook references staging.* tables, sql/rendered/engagement_tasks.sql and _scratch/phase*.py scripts that are absent, confirming the brief's 2e finding that the merge pipeline lives outside the three repos.",
+    "No pydantic 'blueprint' model, no per-entity context agents, no foundation (drift/duplicate/orphan) model exist in the repo despite Claude.md naming them as first actions; the blueprint today is three manual snapshots dated 2026-09-14 with no refresh mechanism.",
+    "The portal's HubSpot subscription tier (Operations Hub / Data Hub Professional or Enterprise?) is recorded nowhere; SCOPING Q1.1 is still an open question, so the S3 gate cost cannot be priced from the repo.",
+    "No prices, quotes or cost lines of any kind exist in the repo (VPS, LLM tokens, HubSpot tiers, partner fees) — all 'Price $ $' placeholders must stay illustrative.",
+    "hermes-agent has zero deployment evidence (0/76 actions, placeholder domain/secrets); its status is 'scaffold', not 'built'.",
+    "Internal contradiction on the IcAlps app: README/ARCHITECTURE say prod installed 2026-04-22 (appId 37414115) while CLAUDE.md says prod 'not yet installed'; the brief's deck says IC'Alps refused the merge tooling. Which cards are actually on prod record views today is not verifiable from the repo.",
+    "Type disagreement between snapshots: icalps_address_postcode is 'number' in companyIcalpsPropertyConfig.ts (2026-04-22) and 'string' in SEALSQ_Property_Resource.md (2026-09-14).",
+    "WISeKey's own entity is out of the SEALSQ measurement scope (Wisekey Services + PKI, 140 deals, excluded; Wise.Sat and Quantum & AI hold 0 deals), so no utilisation statistics exist for the WISeKey tenant; MIRAEX and WeCan appear only as names in Claude.md with no properties, pipelines or data.",
+    "All live numbers in this repo are a 2026-09-14 capture; this role did not re-run HubSQL on 2026-10-01, so any 'live-hubsql-2026-10-01' tag must come from a separate read-only query.",
+    "Hs-Logic (hs-standalone), the presentation-builder repo, the user's deck and the tracker were not read by this role (other roles / brief section 2 cover them).",
+    "sealsq_property_set.json and hubspot_crm_schema.json were only structurally inspected (keys, counts, selected entries); row-level content beyond the first 200 lines and the targeted lookups was not read."
+  ],
+  "output_file": "projects/crm-three-scenarios/explore/explore-hubspot-ruler.json"
+}

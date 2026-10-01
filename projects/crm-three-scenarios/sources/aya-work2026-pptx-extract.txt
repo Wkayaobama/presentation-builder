@@ -1,0 +1,446 @@
+
+===== SLIDE 1 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 10: Corporate Review
+- [TEXT_BOX (17)] Text 11: Main areas of focus as reported in the weekly reports, January to September 2026
+- [TEXT_BOX (17)] Text 12: 21
+- [TEXT_BOX (17)] Text 13: weeks reported
+- [TEXT_BOX (17)] Text 14: ~60
+- [TEXT_BOX (17)] Text 15: projects tracked
+- [TEXT_BOX (17)] Text 16: 6
+- [TEXT_BOX (17)] Text 17: work categories
+- [TEXT_BOX (17)] Text 18: Part 1: Areas of focus
+- [TEXT_BOX (17)] Text 19: 1
+- [PICTURE (13)] Picture 21: [PICTURE image/jpeg (300, 269)]
+
+===== SLIDE 2 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 0: Six categories, six faces
+- [TEXT_BOX (17)] Text 11: Data
+- [TEXT_BOX (17)] Text 12: CRM data, pipelines, migrations, reporting models, forecasting
+- [TEXT_BOX (17)] Text 23: Marketing
+- [TEXT_BOX (17)] Text 24: Inbound leads, forms, campaigns, HubSpot enablement
+- [TEXT_BOX (17)] Text 35: DevOps
+- [TEXT_BOX (17)] Text 36: Workflows, code quality, repos, backups, infrastructure
+- [TEXT_BOX (17)] Text 47: Process / Ops
+- [TEXT_BOX (17)] Text 48: Reporting rhythms, planning, negotiation, training
+- [TEXT_BOX (17)] Text 59: Admin
+- [TEXT_BOX (17)] Text 60: QMS / ISO audits, licences, budget figures
+- [TEXT_BOX (17)] Text 71: Other
+- [TEXT_BOX (17)] Text 72: Enterprise AI exploration and one-off requests
+- [TEXT_BOX (17)] Text 74: Part 1: Areas of focus
+- [TEXT_BOX (17)] Text 75: 2
+
+===== SLIDE 3 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 10: Manual versus code
+- [TEXT_BOX (17)] Text 11: How is the data CRM is processed
+- [TEXT_BOX (17)] Text 12: 1.2 : 1  to  1.6 : 1
+- [TEXT_BOX (17)] Text 13: code to manual/UI ratio, Q1 to Q3; the last reported week (14 Sep) reached 63% code
+- [TEXT_BOX (17)] Text 14: What actually switched (examples)
+- [TEXT_BOX (17)] Text 15: Regional weekly report: 11 weeks by hand, then a workflow (Jun) | Deal stages: HubSpot UI, then a Go CDC client and SQL (Aug) | BIBA: local Python, then scheduled push into HubSpot (Aug) | Mir-Load: laptop, then a GCP instance (Sep) | Lead triage: 19 weeks manual, AI auto-qualification from 7 Sep | Still by hand: campaign sends, dashboards, cleanup, templates
+- [TEXT_BOX (17)] Text 16: Code grew from 41% to 53%, meaning that reduction in code output would result in significant reduction in the quality of the infrastructure built
+- [TEXT_BOX (17)] Text 17: Appendix
+- [TEXT_BOX (17)] Text 18: 24
+NOTES: Derived from the same 21 weekly reports. Per quarter, manual/UI, code, people shares of active project-weeks: Q1 36/41/23, Q2 31/50/19, Q3 33/53/14. Weekly code share rises from 34% (12 Jan) to 63% (14 Sep). Items counted as manual/UI include inbound lead triage (manual until AI auto-qualification on 7 Sep), the hand-consolidated weekly regional report (Jan to May), HubSpot dashboards, CRM record cleanup, quarterly templates and campaign sends. Items counted as code include the DBT merge pipeline, BIBA, the deal-stage workflow (Go CDC + SQL), serverless workflow and React form, codebase cleanup and backups, Mir-Load and HS-LOGIC on GCP.
+
+===== SLIDE 4 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 0: The focus mix
+- [TEXT_BOX (17)] Text 101: One square = 1% of active project-weeks, January to September 2026
+- [TEXT_BOX (17)] Text 103: Data(1)	
+- [TEXT_BOX (17)] Text 104: 35%
+- [TEXT_BOX (17)] Text 106: DevOps
+- [TEXT_BOX (17)] Text 107: 22%
+- [TEXT_BOX (17)] Text 109: Marketing
+- [TEXT_BOX (17)] Text 110: 17%
+- [TEXT_BOX (17)] Text 112: Process / Ops
+- [TEXT_BOX (17)] Text 113: 17%
+- [TEXT_BOX (17)] Text 115: Admin
+- [TEXT_BOX (17)] Text 116: 6%
+- [TEXT_BOX (17)] Text 118: Other
+- [TEXT_BOX (17)] Text 119: 3%
+- [TEXT_BOX (17)] Text 120: A third of everything is data work. DevOps and Marketing form the second tier; Process / Ops is close behind ,  | (1) Sales analysis are merged into “Data”
+- [TEXT_BOX (17)] Text 121: Part 1: Areas of focus
+- [TEXT_BOX (17)] Text 122: 3
+
+===== SLIDE 5 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 10: Data
+- [TEXT_BOX (17)] Text 11: The Ic'Alps to HubSpot CRM merger
+- [TEXT_BOX (17)] Text 12: Act1. final extract loaded in mid-May | Act 2. Ic'Alps users trained afterwards; separate deal-stage conventions kept | Act 3. IC’Alps refuse the deal stage unified convention
+- [TEXT_BOX (17)] Text 13: 6
+- [TEXT_BOX (17)] Text 14: weeks as active follow-up post-merge*
+- [TEXT_BOX (17)] Text 15: 4
+- [TEXT_BOX (17)] Text 16: Days to load the full data in production
+- [TEXT_BOX (17)] Text 17: Part 1: Areas of focus
+- [TEXT_BOX (17)] Text 18: 4
+- [TEXT_BOX (17)] Text 13: 9 | Month as prep
+- [TEXT_BOX (17)] TextBox 22: *not precise, but there was enhanced support for at least 1,5 month after the merge
+
+===== SLIDE 6 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 10: Data
+- [TEXT_BOX (17)] Text 11: Data /Sales/ RevOps engine*
+- [TEXT_BOX (17)] Text 12: BIBA billing report refactored, moved to the cloud, then pushed into HubSpot as custom objects | ERP (SAP) reconciliation and a fixed metadata schema, both still open in September | CRM dashboards, user audit log and cross-pipeline metrics for the quarterly meeting | Trials that did not stick: 5-year forecast (on hold), Sigma Computing and Coefficient (dropped)
+- [TEXT_BOX (17)] Text 13: 13
+- [TEXT_BOX (17)] Text 14: weeks of  BIBA-related work
+- [TEXT_BOX (17)] Text 15: 3
+- [TEXT_BOX (17)] Text 16: new entities queued: Miraex, WeCan, SEALSQUANTUM
+- [TEXT_BOX (17)] Text 17: Part 1: Areas of focus
+- [TEXT_BOX (17)] Text 18: 5
+- [TEXT_BOX (17)] TextBox 21: Technical implementation was a success but end-users were idle 
+- [TEXT_BOX (17)] TextBox 24: The infrastructure however was refactored to create the pipeline for miraex / wecan ETL
+- [TEXT_BOX (17)] Text 13: 40%
+- [TEXT_BOX (17)] TextBox 32: of tracked project-weeks
+
+===== SLIDE 7 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 10: DevOps
+- [TEXT_BOX (17)] Text 11: Workflows, code and side tool building
+- [TEXT_BOX (17)] Text 12: HubSpot deal-stage workflow: April to August, finished with a Go CDC client and SQL + GCP infra : #1 Success post merge | Merge tooling: serverless workflow, React entry form, code review with a temporary contributor : Failed (IC’Alps refused to use it in the end) | Wise.Sat issue tracking with the Vietnam team :  paused when the project slipped for unknown reason | Data CRM : Cleaning : On-hold (Built the tool but need guidance) | Misc: repo cleanup, codebase migration, backups
+- [TEXT_BOX (17)] Text 13: 22%
+- [TEXT_BOX (17)] Text 14: of tracked project-weeks
+- [TEXT_BOX (17)] Text 15: 10+
+- [TEXT_BOX (17)] Text 16: tools tested; four kept: DBT, BigQuery, Stacksync, HubSpot serverless
+- [TEXT_BOX (17)] Text 17: Part 1: Areas of focus
+- [TEXT_BOX (17)] Text 18: 6
+
+===== SLIDE 8 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 10: Marketing
+- [TEXT_BOX (17)] Text 11: Lead. Campaign. Enablement.
+- [TEXT_BOX (17)] Text 12: Lead-forward automation broke in June and took three reporting weeks to fix | Q3: new CMO onboarded, lead-form automation, ICP intent scoring, campaign batches | Marketing team trained to run HubSpot on its own | Q3 : Built AI automation With solution architect yielding premise for GTM motion in CRM | Q3 : Built 5 Workflow for Madrid Campaign 
+- [TEXT_BOX (17)] Text 13: 8%*
+- [TEXT_BOX (17)] Text 17: Part 1: Areas of focus
+- [TEXT_BOX (17)] Text 18: 7
+
+===== SLIDE 9 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 10: Process / Ops
+- [TEXT_BOX (17)] Text 11: Reporting & Training
+- [TEXT_BOX (17)] Text 12: Regional weekly sales report consolidated by hand until automation took over in June with Claude | Monthly and quarterly sales meeting metrics; the quarterly report pattern was questionable | CRM freeze negotiated with Ic'Alps over eight weeks, including a Geneva visit and weekly sync-up. Question : How can we replicate the same for Miraex or WeCan and expect similar result
+- [TEXT_BOX (17)] Text 13: 17%
+- [TEXT_BOX (17)] Text 14: of tracked project-weeks
+- [TEXT_BOX (17)] Text 15: 5
+- [TEXT_BOX (17)] Text 16: training or onboarding session
+- [TEXT_BOX (17)] Text 17: Part 1: Areas of focus
+- [TEXT_BOX (17)] Text 18: 8
+
+===== SLIDE 10 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 0: Audits, licences and AI exploration
+- [TEXT_BOX (17)] Text 11: Admin
+- [TEXT_BOX (17)] Text 12: ISO 27001, 14001 and 9001 streams plus internal audit restitution | May audit passed with one red flag to remediate | HubSpot pricing for n+1 with the CSM; by September, out of licences | Benjamin Left with no replacement on sight | Technical Debt
+- [TEXT_BOX (17)] Text 23: Other
+- [TEXT_BOX (17)] Text 24: Enterprise AI shortlist with the CAIO (Jan to Feb), AI use-case workshop (Jul) | HS-LOGIC serverless query layer on Cloud Run (Sep) | One-offs: symposium attendee profiles, Wise.Sat domain
+- [TEXT_BOX (17)] Text 25: 9%
+- [TEXT_BOX (17)] Text 26: of project-weeks combined; small in volume, each one a hard date
+- [TEXT_BOX (17)] Text 27: Part 1: Areas of focus
+- [TEXT_BOX (17)] Text 28: 9
+
+===== SLIDE 11 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 0: Three quarters, three Milestones
+- [TEXT_BOX (17)] Text 11: Q1: Prepare the merge
+- [TEXT_BOX (17)] Text 12: January to March
+- [TEXT_BOX (17)] Text 13: Negotiate the CRM freeze | Build the DBT pipeline | QMS / ISO paperwork | Planning the execution
+- [TEXT_BOX (17)] Text 24: Q2: Execute the merge
+- [TEXT_BOX (17)] Text 25: April to June
+- [TEXT_BOX (17)] Text 26: Owner lineage, ontology, extract | Serverless workflow and form | ISO 9001 audit the same fortnight | Train Ic'Alps users | Work in Tandem 
+- [TEXT_BOX (17)] Text 37: Q3: Build the RevOps engine
+- [TEXT_BOX (17)] Text 38: July to September
+- [TEXT_BOX (17)] Text 39: BIBA into HubSpot, ERP model | Onboard CMO and sales training | Codebase cleanup and backups | Mir-Load, HS-LOGIC, GCP
+- [TEXT_BOX (17)] Text 40: The role moved from data centric on the migration back to CRM platform management. Lead triage and marketing campaign ran underneath. | Caused significant cognitive overload at peak time
+- [TEXT_BOX (17)] Text 41: Part 1: Areas of focus
+- [TEXT_BOX (17)] Text 42: 10
+- [TEXT_BOX (17)] TextBox 45: ROI ?
+
+===== SLIDE 12 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 10: What keeps coming back
+- [TEXT_BOX (17)] Text 13: The role changed yet few understand
+- [TEXT_BOX (17)] Text 15: Upgrading infrastructure is no longer an option if we want to scale
+- [TEXT_BOX (17)] Text 17: SEALSQ seems to attempt isolation in it’s Bu’s to cope with pressure
+- [TEXT_BOX (17)] Text 18: Part 2: Recurrent work
+- [TEXT_BOX (17)] Text 19: 11
+- [PICTURE (13)] Picture 21: [PICTURE image/png (738, 414)]
+- [TEXT_BOX (17)] Text 15: The Data is poor but nobody wants to look at it
+- [TEXT_BOX (17)] Text 13: AI is severely underutilized in the company
+- [TEXT_BOX (17)] Text 15: Sales stakeholder turnover is concerning
+
+===== SLIDE 13 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 0: Top 10  recurrent entries across all categories
+- [TEXT_BOX (17)] Text 1: Inbound lead triage from form submissions
+- [TEXT_BOX (17)] Text 23: 21
+- [TEXT_BOX (17)] Text 24: Ic'Alps property integration (batches 1-3)
+- [TEXT_BOX (17)] Text 46: 15
+- [TEXT_BOX (17)] Text 47: BIBA billing report (refactor, cloud, HubSpot)
+- [TEXT_BOX (17)] Text 69: 13
+- [TEXT_BOX (17)] Text 70: HubSpot deal-stage workflow
+- [TEXT_BOX (17)] Text 92: 13
+- [TEXT_BOX (17)] Text 93: CRM data merger project
+- [TEXT_BOX (17)] Text 115: 11
+- [TEXT_BOX (17)] Text 116: Weekly regional sales report consolidation
+- [TEXT_BOX (17)] Text 138: 11
+- [TEXT_BOX (17)] Text 139: Wise.Sat: Linear + GitHub with Vietnam team
+- [TEXT_BOX (17)] Text 161: 10
+- [TEXT_BOX (17)] Text 162: Onboarding and training colleagues
+- [TEXT_BOX (17)] Text 184: 10
+- [TEXT_BOX (17)] Text 185: CRM dashboards, pipeline metrics, audit log
+- [TEXT_BOX (17)] Text 207: 9
+- [TEXT_BOX (17)] Text 208: Merge workflow features and refactor
+- [TEXT_BOX (17)] Text 230: 8
+- [TEXT_BOX (17)] Text 231: Jan
+- [TEXT_BOX (17)] Text 232: Mar
+- [TEXT_BOX (17)] Text 233: Apr
+- [TEXT_BOX (17)] Text 234: May
+- [TEXT_BOX (17)] Text 235: Jun
+- [TEXT_BOX (17)] Text 236: Jul
+- [TEXT_BOX (17)] Text 237: Aug
+- [TEXT_BOX (17)] Text 238: Sep
+- [TEXT_BOX (17)] Text 240: Data
+- [TEXT_BOX (17)] Text 242: Marketing
+- [TEXT_BOX (17)] Text 244: DevOps
+- [TEXT_BOX (17)] Text 246: Process / Ops
+- [TEXT_BOX (17)] Text 248: Admin
+- [TEXT_BOX (17)] Text 250: Other
+- [TEXT_BOX (17)] Text 251: "Marketing automation", carried at 5% completion since June 2024, is excluded as a stale placeholder.
+- [TEXT_BOX (17)] Text 252: Part 2: Recurrent work
+- [TEXT_BOX (17)] Text 253: 13
+
+===== SLIDE 14 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 0: Where the pressure sits in September 2026
+- [TEXT_BOX (17)] Text 12: A brittle reporting pipeline
+- [TEXT_BOX (17)] Text 13: Miraex, WeCan and SEALSQUANTUM are being loaded into a model whose robustness depends on the code pipeline. ERP reconciliation and schema governance are the unblockers.
+- [TEXT_BOX (17)] Text 25: Leads and campaigns
+- [TEXT_BOX (17)] Text 26: Lead volume is expected to fall without preventive action, and the campaign exposed process gaps. Lead automation must run unattended over the holidays.
+- [TEXT_BOX (17)] Text 38: Unpaid hygiene debt
+- [TEXT_BOX (17)] Text 39: Four cleanup and backup items have recurred for six weeks. Closing them is cheap insurance for the pipeline above.
+- [TEXT_BOX (17)] Text 51: HubSpot licences & Misconception
+- [TEXT_BOX (17)] Text 52: Seats ran out as sales and marketing hires were onboarded; the partner-ecosystem pricing assessment is the open action.
+- [TEXT_BOX (17)] Text 53: Next step: Assess the possibility of having a HubSpot partner help with items 1-3 | Assess the possibility of not using HubSpot for SEALSQUANTUM to preserve the data quality
+- [TEXT_BOX (17)] Text 54: Part 2: Recurrent work
+- [TEXT_BOX (17)] Text 55: 20
+
+===== SLIDE 15 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 0: Thank you ! 
+- [TEXT_BOX (17)] Text 24: Appendix
+- [TEXT_BOX (17)] Text 25: 21
+- [PICTURE (13)] Picture 48: [PICTURE image/jpeg (300, 269)]
+NOTES: (Don’t forget to ask for holidays)
+
+===== SLIDE 16 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 0: Reading the week strips
+- [TEXT_BOX (17)] Text 1: Example: active Jan to May, closed in June
+- [TEXT_BOX (17)] Text 23: 11
+- [TEXT_BOX (17)] Text 24: Jan
+- [TEXT_BOX (17)] Text 25: Mar
+- [TEXT_BOX (17)] Text 26: Apr
+- [TEXT_BOX (17)] Text 27: May
+- [TEXT_BOX (17)] Text 28: Jun
+- [TEXT_BOX (17)] Text 29: Jul
+- [TEXT_BOX (17)] Text 30: Aug
+- [TEXT_BOX (17)] Text 31: Sep
+- [TEXT_BOX (17)] Text 32: One cell per reported week, January on the left and September on the right. A filled cell means the item was listed as active that week; finished and dropped entries stay empty. The number is the count of active weeks, and items are ranked by it within each category.
+- [TEXT_BOX (17)] Text 33: Reported weeks: 12 and 26 January; 4 February; 9, 16 and 23 March; 7 and 13 April; 5, 13 and 18 May; 1 and 8 June; 8, 13 and 27 July; 10, 17 and 24 August; 7 and 14 September. Gaps are weeks with no file.
+- [TEXT_BOX (17)] Text 34: Part 2: Recurrent work
+- [TEXT_BOX (17)] Text 35: 12
+
+===== SLIDE 17 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 0: Appendix
+- [TEXT_BOX (17)] Text 1: Two items that sat outside the weekly project list
+- [TEXT_BOX (17)] Text 24: Appendix
+- [TEXT_BOX (17)] Text 25: 21
+
+===== SLIDE 18 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 10: Marketing
+- [TEXT_BOX (17)] Text 11: Marketing campaign: important, but untracked
+- [TEXT_BOX (17)] Text 13: Onboard the CMO
+- [TEXT_BOX (17)] Text 14: mid-August
+- [TEXT_BOX (17)] Text 15: ›
+- [TEXT_BOX (17)] Text 17: Automate lead forms
+- [TEXT_BOX (17)] Text 18: late August
+- [TEXT_BOX (17)] Text 19: ›
+- [TEXT_BOX (17)] Text 21: Send batches 1 to 4
+- [TEXT_BOX (17)] Text 22: 31 Aug to 9 Sep
+- [TEXT_BOX (17)] Text 23: ›
+- [TEXT_BOX (17)] Text 25: Train the team
+- [TEXT_BOX (17)] Text 26: September
+- [TEXT_BOX (17)] Text 27: The campaign shows up only as task lines and a quarter comment, not as a project with a status | Batches 1 to 3 went out end of August, batch 4 with logistics and tickets in early September | A misalignment during the campaign exposed gaps in how marketing and sales ops work together | It matters because lead volume is expected to fall: campaigns are the preventive lever
+- [TEXT_BOX (17)] Text 28: Appendix
+- [TEXT_BOX (17)] Text 29: 22
+NOTES: Source: task lines in the 7 and 14 September reports (Marketing Campaign Batch 1-3, Batch 4 logistics + tickets, Trello board) and the Q3-Q4 comment on campaign misalignment. Not tracked as a project in the weekly files; added at the request of the reviewer.
+
+===== SLIDE 19 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 10: DevOps
+- [TEXT_BOX (17)] Text 11: Mir-Load: the shift from laptop to cloud
+- [TEXT_BOX (17)] Text 13: Before: one local machine
+- [TEXT_BOX (17)] Text 14: Pipelines ran on a laptop. Backups and codebase migration sat on the list for six weeks as open risks.
+- [TEXT_BOX (17)] Text 15: →
+- [TEXT_BOX (17)] Text 17: After: a GCP instance
+- [TEXT_BOX (17)] Text 18: Code executed remotely on Google Cloud (BigQuery, Cloud Shell, DBT, Python). The first run worked.
+- [TEXT_BOX (17)] Text 19: Replicates the ic-load pattern that carried the Ic'Alps merge, applied to Miraex's more complex data | A key win: development moved from local to cloud, setting the template for WeCan and SEALSQUANTUM | Open point: extend the HubSpot schema so the loaded data lands cleanly
+- [TEXT_BOX (17)] Text 20: Appendix
+- [TEXT_BOX (17)] Text 21: 23
+NOTES: Source: 14 September report, task "Miraex pipeline loading / WeCan / SEALSQUANTUM" (Mir-Load): replicate the successful ic-load project; BigQuery + Cloud Shell + DBT + Python, executed on a remote instance, worked, HubSpot schema still to extend. Flagged by the reviewer as a key DevOps achievement.
+
+===== SLIDE 20 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 10: Data
+- [TEXT_BOX (17)] Text 11: The merger, then everything built on it
+- [TEXT_BOX (17)] Text 12: Ic'Alps property integration (batches 1-3)
+- [TEXT_BOX (17)] Text 34: 15
+- [TEXT_BOX (17)] Text 35: BIBA billing report (refactor, cloud, HubSpot)
+- [TEXT_BOX (17)] Text 57: 13
+- [TEXT_BOX (17)] Text 58: CRM data merger project
+- [TEXT_BOX (17)] Text 80: 11
+- [TEXT_BOX (17)] Text 81: CRM dashboards, pipeline metrics, audit log
+- [TEXT_BOX (17)] Text 103: 9
+- [TEXT_BOX (17)] Text 104: Merge pipeline: DBT, upsert phases, formatting
+- [TEXT_BOX (17)] Text 126: 7
+- [TEXT_BOX (17)] Text 127: ERP (SAP) reconciliation model
+- [TEXT_BOX (17)] Text 149: 7
+- [TEXT_BOX (17)] Text 150: Metadata governance and fixed schema
+- [TEXT_BOX (17)] Text 172: 7
+- [TEXT_BOX (17)] Text 173: Knowledge base and CRM company cleanup
+- [TEXT_BOX (17)] Text 195: 6
+- [TEXT_BOX (17)] Text 196: Jan
+- [TEXT_BOX (17)] Text 197: Mar
+- [TEXT_BOX (17)] Text 198: Apr
+- [TEXT_BOX (17)] Text 199: May
+- [TEXT_BOX (17)] Text 200: Jun
+- [TEXT_BOX (17)] Text 201: Jul
+- [TEXT_BOX (17)] Text 202: Aug
+- [TEXT_BOX (17)] Text 203: Sep
+- [TEXT_BOX (17)] Text 204: Ic'Alps delayed the final extract; documents stayed locked behind their network | Owners, hierarchies and contact fields were fixed record by record | Every new entity is loaded into a pipeline the reports themselves call brittle
+- [TEXT_BOX (17)] Text 205: Part 2: Recurrent work
+- [TEXT_BOX (17)] Text 206: 14
+
+===== SLIDE 21 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 10: Marketing
+- [TEXT_BOX (17)] Text 11: Lead triage never leaves the list
+- [TEXT_BOX (17)] Text 12: Inbound lead triage from form submissions
+- [TEXT_BOX (17)] Text 34: 21
+- [TEXT_BOX (17)] Text 35: Campaigns, forms, ICP scoring, website POC
+- [TEXT_BOX (17)] Text 57: 6
+- [TEXT_BOX (17)] Text 58: Train marketing team on HubSpot
+- [TEXT_BOX (17)] Text 80: 4
+- [TEXT_BOX (17)] Text 81: Fix lead-forward automation
+- [TEXT_BOX (17)] Text 103: 3
+- [TEXT_BOX (17)] Text 104: HubSpot AI lead checking
+- [TEXT_BOX (17)] Text 126: 3
+- [TEXT_BOX (17)] Text 127: Jan
+- [TEXT_BOX (17)] Text 128: Mar
+- [TEXT_BOX (17)] Text 129: Apr
+- [TEXT_BOX (17)] Text 130: May
+- [TEXT_BOX (17)] Text 131: Jun
+- [TEXT_BOX (17)] Text 132: Jul
+- [TEXT_BOX (17)] Text 133: Aug
+- [TEXT_BOX (17)] Text 134: Sep
+- [TEXT_BOX (17)] Text 135: Manual triage runs every week: "we are losing money not being able to select the relevant leads" | The lead-forward automation stayed broken for three reporting weeks | Since August, enablement for a new CMO and the marketing team became a weekly item
+- [TEXT_BOX (17)] Text 136: Part 2: Recurrent work
+- [TEXT_BOX (17)] Text 137: 15
+
+===== SLIDE 22 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 10: DevOps
+- [TEXT_BOX (17)] Text 11: Workflow building is invisible work
+- [TEXT_BOX (17)] Text 12: HubSpot deal-stage workflow
+- [TEXT_BOX (17)] Text 34: 13
+- [TEXT_BOX (17)] Text 35: Wise.Sat: Linear + GitHub with Vietnam team
+- [TEXT_BOX (17)] Text 57: 10
+- [TEXT_BOX (17)] Text 58: Merge workflow features and refactor
+- [TEXT_BOX (17)] Text 80: 8
+- [TEXT_BOX (17)] Text 81: Code quality review before the freeze
+- [TEXT_BOX (17)] Text 103: 8
+- [TEXT_BOX (17)] Text 104: Codebase cleanup and documentation
+- [TEXT_BOX (17)] Text 126: 6
+- [TEXT_BOX (17)] Text 127: Migrate Stacksync workload to Oban
+- [TEXT_BOX (17)] Text 149: 6
+- [TEXT_BOX (17)] Text 150: Migrate local codebase and backups
+- [TEXT_BOX (17)] Text 172: 6
+- [TEXT_BOX (17)] Text 173: Serverless workflow, React form, Cloud Run
+- [TEXT_BOX (17)] Text 195: 4
+- [TEXT_BOX (17)] Text 196: Jan
+- [TEXT_BOX (17)] Text 197: Mar
+- [TEXT_BOX (17)] Text 198: Apr
+- [TEXT_BOX (17)] Text 199: May
+- [TEXT_BOX (17)] Text 200: Jun
+- [TEXT_BOX (17)] Text 201: Jul
+- [TEXT_BOX (17)] Text 202: Aug
+- [TEXT_BOX (17)] Text 203: Sep
+- [TEXT_BOX (17)] Text 204: Merge code needed idempotency guarantees before the freeze | Four hygiene items have recurred for six weeks; none is closed | The CRM is not autonomous, it requires constant attention to avoid data drifts
+- [TEXT_BOX (17)] Text 205: Part 2: Recurrent work
+- [TEXT_BOX (17)] Text 206: 16
+
+===== SLIDE 23 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 10: Process / Ops
+- [TEXT_BOX (17)] Text 11: Reports, negotiations and training
+- [TEXT_BOX (17)] Text 12: Weekly regional sales report consolidation
+- [TEXT_BOX (17)] Text 34: 11
+- [TEXT_BOX (17)] Text 35: Onboarding and training colleagues
+- [TEXT_BOX (17)] Text 57: 10
+- [TEXT_BOX (17)] Text 58: CRM freeze negotiation with Ic'Alps
+- [TEXT_BOX (17)] Text 80: 8
+- [TEXT_BOX (17)] Text 81: Ic'Alps planning and feasibility review
+- [TEXT_BOX (17)] Text 103: 8
+- [TEXT_BOX (17)] Text 104: Quarterly sales templates and report clean-up
+- [TEXT_BOX (17)] Text 126: 6
+- [TEXT_BOX (17)] Text 127: Monthly / quarterly metrics, Charles' reports
+- [TEXT_BOX (17)] Text 149: 5
+- [TEXT_BOX (17)] Text 150: Jan
+- [TEXT_BOX (17)] Text 151: Mar
+- [TEXT_BOX (17)] Text 152: Apr
+- [TEXT_BOX (17)] Text 153: May
+- [TEXT_BOX (17)] Text 154: Jun
+- [TEXT_BOX (17)] Text 155: Jul
+- [TEXT_BOX (17)] Text 156: Aug
+- [TEXT_BOX (17)] Text 157: Sep
+- [TEXT_BOX (17)] Text 158: The regional weekly report was consolidated by hand for 11 weeks | Eight weeks of freeze negotiation with Ic’Alps, settled during a Geneva visit | Nine weeks carry a training or onboarding session for a colleague
+- [TEXT_BOX (17)] Text 159: Part 2: Recurrent work
+- [TEXT_BOX (17)] Text 160: 17
+
+===== SLIDE 24 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 10: Admin
+- [TEXT_BOX (17)] Text 11: Audits and licences arrive as deadlines
+- [TEXT_BOX (17)] Text 12: QMS, ISO 27001 / 14001 / 9001, audit prep and pass
+- [TEXT_BOX (17)] Text 34: 6
+- [TEXT_BOX (17)] Text 35: HubSpot pricing, negociation and licence shortage
+- [TEXT_BOX (17)] Text 57: 5
+- [TEXT_BOX (17)] Text 58: Travel compilation for carbon report
+- [TEXT_BOX (17)] Text 80: 3
+- [TEXT_BOX (17)] Text 81: Geneva budget figures
+- [TEXT_BOX (17)] Text 103: 3
+- [TEXT_BOX (17)] Text 104: Jan
+- [TEXT_BOX (17)] Text 105: Mar
+- [TEXT_BOX (17)] Text 106: Apr
+- [TEXT_BOX (17)] Text 107: May
+- [TEXT_BOX (17)] Text 108: Jun
+- [TEXT_BOX (17)] Text 109: Jul
+- [TEXT_BOX (17)] Text 110: Aug
+- [TEXT_BOX (17)] Text 111: Sep
+- [TEXT_BOX (17)] Text 112: Three ISO streams owned alongside the merge; the May audit passed with one red flag | HubSpot pricing needed the CSM, a trial and a quote; seats ran out in September | Finance requests arrived mid-project and were put on hold
+- [TEXT_BOX (17)] Text 113: Part 2: Recurrent work
+- [TEXT_BOX (17)] Text 114: 18
+
+===== SLIDE 25 (layout: DEFAULT) =====
+- [TEXT_BOX (17)] Text 10: Other
+- [TEXT_BOX (17)] Text 11: AI exploration, and the items that stall
+- [TEXT_BOX (17)] Text 12: Enterprise AI, CAIO, AI workshop, HS-LOGIC
+- [TEXT_BOX (17)] Text 34: 7
+- [TEXT_BOX (17)] Text 35: One-offs: symposium profiles, Wise.Sat domain
+- [TEXT_BOX (17)] Text 57: 2
+- [TEXT_BOX (17)] Text 58: Stalled or dropped
+- [TEXT_BOX (17)] Text 59: Marketing automation (5% since June 2024)
+- [TEXT_BOX (17)] Text 81: 21
+- [TEXT_BOX (17)] Text 82: Sigma Computing POC (dropped)
+- [TEXT_BOX (17)] Text 104: 5
+- [TEXT_BOX (17)] Text 105: Coefficient / Google Sheets link (dropped)
+- [TEXT_BOX (17)] Text 127: 2
+- [TEXT_BOX (17)] Text 128: Jan
+- [TEXT_BOX (17)] Text 129: Mar
+- [TEXT_BOX (17)] Text 130: Apr
+- [TEXT_BOX (17)] Text 131: May
+- [TEXT_BOX (17)] Text 132: Jun
+- [TEXT_BOX (17)] Text 133: Jul
+- [TEXT_BOX (17)] Text 134: Aug
+- [TEXT_BOX (17)] Text 135: Sep
+- [TEXT_BOX (17)] Text 136: Enterprise AI ranked third behind sales figures and the merger in January; it returned in July and September | Marketing automation has shown 5% since June 2024 in every file: close it or re-scope it | Forecasting is on hold for lack of feedback; two tools were dropped within weeks of being tried
+- [TEXT_BOX (17)] Text 137: Part 2: Recurrent work
+- [TEXT_BOX (17)] Text 138: 19
+- [TEXT_BOX (17)] Text 105: BIBA + CRM (May be dropped)
+
+===== SLIDE 26 (layout: DEFAULT) =====
+- [PICTURE (13)] Picture 2: [PICTURE image/png (1267, 725)]
+- [TEXT_BOX (17)] Text 11: CRM Health
+
+===== SLIDE 27 (layout: DEFAULT) =====
+- [PICTURE (13)] Picture 2: [PICTURE image/png (1457, 760)]
+- [TEXT_BOX (17)] Text 11: CRM Health

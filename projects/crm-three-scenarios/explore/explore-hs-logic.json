@@ -1,0 +1,341 @@
+{
+  "role": "explore",
+  "target": "Hs-Logic (hs-standalone / Hubspot-Logic-Server)",
+  "date": "2026-10-01",
+  "items": [
+    {
+      "name": "Hs-Logic backend API (FastAPI)",
+      "kind": "service/backend",
+      "lives_in": "Docker container python:3.12-slim (backend/Dockerfile), published host-only on 127.0.0.1:8000 by docker-compose; also run from a Windows laptop venv (.claude/launch.json). No Cloud Run manifest in the repo.",
+      "built_on": "FastAPI>=0.115, uvicorn[standard]>=0.30, httpx>=0.27, pydantic>=2.7, pydantic-settings>=2.4; HubSpot private-app token read from env/.env (HUBSPOT_TOKEN), portal 9201667; single uvicorn worker; in-process TTL cache; 10,000-record scan cap",
+      "status": "built, merged to main 2026-08-28 (PR #1 'rebuild-standalone-app'); no commits since; no tests",
+      "owner_dependency": "single author (Wkayaobama / ayaobama@wisekey.com), all 8 commits co-authored with Claude on one day (2026-08-28); runtime depends on one private-app token held server-side",
+      "scenario_relevance": "S1 (DIY): the operator's own sampling probe. Story 1 iceberg: submerged custom code that the UI depends on.",
+      "gate_rows": ["Sampling probe (S1: your probes)", "Depends on (one operator plus the engine)"],
+      "evidence": [
+        {"source": "Hs-Logic/README.md", "locator": "lines 3-5", "quote": "Portal explorer and CRM health analytics for HubSpot portal 9201667. Standalone microservice (FastAPI backend + React/Vite frontend, docker-compose) ... Private-app token stays server-side"},
+        {"source": "Hs-Logic/backend/requirements.txt", "locator": "lines 1-5", "quote": "fastapi>=0.115 / uvicorn[standard]>=0.30 / httpx>=0.27 / pydantic>=2.7 / pydantic-settings>=2.4"},
+        {"source": "Hs-Logic/backend/Dockerfile", "locator": "lines 1,16", "quote": "FROM python:3.12-slim ... CMD [\"uvicorn\", \"app.main:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8000\"]"},
+        {"source": "Hs-Logic/backend/app/config.py", "locator": "lines 13-16", "quote": "hubspot_token: str = \"\" / hubspot_portal_id: str = \"\" / health_cache_ttl_seconds: int = 900"},
+        {"source": "git -C Hs-Logic log --stat -8", "locator": "commits d777b29..7eb1e37", "quote": "Merge pull request #1 from Wkayaobama/rebuild-standalone-app ... Fri Aug 28 18:27:31 2026 +0200; all commits Co-Authored-By: Claude Fable 5"}
+      ]
+    },
+    {
+      "name": "Hs-Logic frontend dashboard (7 tabs)",
+      "kind": "web UI",
+      "lives_in": "Docker container nginx:alpine serving Vite build on :8080, proxying /api to backend:8000 (frontend/Dockerfile, nginx.conf); dev on laptop via Vite :5173",
+      "built_on": "React 18.3, Vite 6, TypeScript 5.6, Tailwind v4; tabs Overview, Contacts, Companies, Deals, Tickets, CRM Health, Contact Health",
+      "status": "built; 'npm run build (strict tsc + vite) passes clean' per commit message; no UI tests",
+      "owner_dependency": "same single author",
+      "scenario_relevance": "Story 1 iceberg: the emerged UI layer; what executives saw on deck slides 26-27",
+      "gate_rows": ["Sampling probe (S1)"],
+      "evidence": [
+        {"source": "Hs-Logic/frontend/package.json", "locator": "lines 11-22", "quote": "\"react\": \"^18.3.1\" ... \"vite\": \"^6.0.5\", \"tailwindcss\": \"^4.0.0\""},
+        {"source": "Hs-Logic/frontend/nginx.conf", "locator": "lines 12-16", "quote": "location /api/ { proxy_pass http://backend:8000; ... proxy_read_timeout 180s;"},
+        {"source": "git -C Hs-Logic log --stat -8", "locator": "commit 43215b9", "quote": "frontend: Vite/React/TS dashboard with all 7 tabs ... Verified: npm run build (strict tsc + vite) passes clean."}
+      ]
+    },
+    {
+      "name": "docker-compose stack (backend + frontend)",
+      "kind": "deployment packaging",
+      "lives_in": "docker-compose.yml at repo root; local Docker host ('docker compose up --build'); env allowlist HUBSPOT_TOKEN / HUBSPOT_PORTAL_ID / HEALTH_CACHE_TTL_SECONDS",
+      "built_on": "Docker Compose, healthcheck via Python stdlib urllib on /api/health, restart unless-stopped",
+      "status": "built; compose comment records that an env-allowlist omission 'broke the deployed app's /portal route once' (evidence that a deployment existed somewhere)",
+      "owner_dependency": "operator must maintain the allowlist by hand; comment: 'new env vars must be added there or the container never sees them'",
+      "scenario_relevance": "Story 1 iceberg: fragile ops plumbing below the waterline",
+      "gate_rows": ["Depends on"],
+      "evidence": [
+        {"source": "Hs-Logic/docker-compose.yml", "locator": "lines 4-10", "quote": "Explicit allowlist: a variable NOT listed here never reaches the container ... This exact omission broke the deployed app's /portal route once."},
+        {"source": "Hs-Logic/README.md", "locator": "line 44", "quote": "The backend environment block in docker-compose.yml is an explicit allowlist — new env vars must be added there or the container never sees them."}
+      ]
+    },
+    {
+      "name": "In-process single-flight TTL cache (15 min)",
+      "kind": "backend module",
+      "lives_in": "backend/app/cache.py, memory of one uvicorn process",
+      "built_on": "asyncio.Lock per key, time.monotonic TTL, default 900 s via HEALTH_CACHE_TTL_SECONDS",
+      "status": "built; commit says cold/warm/refresh/TTL semantics 'Verified token-free' (manual verification, no test file in repo)",
+      "owner_dependency": "scaling to >1 worker multiplies scans; no shared cache",
+      "scenario_relevance": "S1 cost line: scan = 100+ sequential HubSpot API calls, 30-90 s, so results are stale up to 15 min",
+      "gate_rows": ["Sampling probe (S1)", "New cost lines (S1: your time plus ongoing cost of open items)"],
+      "evidence": [
+        {"source": "Hs-Logic/backend/app/cache.py", "locator": "lines 1-5", "quote": "In-process TTL cache with single-flight semantics. Used by the health endpoints, whose scans each cost 100+ sequential HubSpot API calls. Per-process only: run a single uvicorn worker"},
+        {"source": "Hs-Logic/README.md", "locator": "lines 70-72", "quote": "First scan takes ~30–90s (100+ sequential HubSpot API calls, deliberately not parallelized to respect rate limits). Results cached in-process for 15 min per endpoint (single uvicorn worker only — scaling workers multiplies scans)."},
+        {"source": "Hs-Logic/.env.example", "locator": "lines 5-6", "quote": "# TTL for the cached crm-health / contact-health scans, in seconds / HEALTH_CACHE_TTL_SECONDS=900"}
+      ]
+    },
+    {
+      "name": "CRM Health scan (orphan companies + duplicate company clusters)",
+      "kind": "API endpoint GET /api/hubspot/crm-health",
+      "lives_in": "backend/app/routes/hubspot.py lines 294-477 (_compute_crm_health)",
+      "built_on": "HubSpot CRM v3 companies list with inline deal associations (100/page), deals search HAS_PROPERTY final_customer, v4 associations batch read deals->companies; normalised name/domain grouping; CAP = 10000",
+      "status": "built and run at least once against the live portal (deck slide 27 screenshot: 10,000 scanned, 1,034 FC deals, 709 edge-excluded, 9,150 orphans, 226 duplicate clusters)",
+      "owner_dependency": "logic exists only in this Python file (docstring says it mirrors 'the SQL queries', which are not in the repo)",
+      "scenario_relevance": "Story 2: 'multiple duplicates (show with the hs-standalone project)' and the cardinality trap (final_customer string on deals vs company object). Image 2 gauge 3 (data modelling problem).",
+      "gate_rows": ["Sampling probe (S1)"],
+      "evidence": [
+        {"source": "Hs-Logic/backend/app/routes/hubspot.py", "locator": "lines 306-318", "quote": "A company is an orphan when ALL of the following are true: 1. It has zero deal associations ... 2. It is NOT an edge-company ... 3. Its normalised name is NOT in the set of `final_customer` name strings ... Any group with ≥ 2 members is a duplicate cluster."},
+        {"source": "projects/crm-three-scenarios/sources/hs-logic-crm-health-2026-09.png", "locator": "banner + stat cards", "quote": "Scanned 10,000 companies · 1,034 deals with final_customer · 709 edge-companies excluded · cap reached — results partial | 9,150 Orphan companies | 226 Duplicate clusters"}
+      ]
+    },
+    {
+      "name": "Contact Health scan (NQL / _MQL / borderline, missing fields, duplicates, multi-company)",
+      "kind": "API endpoint GET /api/hubspot/contact-health",
+      "lives_in": "backend/app/routes/hubspot.py lines 480-710 (_compute_contact_health)",
+      "built_on": "HubSpot CRM v3 contacts list with inline company associations (100/page); CAP = 10000; lifecycle set _MQL_LIFECYCLES",
+      "status": "built and run at least once against the live portal (deck slide 26 screenshot: 10,000 scanned, NQL 1,764, _MQL 6,416, 281 duplicate clusters, 193 multi-company)",
+      "owner_dependency": "same single file / single author",
+      "scenario_relevance": "Story 2 (duplicates, failing conversion: 1,764 contacts too sparse to act on; 53.3% missing phone); marketing lead-triage story in the deck",
+      "gate_rows": ["Sampling probe (S1)"],
+      "evidence": [
+        {"source": "Hs-Logic/backend/app/routes/hubspot.py", "locator": "lines 513-534", "quote": "A contact is NQL when ... No email AND no phone ... No firstname AND no lastname ... MQL bar when it has ALL of: An email address, A first or last name, At least one company association OR its HubSpot lifecyclestage is already mql / sql / opportunity / customer / evangelist"},
+        {"source": "projects/crm-three-scenarios/sources/hs-logic-contact-health-2026-09.png", "locator": "banner + stat cards + prevalence bars", "quote": "Scanned 10,000 contacts · cap reached — results partial | 1,764 NQL | 6,416 _MQL | 281 Duplicate clusters | 193 Multi-company | Email 1.7% (170) Phone 53.3% (5,329) Name 16.5% (1,651) Company 31.4% (3,135)"}
+      ]
+    },
+    {
+      "name": "Suppression-list export (static HubSpot list from NQL ids, CSV fallback)",
+      "kind": "API endpoint POST /api/hubspot/suppression-list + UI button",
+      "lives_in": "backend/app/routes/hubspot.py lines 713-808; frontend/src/tabs/ContactHealthTab.tsx lines 63-171",
+      "built_on": "HubSpot Lists API v3 (POST /crm/v3/lists MANUAL list, PUT memberships/add in chunks of 100 with 120 ms delay); requires crm.lists.write; on 403 the UI downloads nql-suppression.csv (all ids, detail for first 150)",
+      "status": "built; no evidence it was executed (no list id or screenshot in the brief)",
+      "owner_dependency": "scope on the private app; otherwise falls back to CSV handled manually",
+      "scenario_relevance": "Declarative action layer gate: the only 'write' Hs-Logic performs; it tags, it does not merge or fix",
+      "gate_rows": ["Declarative action layer (S1)", "Rules to comply"],
+      "evidence": [
+        {"source": "Hs-Logic/backend/app/routes/hubspot.py", "locator": "lines 723-735", "quote": "Create a static HubSpot contact list and bulk-add the supplied contact IDs ... Required private-app scope: crm.lists.write ... On scope error (403) the frontend falls back to a CSV download automatically."},
+        {"source": "Hs-Logic/frontend/src/tabs/ContactHealthTab.tsx", "locator": "lines 157-161", "quote": "Lists scope missing — downloaded CSV instead (all {nqlIds.length} IDs; name/email detail available for the first 150)"}
+      ]
+    },
+    {
+      "name": "Laptop dev launch config (.claude/launch.json)",
+      "kind": "dev tooling / location evidence",
+      "lives_in": "Windows laptop path C:\\Users\\ayaobama\\Documents\\AnthonySalesOps\\Codebase\\Hubspot-Logic-Server",
+      "built_on": "venv python.exe running uvicorn on :8000; npm.cmd running vite on :5173",
+      "status": "present; hard-codes one user's absolute path",
+      "owner_dependency": "ties the dev loop to one named user's machine (tracker row 'ensure no technical debt or hard dependency on any user' at 17%)",
+      "scenario_relevance": "Story 1 iceberg / Depends-on gate: one operator",
+      "gate_rows": ["Depends on (one operator plus the engine)"],
+      "evidence": [
+        {"source": "Hs-Logic/.claude/launch.json", "locator": "line 6", "quote": "\"runtimeExecutable\": \"C:\\\\Users\\\\ayaobama\\\\Documents\\\\AnthonySalesOps\\\\Codebase\\\\Hubspot-Logic-Server\\\\backend\\\\.venv\\\\Scripts\\\\python.exe\""},
+        {"source": "Hs-Logic/README.md", "locator": "line 38-40", "quote": "IMPORTANT Windows note: .env must be UTF-8 WITHOUT BOM. PowerShell `>` redirection writes UTF-16 and breaks pydantic-settings."}
+      ]
+    },
+    {
+      "name": "'HS-LOGIC serverless query layer on Cloud Run' (deck claim)",
+      "kind": "deployment claim",
+      "lives_in": "Claimed in the user's 2026 review deck only; the repo contains no Cloud Run / gcloud / cloudbuild / CI file (grep over the repo returned nothing; no .github directory)",
+      "built_on": "unknown from the repo; the Dockerfiles are Cloud-Run-compatible containers but nothing binds them to a service",
+      "status": "unverified: reported in weekly reports (Sep), not evidenced in code",
+      "owner_dependency": "whoever ran the gcloud deploy; no IaC to reproduce it",
+      "scenario_relevance": "Health-check finding: where it 'ended up living' is not reproducible from the repo",
+      "gate_rows": ["Depends on", "New cost lines (S1: ongoing cost of open items)"],
+      "evidence": [
+        {"source": "projects/crm-three-scenarios/sources/aya-work2026-pptx-extract.txt", "locator": "line 126 (slide 10)", "quote": "HS-LOGIC serverless query layer on Cloud Run (Sep)"},
+        {"source": "grep -rniE 'cloud ?run|gcloud|cloudbuild|app\\.yaml|service\\.yaml|run\\.googleapis|github/workflows' Hs-Logic (excl. node_modules, .git)", "locator": "whole repo", "quote": "(no matches); ls .github -> No such file or directory"}
+      ]
+    },
+    {
+      "name": "Automated tests",
+      "kind": "quality gate",
+      "lives_in": "absent",
+      "built_on": "n/a",
+      "status": "no test files, no pytest/vitest config, no CI; verification claims live only in commit messages ('Verified token-free', 'adversarial review' of 15 findings)",
+      "owner_dependency": "regressions are caught by the author by hand",
+      "scenario_relevance": "Story 1 iceberg: debt below the waterline; S2 argument (partner reviews changes before they ship) has nothing automated to review against",
+      "gate_rows": ["Schema blueprint (S2: partner reviews changes before they ship)"],
+      "evidence": [
+        {"source": "find Hs-Logic -iname '*test*' -o -iname 'pytest.ini' -o -iname '*.spec.*' -o -name conftest.py", "locator": "whole repo", "quote": "(no matches)"},
+        {"source": "git -C Hs-Logic log --stat -8", "locator": "commit baee4f1", "quote": "fix: apply 15 confirmed findings from adversarial review ... Refuted by verification, deliberately unchanged"}
+      ]
+    },
+    {
+      "name": "GitHub backup of the code",
+      "kind": "code custody",
+      "lives_in": "https://github.com/Wkayaobama/Hs-Logic (origin), branches main and claude/affectionate-brahmagupta-r8n7t5 (identical: 'git log main..HEAD' empty)",
+      "built_on": "git",
+      "status": "pushed; this is one of the few in-house components that IS on GitHub (contrast: ic-load, Mir-Load, Go CDC, BIBA push not in any available repo)",
+      "owner_dependency": "personal GitHub account of the author",
+      "scenario_relevance": "Tracker row '[ADMIN] Document workflows and scripts, update GitHub for code backup' (17%)",
+      "gate_rows": ["Depends on"],
+      "evidence": [
+        {"source": "git -C Hs-Logic remote -v", "locator": "origin", "quote": "origin https://github.com/Wkayaobama/Hs-Logic (fetch)"},
+        {"source": "projects/crm-three-scenarios/brief.md", "locator": "lines 232-236", "quote": "NOT in any repo (named in the deck/tracker only): ic-load, Mir-Load ... the tracker's own row 'update GitHub for code backup' is at 17%"}
+      ]
+    }
+  ],
+  "facts": [
+    {
+      "id": "F1",
+      "statement": "Orphan-company rule: a company is an orphan only when it has zero deal associations AND is not directly associated with any deal that has a non-empty final_customer (edge-company) AND its normalised name is not among the final_customer strings of any deal.",
+      "value": "3 conjunctive conditions; live result 9,150 of 10,000 scanned",
+      "story_link": "Story 2 cardinality trap (deals related to nothing); Image 2 gauge 3 (data modelling); health-check verdict",
+      "evidence": [
+        {"source": "Hs-Logic/backend/app/routes/hubspot.py", "locator": "lines 306-313 and 401-410", "quote": "A company is an orphan when ALL of the following are true: 1. It has zero deal associations (deal_count = 0) 2. It is NOT an edge-company ... 3. Its normalised name is NOT in the set of `final_customer` name strings from any deal"},
+        {"source": "projects/crm-three-scenarios/sources/hs-logic-crm-health-2026-09.png", "locator": "Orphan companies card", "quote": "9,150 Orphan companies — Zero deal associations · not edge-connected · name not a final_customer on any deal"}
+      ]
+    },
+    {
+      "id": "F2",
+      "statement": "Duplicate-company rule: companies grouped by normalised (lowercased, whitespace-collapsed) non-empty domain and separately by normalised name; any group with 2 or more members is a cluster; identical id-sets are de-duplicated across the two groupings; only the first 10 members per cluster are kept.",
+      "value": "226 clusters in the capped scan",
+      "story_link": "Story 2 'multiple duplicates (show with the hs-standalone project)'",
+      "evidence": [
+        {"source": "Hs-Logic/backend/app/routes/hubspot.py", "locator": "lines 297-299, 315-318, 412-448", "quote": "Companies are grouped by normalised domain (non-empty) and by normalised name. Any group with ≥ 2 members is a duplicate cluster. ... for c in group[:10]"},
+        {"source": "projects/crm-three-scenarios/sources/hs-logic-crm-health-2026-09.png", "locator": "Duplicate clusters card", "quote": "226 Duplicate clusters"}
+      ]
+    },
+    {
+      "id": "F3",
+      "statement": "NQL (not qualified for CRM) rule: a contact is NQL when (no email AND no phone) OR (no firstname AND no lastname).",
+      "value": "1,764 of 10,000 scanned contacts",
+      "story_link": "Story 2 failing conversion rate / lead triage; Image 2 gauge 2 (business data problem)",
+      "evidence": [
+        {"source": "Hs-Logic/backend/app/routes/hubspot.py", "locator": "lines 594-595", "quote": "is_nql = (not has_email and not has_phone) or (not has_name)"},
+        {"source": "projects/crm-three-scenarios/sources/hs-logic-contact-health-2026-09.png", "locator": "NQL card", "quote": "1,764 NQL contacts"}
+      ]
+    },
+    {
+      "id": "F4",
+      "statement": "_MQL rule: a contact meets the bar when it has email AND a name AND at least one company association, OR its lifecyclestage is one of marketingqualifiedlead, salesqualifiedlead, opportunity, customer, evangelist. Evaluated only if not NQL; everything else is 'borderline'.",
+      "value": "6,416 of 10,000 scanned contacts (borderline = remainder, not shown on the screenshot)",
+      "story_link": "Story 2 (Team A static reporting vs qualified pipeline)",
+      "evidence": [
+        {"source": "Hs-Logic/backend/app/routes/hubspot.py", "locator": "lines 483-489 and 597-618", "quote": "_MQL_LIFECYCLES = {\"marketingqualifiedlead\", \"salesqualifiedlead\", \"opportunity\", \"customer\", \"evangelist\"} ... is_mql = (has_email and has_name and has_company) or (c[\"lifecycle\"] in _MQL_LIFECYCLES)"},
+        {"source": "projects/crm-three-scenarios/sources/hs-logic-contact-health-2026-09.png", "locator": "_MQL card", "quote": "6,416 _MQL contacts"}
+      ]
+    },
+    {
+      "id": "F5",
+      "statement": "Contact duplicate rule: clusters by identical lowercased email, and separately by normalised 'firstname lastname'; 2+ members = cluster; 10 members kept per cluster.",
+      "value": "281 clusters in the capped scan",
+      "story_link": "Story 2 duplicates",
+      "evidence": [
+        {"source": "Hs-Logic/backend/app/routes/hubspot.py", "locator": "lines 529-534 and 620-674", "quote": "Contacts sharing the same normalised email → \"email\" cluster · Contacts sharing the same normalised full name → \"name\" cluster"},
+        {"source": "projects/crm-three-scenarios/sources/hs-logic-contact-health-2026-09.png", "locator": "Duplicate clusters card", "quote": "281 Duplicate clusters"}
+      ]
+    },
+    {
+      "id": "F6",
+      "statement": "Multi-company rule: a contact associated with 2 or more companies is flagged as violating single-company cardinality.",
+      "value": "193 of 10,000 scanned contacts",
+      "story_link": "Story 2 cardinality trap (contact side); Image 3 messy landlord (shared occupants without boundaries)",
+      "evidence": [
+        {"source": "Hs-Logic/backend/app/routes/hubspot.py", "locator": "lines 533-534 and 634-642", "quote": "Contacts linked to 2+ companies (violates single-company cardinality) → reported separately as multi-company contacts"},
+        {"source": "projects/crm-three-scenarios/sources/hs-logic-contact-health-2026-09.png", "locator": "Multi-company card", "quote": "193 Multi-company"}
+      ]
+    },
+    {
+      "id": "F7",
+      "statement": "Missing-field prevalence is computed across all scanned contacts (not only NQL): email, phone, name (neither first nor last), company (no association).",
+      "value": "email 1.7% (170) · phone 53.3% (5,329) · name 16.5% (1,651) · company 31.4% (3,135) of 10,000",
+      "story_link": "Story 2 failing conversion; Image 2 gauge 2",
+      "evidence": [
+        {"source": "Hs-Logic/backend/app/routes/hubspot.py", "locator": "lines 575-592 and 684-688", "quote": "# missing field prevalence across ALL contacts (not just NQL)"},
+        {"source": "projects/crm-three-scenarios/sources/hs-logic-contact-health-2026-09.png", "locator": "Missing field prevalence row", "quote": "Email 1.7% missing 170 contacts · Phone 53.3% missing 5,329 contacts · Name 16.5% missing 1,651 contacts · Company 31.4% missing 3,135 contacts"}
+      ]
+    },
+    {
+      "id": "F8",
+      "statement": "The 10,000 cap: both scans stop paging at CAP = 10000 records and set capped=true; the UI shows 'cap reached — results partial'. Against live totals the company scan covered 10,000 of 13,679 (73.1%) and the contact scan 10,000 of 26,293 (38.0%). Records are paged in default list order, so the sample is not random.",
+      "value": "CAP = 10000; live 2026-10-01: companies 13,679, contacts 26,293, deals 1,972",
+      "story_link": "Gate row Sampling probe (S1: your probes are partial); health-check verdict 'simplify'",
+      "evidence": [
+        {"source": "Hs-Logic/backend/app/routes/hubspot.py", "locator": "lines 320, 465, 536, 698", "quote": "CAP = 10000  # guard against very large portals ... \"capped\": len(all_companies) >= CAP"},
+        {"source": "Hs-Logic/frontend/src/tabs/CrmHealthTab.tsx", "locator": "lines 89-94", "quote": "{data.capped && (<span className=\"font-semibold text-amber-700\"> · cap reached — results partial</span>)}"},
+        {"source": "live-hubsql", "locator": "search_crm_objects COMPANY limit 1 (2026-10-01)", "quote": "\"total\":13679"},
+        {"source": "live-hubsql", "locator": "search_crm_objects CONTACT limit 1 (2026-10-01)", "quote": "\"total\":26293"},
+        {"source": "live-hubsql", "locator": "search_crm_objects DEAL limit 1 (2026-10-01)", "quote": "\"total\":1972"}
+      ]
+    },
+    {
+      "id": "F9",
+      "statement": "The 15-minute cache: health results are cached in-process per endpoint for HEALTH_CACHE_TTL_SECONDS (default 900 s); ?refresh=true bypasses it; concurrent requests share one scan (single-flight); errors are never cached; valid only for a single uvicorn worker.",
+      "value": "900 s default; scan cost 100+ sequential API calls, ~30-90 s",
+      "story_link": "S1 cost line (operator time, API rate budget); Gate 'Sampling probe'",
+      "evidence": [
+        {"source": "Hs-Logic/backend/app/cache.py", "locator": "lines 20-50", "quote": "async def get_or_compute(self, key, compute, ttl_seconds, refresh=False) ... concurrent refreshes trigger one scan, not several."},
+        {"source": "Hs-Logic/README.md", "locator": "lines 70-73", "quote": "First scan takes ~30–90s (100+ sequential HubSpot API calls ...). Results cached in-process for 15 min per endpoint (single uvicorn worker only — scaling workers multiplies scans). Refresh button in UI forces rescan"}
+      ]
+    },
+    {
+      "id": "F10",
+      "statement": "Under-count limitation: duplicate_ids (the export list) is derived from cluster members truncated to 10 per cluster, so clusters larger than 10 are under-counted in the id list; detail payloads are also sliced (orphans 150, clusters 60, NQL 150, MQL/borderline/multi-company 50) while *_ids lists for orphans, NQL and multi-company are complete.",
+      "value": "10 members/cluster; 150/60/50 display slices",
+      "story_link": "Gate 'Sampling probe' (probe precision); health-check verdict",
+      "evidence": [
+        {"source": "Hs-Logic/README.md", "locator": "line 74", "quote": "Known limitation: `duplicate_ids` in both health payloads derives from cluster members truncated to 10 per cluster, so it under-counts for larger clusters."},
+        {"source": "Hs-Logic/backend/app/routes/hubspot.py", "locator": "lines 460-464 and 689-697", "quote": "\"orphans\": orphans[:150], \"duplicate_clusters\": duplicate_clusters[:60], # Full ID lists for suppression export (not capped) \"orphan_ids\": [...] ... \"nql_contacts\": nql_contacts[:150], \"mql_contacts\": mql_contacts[:50]"}
+      ]
+    },
+    {
+      "id": "F11",
+      "statement": "Private-app scopes required: crm.objects.contacts.read, crm.objects.companies.read, crm.objects.deals.read, tickets, account-info.security.read; optional crm.lists.read and crm.lists.write (suppression list; UI falls back to CSV on 403). The deals->companies association batch read is wrapped in try/except, so a missing association scope silently yields an empty edge set.",
+      "value": "5 required + 2 optional scopes",
+      "story_link": "Gate 'Depends on' (S1 engine = one token); S2 partner access (partner seat type exists on the account)",
+      "evidence": [
+        {"source": "Hs-Logic/README.md", "locator": "lines 24-32", "quote": "Required Private-App Scopes: crm.objects.contacts.read, crm.objects.companies.read, crm.objects.deals.read, tickets ..., account-info.security.read, crm.lists.read (optional...), crm.lists.write (optional ...; frontend falls back to CSV on 403)"},
+        {"source": "Hs-Logic/backend/app/routes/hubspot.py", "locator": "lines 388-399", "quote": "except HTTPException: pass  # association scope may be absent; skip"}
+      ]
+    },
+    {
+      "id": "F12",
+      "statement": "Live probe (read-only HubSQL, 2026-10-01): deals carrying a final_customer value but with NO associated company = 116; all deals with no associated company = 160; deals with final_customer set = 1,043 (Hs-Logic scan saw 1,034 on the screenshot date); companies with no associated deal = 12,574 of 13,679.",
+      "value": "116 FC-only deals; 160 company-less deals; 1,043 FC deals; 12,574 deal-less companies",
+      "story_link": "Story 2 cardinality trap ('deals related to nothing'); Image 2 gauge 3; Gate 'Sampling probe' S1 (HubSpot SQL probe complements Hs-Logic)",
+      "evidence": [
+        {"source": "live-hubsql", "locator": "SELECT COUNT(*) FROM DEAL WHERE final_customer IS NOT NULL AND associations.COMPANY IS NULL", "quote": "The total count is 116."},
+        {"source": "live-hubsql", "locator": "SELECT COUNT(*) FROM DEAL WHERE associations.COMPANY IS NULL", "quote": "The total count is 160."},
+        {"source": "live-hubsql", "locator": "search_crm_objects DEAL filter final_customer HAS_PROPERTY", "quote": "\"total\":1043"},
+        {"source": "live-hubsql", "locator": "SELECT COUNT(*) FROM COMPANY WHERE associations.DEAL IS NULL", "quote": "The total count is 12574."}
+      ]
+    },
+    {
+      "id": "F13",
+      "statement": "Hs-Logic encodes the cardinality trap in its own orphan rule: a company whose name matches a deal's final_customer string is NOT counted as orphan, i.e. the tool treats a free-text string on a deal as a stand-in for a company association. 709 companies were excluded as 'edge' this way plus an unreported number by name match.",
+      "value": "709 edge-companies excluded (screenshot)",
+      "story_link": "Image 2 gauge 3 (data modelling problem: string and company object coexist); Scenario 1 'technical know-how hides the problem behind individual prowess'",
+      "evidence": [
+        {"source": "Hs-Logic/backend/app/routes/hubspot.py", "locator": "lines 382-383, 406-409", "quote": "fc_names: normalised set of final_customer strings ... if _normalize(c[\"name\"]) in fc_names: continue"},
+        {"source": "projects/crm-three-scenarios/sources/hs-logic-crm-health-2026-09.png", "locator": "banner", "quote": "1,034 deals with final_customer · 709 edge-companies excluded"}
+      ]
+    },
+    {
+      "id": "F14",
+      "statement": "Provenance of the repo: 8 commits, all on 2026-08-28 between 17:58 and 18:27 (+0200), single author, co-authored with Claude; the seed fragments (fast-api.py, hubspot-api.py 784 lines, mongo.py) were deleted in commit 8cc86d5; README says it 'centralizes the scattered HubSpot - Worfklow tooling'.",
+      "value": "8 commits / 1 day / 1 author",
+      "story_link": "Story 1 iceberg (in-house build); Gate 'Depends on'; health-check verdict",
+      "evidence": [
+        {"source": "git -C Hs-Logic log --stat -8", "locator": "commits 7eb1e37, 18b21fd, 43215b9, 8cc86d5, baee4f1, 958c295, f1aca41, d777b29", "quote": "Date: Fri Aug 28 17:58:41 2026 +0200 ... Date: Fri Aug 28 18:27:31 2026 +0200; cleanup: retire seed fragments ... hubspot-api.py | 784 ----------"},
+        {"source": "Hs-Logic/README.md", "locator": "line 5", "quote": "centralizes the scattered HubSpot - Worfklow tooling"}
+      ]
+    },
+    {
+      "id": "F15",
+      "statement": "Health-check verdict inputs (presentation, not decision): KEEP the rule definitions (they are the only written-down definitions of orphan/duplicate/NQL/MQL in the three repos); SIMPLIFY the scan (cap and in-process cache mean the numbers are partial and stale; the same counts are obtainable in one read-only HubSQL query each, e.g. F12); CONSOLIDATE with the tracker's own 'partner vs Operations Hub' benchmark row, since Hs-Logic only tags (suppression list) and never merges or fixes.",
+      "value": "keep rules / simplify scan / consolidate action layer",
+      "story_link": "Health-check verdict; Gates 'Sampling probe' and 'Declarative action layer'",
+      "evidence": [
+        {"source": "Hs-Logic/backend/app/routes/hubspot.py", "locator": "line 304", "quote": "Compute CRM health metrics using the same logic as the SQL queries:"},
+        {"source": "projects/crm-three-scenarios/sources/AYA_trackerv4_210926-xlsx-extract.txt", "locator": "line 10", "quote": "[DATA] Partern to Clean CRM companies & groups - assess best solution | Remove duplicates and inconsistent group structures in the CRM, after benchmarking an external partner against HubSpot Operations Hub ... in progress"},
+        {"source": "live-hubsql", "locator": "SELECT COUNT(*) FROM COMPANY WHERE associations.DEAL IS NULL", "quote": "The total count is 12574."}
+      ]
+    }
+  ],
+  "gaps": [
+    "Hs-Logic cannot measure deals that carry a final_customer string but have no company association (the 'deals related to nothing' case of Story 2): it scans companies, not deals, and uses final_customer only to EXCUSE companies from orphan status. Live HubSQL probe 2026-10-01 fills it: 116 such deals (160 deals with no company at all). Source: hubspot.py lines 349-410; live-hubsql.",
+    "Hs-Logic's numbers are partial by design: 10,000-record cap vs live totals of 13,679 companies (73% covered) and 26,293 contacts (38% covered); paging is in default list order so the uncovered remainder is not a random sample. Any deck figure from slides 26-27 must carry 'partial, capped at 10,000'. Source: hubspot.py lines 320/536; search_crm_objects totals.",
+    "No deal-level health at all: no duplicate-deal detection, no pipeline/product-line cardinality check (Image 2 gauge 1, logical problem), no year-metric naming check (gauge 2, business problem). Those remain measured only in the SEALSQ property set (BRIEF 2b).",
+    "Duplicate detection is exact-match on normalised name/domain/email only (lowercase + whitespace collapse); no fuzzy matching, no legal-suffix stripping, no cross-entity (SEALSQ / IC'Alps / WISeKey) attribution, so the 226 / 281 clusters are a floor, not a count. Source: hubspot.py _normalize line 297-299.",
+    "duplicate_ids under-counts for clusters with more than 10 members (README line 74); the orphan detail is sliced to 150 rows and clusters to 60 in the UI, so screenshots show examples, not the population.",
+    "Multi-company contacts (193) are flagged as a violation, but HubSpot natively allows many-to-many contact-company associations; the 'single-company cardinality' rule is a house rule stated only in the docstring, not in any governance document in the three repos.",
+    "The orphan rule excludes companies whose name string-matches a deal's final_customer; the number excluded by name match is not reported separately (only the 709 edge-companies via association are). The tool therefore partly accepts the cardinality trap it is supposed to expose.",
+    "No automated tests in the repo (no test files, no pytest/vitest config, no CI, no .github directory); verification exists only in commit messages ('Verified token-free', '15 confirmed findings from adversarial review').",
+    "No deployment evidence for 'HS-LOGIC serverless query layer on Cloud Run (Sep)' (deck slide 10): the repo has no Cloud Run service definition, no gcloud/cloudbuild file, no CI workflow; the only deployment artefacts are docker-compose for a local host and a Windows-laptop launch.json. The compose comment 'broke the deployed app's /portal route once' proves a deployment happened somewhere but not where.",
+    "The 'SQL queries' the Python logic claims to mirror (docstring line 304) are not in the repo; the SQL source of truth for orphan/duplicate rules is unavailable to this session.",
+    "Single operator dependency: one author, one day of commits (2026-08-28), one hard-coded user path in .claude/launch.json, one private-app token; no commits since merge; no README owner or runbook beyond 'docker compose up'.",
+    "The suppression-list export has no execution evidence (no list id, no screenshot); whether crm.lists.write is granted on the private app is unknown, so the only write path may in practice be the CSV fallback.",
+    "Scan timestamp of the slide 26-27 screenshots is not recorded in the images or the deck text (slides 26-27 carry only the title 'CRM Health'); the live FC-deal count has since moved from 1,034 to 1,043.",
+    "Portal counts in the Overview tab come from the search API 'total' with -1 fallback; the search API total is used, so the Overview numbers are complete even though the health scans are capped (an inconsistency a reader of the dashboard would not see)."
+  ],
+  "output_file": "projects/crm-three-scenarios/explore/explore-hs-logic.json"
+}

@@ -1,0 +1,485 @@
+{
+  "role": "explore-pricing",
+  "as_of": "2026-10-01",
+  "currency_note": "All prices USD list prices unless stated; portal currency is USD (projects/crm-three-scenarios/brief.md line 4). GBP figure flagged where it occurs.",
+  "items": [
+    {
+      "name": "S3 cost line: HubSpot Data Hub subscription (Starter / Professional / Enterprise)",
+      "kind": "cost-line",
+      "lives_in": "https://www.hubspot.com/pricing/data",
+      "built_on": "HubSpot official list price, annual-commitment 'Starts at' figures",
+      "status": "sourced (list price)",
+      "scenario_relevance": "S3",
+      "gate_rows": ["New cost lines"],
+      "owner_dependency": "HubSpot sales quote for actual contract; tracker row '[DOC] Draft PO for partner or Operations Hub' is in progress (BRIEF 2d)",
+      "evidence": [
+        {"source": "https://www.hubspot.com/pricing/data", "locator": "as of 2026-10-01, tier cards", "quote": "Starter: Starts at $7/mo/seat; Professional: Starts at $720/mo ($800/mo monthly) Includes 1 Core Seat; Enterprise: Starts at $2,000/mo Includes 1 Core Seat"}
+      ]
+    },
+    {
+      "name": "S3 cost line: HubSpot Data Hub feature gates (what each tier unlocks)",
+      "kind": "feature-gate",
+      "lives_in": "knowledge.hubspot.com + developers.hubspot.com",
+      "built_on": "HubSpot Knowledge Base subscription-requirement lines",
+      "status": "sourced (official docs)",
+      "scenario_relevance": "S3",
+      "gate_rows": ["New cost lines", "Declarative action layer", "Rules to comply"],
+      "owner_dependency": "none",
+      "evidence": [
+        {"source": "https://knowledge.hubspot.com/records/manage-duplicate-records", "locator": "as of 2026-10-01, requirements box", "quote": "Data Hub Professional or Enterprise subscription is required for bulk duplicate management, custom duplicate detection rules (up to 2 per object, 9 properties max)"},
+        {"source": "https://developers.hubspot.com/docs/api/workflows/custom-code-actions", "locator": "as of 2026-10-01, intro", "quote": "If you have an Data Hub Professional or Enterprise account, use the Custom code action in workflows to write and execute JavaScript or Python"},
+        {"source": "https://knowledge.hubspot.com/reports/create-and-use-datasets", "locator": "as of 2026-10-01, requirements box", "quote": "Data Hub Professional, Enterprise"},
+        {"source": "https://knowledge.hubspot.com/integrations/connect-hubspot-and-snowflake-data-sync", "locator": "as of 2026-10-01, requirements box", "quote": "Data Hub Enterprise"}
+      ]
+    },
+    {
+      "name": "S3 cost line: Sales Hub seats (Professional / Enterprise) and seat model",
+      "kind": "cost-line",
+      "lives_in": "https://www.hubspot.com/pricing/sales",
+      "built_on": "HubSpot official per-seat list price + Knowledge Base seat definitions",
+      "status": "sourced (list price)",
+      "scenario_relevance": "S3 (also S1/S2 baseline: the deck notes 'HubSpot seats ran out by September', BRIEF 2c)",
+      "gate_rows": ["New cost lines", "Depends on"],
+      "owner_dependency": "seat count in portal 9201667 (not read in this role)",
+      "evidence": [
+        {"source": "https://www.hubspot.com/pricing/sales", "locator": "as of 2026-10-01, tier cards", "quote": "Professional: Starts at $90/mo/seat ($100/mo/seat monthly); required, one-time Professional Onboarding for a fee of $1,500. Enterprise: Starts at $150/mo/seat; required, one-time Enterprise Onboarding for a fee of $3,500"},
+        {"source": "https://knowledge.hubspot.com/account-management/manage-seats", "locator": "as of 2026-10-01, seat types", "quote": "View-Only Seat ... These seats are free and unlimited for Starter, Professional, and Enterprise subscriptions. Partner Seat: a free seat that gives eligible HubSpot Solutions Partners employees access to all features in a client's account."}
+      ]
+    },
+    {
+      "name": "S3 cost line: HubSpot Credits (Breeze Intelligence / enrichment consumption)",
+      "kind": "cost-line",
+      "lives_in": "hubspot.com/pricing pages + knowledge base",
+      "built_on": "HubSpot official per-credit price and included credits per tier",
+      "status": "sourced (list price); per-record consumption rate NOT found on official pages (see gaps)",
+      "scenario_relevance": "S3",
+      "gate_rows": ["New cost lines", "Sampling probe"],
+      "owner_dependency": "which Breeze features the team would actually run",
+      "evidence": [
+        {"source": "https://www.hubspot.com/pricing/sales", "locator": "as of 2026-10-01, credits section", "quote": "Additional credits available at $0.010 per credit through packs or Pay-as-You-Go. Starter: 500 credits, Professional: 3,000 credits, Enterprise: 5,000 credits"},
+        {"source": "https://knowledge.hubspot.com/account-management/understand-hubspot-credits-and-billing", "locator": "as of 2026-10-01", "quote": "$0.010 per credit, invoiced in increments of 10 credits ... Unused credits expire at the end of each usage period and do not roll over to the next month ... Breeze Intelligence Credits transitioned to HubSpot Credits"}
+      ]
+    },
+    {
+      "name": "S3 alt cost line: record-count-priced dedupe apps (Insycle, Koalify, Dedupely)",
+      "kind": "cost-line",
+      "lives_in": "vendor pricing pages / HubSpot App Marketplace",
+      "built_on": "vendor list prices, basis = records in the connected portal",
+      "status": "sourced (list price) for Insycle and Koalify; Dedupely partially (Starter only)",
+      "scenario_relevance": "S3 ('Subscription (often priced by record count)')",
+      "gate_rows": ["New cost lines", "Declarative action layer"],
+      "owner_dependency": "total record count of portal 9201667 (Hs-Logic scans cap at 10,000 so the true count is unknown here)",
+      "evidence": [
+        {"source": "https://www.insycle.com/pricing", "locator": "as of 2026-10-01", "quote": "4 tiers priced by total records in connected databases; Starter $100/month billed annually (One module); Growth $150/month billed annually (Two modules); Professional $200/month billed annually (All modules); Enterprise Custom; 20% off annually"},
+        {"source": "https://koalify.io/pricing", "locator": "as of 2026-10-01", "quote": "You only pay for the objects you select to deduplicate ... Free: 0-250K records; $25/month: 250K-500K records ... $500/month when billed yearly or $1,000/month when billed monthly for portals exceeding 1M records"},
+        {"source": "https://ecosystem.hubspot.com/marketplace/apps/dedupely", "locator": "as of 2026-10-01, pricing tab", "quote": "Starter $32/month up to 30.000 records; Basic up to 60.000; Pro up to 120.000; Premium up to 240.000; Gold up to 480.000 records; All plans include all features"}
+      ]
+    },
+    {
+      "name": "S2 cost line: HubSpot Solutions Partner retainer / audit / RevOps-as-a-service",
+      "kind": "cost-line",
+      "lives_in": "partner public pricing pages (INSIDEA, HIVE Strategy, Lean Labs) + two cost-survey articles",
+      "built_on": "ranges from partner sites; not a quote for WISeKey",
+      "status": "sourced (range from partner sites)",
+      "scenario_relevance": "S2 ('Retainer or per-audit fees; time to hand over knowledge')",
+      "gate_rows": ["New cost lines", "Sampling probe", "Rules to comply"],
+      "owner_dependency": "tracker row '[DATA] Partner to clean CRM companies & groups - assess best solution' (54%, in progress) and '[DOC] Draft PO for partner or Operations Hub' (BRIEF 2d)",
+      "evidence": [
+        {"source": "https://insidea.com/hubspot/managed-operations", "locator": "as of 2026-10-01, pricing block", "quote": "Retainers, from $2,000 per month ... scale with scope across our Growth, Build, and Strategic tiers. Minimum commitment is 6 to 12 months depending on tier. License costs are separate, paid directly to HubSpot at partner-discount rates."},
+        {"source": "https://www.hivestrategy.com/pricing", "locator": "as of 2026-10-01", "quote": "HubSpot Fractional Admin: Starting at $2,000 (starting at 10 hours per month); Essential Retainer: Starting at $5k/mo; Growth Retainer: Starting at $7.5k/mo; Enterprise Retainer: Starting at $15k/mo; HubSpot Audit: Starting at $3,000; HubSpot Training: Starting at $200/hr"},
+        {"source": "https://www.leanlabs.com/pricing.md", "locator": "as of 2026-10-01", "quote": "Free HubSpot assessments and consults. HubSpot Onboarding starting at $2,000 (one-time); HubSpot Migrations starting at $7,000; HubSpot Integrations starting at $15,000"},
+        {"source": "https://portalpilot.io/blog/hubspot-audit-cost", "locator": "as of 2026-10-01, article dated January 30, 2026", "quote": "Standard audit: $2,000-$5,000; Enterprise audit: $5,000-$10,000+; Ongoing advisory: $150-$300/hour ... a quote from a HubSpot Solutions Partner ... The quote was $8,200."},
+        {"source": "https://www.impactplus.com/blog/how-much-does-working-with-a-hubspot-partner-agency-cost", "locator": "as of 2026-10-01, article dated June 9, 2024", "quote": "Ongoing support retainers: $2,500 to $10,000/month for ongoing DevOps or RevOps services; Basic onboarding: $3,000 to $6,000 (one-time)"}
+      ]
+    },
+    {
+      "name": "S2 context: HubSpot Solutions Partner tier definitions",
+      "kind": "definition",
+      "lives_in": "https://www.hubspot.com/solutions-partners-tiers-and-benefits-2026",
+      "built_on": "HubSpot official partner-program page",
+      "status": "sourced (official); tiers rank partners by sold/managed MRR and retention, not delivery quality",
+      "scenario_relevance": "S2 ('Depends on: the partner's HubSpot depth')",
+      "gate_rows": ["Depends on"],
+      "owner_dependency": "none",
+      "evidence": [
+        {"source": "https://www.hubspot.com/solutions-partners-tiers-and-benefits-2026", "locator": "as of 2026-10-01", "quote": "As of July 15, 2026, the program will be structured into five tiers (Solutions partner, Gold, Platinum, Diamond, Elite); Gold 115 sourced / 345 total points; Platinum 425 / 1,275; Diamond 1,250 / 3,750 with >=75% avg GRR; Elite 2,750 / 11,000 with >=80% avg GRR; $400/month partner program membership as the entry requirement"}
+      ]
+    },
+    {
+      "name": "S1 cost line: StackSync subscription",
+      "kind": "cost-line",
+      "lives_in": "https://www.stacksync.com/pricing",
+      "built_on": "vendor list price; basis = active syncs + records in sync",
+      "status": "sourced (list price); the team's actual plan is not in the repos",
+      "scenario_relevance": "S1 ('StackSync SQL', 'enforced in icload and StackSync'); S2 ('StackSync is outsourced')",
+      "gate_rows": ["New cost lines", "Sampling probe", "Declarative action layer"],
+      "owner_dependency": "the deck's 'Migrate Stacksync workload to Oban' item (6 weeks on the list, BRIEF 2c) decides whether this line stays",
+      "evidence": [
+        {"source": "https://www.stacksync.com/pricing", "locator": "as of 2026-10-01, plan cards", "quote": "Starter: $1,000 / mo, billed annually ($1,400 month-to-month), 1 Active Sync, 50K records in sync; Pro: $3,000 / mo, billed annually ($3,700 month-to-month), 3 Active Syncs, 1M records in sync; Managed Pro: $4,200 / mo; Enterprise: Custom. No free tier."},
+        {"source": "https://www.stacksync.com/pricing", "locator": "as of 2026-10-01, usage table", "quote": "0-50K: Included; 50K-150K: $8 per 1,000; 150K-1M: $2; 1M-10M: $0.9; 10M-100M: $0.4; 100M+: $0.1. Once a record is in sync, it can update an unlimited number of times at no extra cost."}
+      ]
+    },
+    {
+      "name": "S1 cost line: Google Cloud (BigQuery, Cloud Run, Compute Engine)",
+      "kind": "cost-line",
+      "lives_in": "cloud.google.com pricing pages (BigQuery, Cloud Run official; GCE monthly figure via a public mirror)",
+      "built_on": "Google list prices, us-central1 unless stated",
+      "status": "sourced (list price for BigQuery / Cloud Run units; order of magnitude for a small VM)",
+      "scenario_relevance": "S1 (Bq-dbt, Mir-Load on a GCP instance, HS-LOGIC on Cloud Run)",
+      "gate_rows": ["New cost lines", "Depends on"],
+      "owner_dependency": "actual bytes scanned / instance size are not in the repos; the deck only says 'Mir-Load (laptop -> GCP instance, Sep)'",
+      "evidence": [
+        {"source": "https://cloud.google.com/bigquery/pricing", "locator": "as of 2026-10-01, On-demand compute pricing table (us-central1)", "quote": "Queries (on-demand): 0 tebibyte to 1 tebibyte Free per 1 month / account; 1 tebibyte and above $6.25 / 1 tebibyte ... Active logical storage $0.000031507 / 1 gibibyte hour ... Long-term logical storage $0.000021918 / 1 gibibyte hour ... The first 10 GiB is free each month."},
+        {"source": "https://cloud.google.com/run/pricing", "locator": "as of 2026-10-01, Services (Requests-based billing) table", "quote": "CPU (per vCPU-second) Active time $0.000024; Memory (per GiB-second) Active time $0.0000025; Requests (per 1,000,000) $0.40; Free tier: First 180,000 vCPU-seconds free per month, First 360,000 GiB-seconds free per month, 2 million requests free per month"},
+        {"source": "https://cloud.google.com/free/docs/free-cloud-features", "locator": "as of 2026-10-01, Compute Engine row", "quote": "1 non-preemptible e2-micro VM instance per month in one of the following US regions: Oregon: us-west1. Iowa: us-central1. South Carolina: us-east1. 30 GB-months standard persistent disk."},
+        {"source": "https://gcloud-compute.com/e2-medium.html", "locator": "as of 2026-10-01 (page 'Last Update: Sun Sep 27 01:50:31 2026 (GMT)')", "quote": "e2-medium 2 Shared vCPU, 4 GB: us-central1 Monthly $24.46; europe-west6 (Zurich) Monthly $32.04"}
+      ]
+    },
+    {
+      "name": "S1 cost line: dbt Core (free) vs dbt platform",
+      "kind": "cost-line",
+      "lives_in": "github.com/dbt-labs/dbt-core + getdbt.com/pricing",
+      "built_on": "Apache 2.0 licence / dbt Labs list price",
+      "status": "sourced (list price); the deck says the team kept 'DBT' among four tools (BRIEF 2c)",
+      "scenario_relevance": "S1 (Bq-dbt)",
+      "gate_rows": ["New cost lines"],
+      "owner_dependency": "none",
+      "evidence": [
+        {"source": "https://github.com/dbt-labs/dbt-core", "locator": "as of 2026-10-01, README license section", "quote": "The source code in this repository is licensed under the Apache License 2.0."},
+        {"source": "https://www.getdbt.com/pricing", "locator": "as of 2026-10-01", "quote": "Developer (Free): One Developer seat, 3,000 successful models built per month, 1 project. Starter: $100 per user/month, Five developer seats, 15,000 successful models built per month. Enterprise: Custom pricing"}
+      ]
+    },
+    {
+      "name": "S1 cost line: Oban Pro (Elixir job runner for the 'Elixir sync')",
+      "kind": "cost-line",
+      "lives_in": "https://oban.pro/pricing",
+      "built_on": "vendor list price",
+      "status": "sourced (list price); only relevant if the 'Migrate Stacksync workload to Oban' item is built (BRIEF 2c)",
+      "scenario_relevance": "S1 ('plus the Elixir sync if built')",
+      "gate_rows": ["New cost lines", "Declarative action layer"],
+      "owner_dependency": "Oban open source is free; Pro is optional",
+      "evidence": [
+        {"source": "https://oban.pro/pricing", "locator": "as of 2026-10-01", "quote": "Pro: $150/mo, billed monthly; $135/mo, billed yearly as $1,620; 1 Application, Unlimited Nodes. Open Source: Free - Reliable Background Jobs, Scheduled Jobs and Cron"}
+      ]
+    },
+    {
+      "name": "S1 cost line: Anthropic Claude API for an ops assistant",
+      "kind": "cost-line",
+      "lives_in": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "built_on": "Anthropic list price per million tokens; monthly figure is an order-of-magnitude derivation under a stated volume assumption",
+      "status": "sourced (list price); monthly total = order of magnitude",
+      "scenario_relevance": "S1 ('Now AI can do everything'; lead triage 'AI auto-qualification from 7 Sep', BRIEF 2c)",
+      "gate_rows": ["New cost lines"],
+      "owner_dependency": "actual call volume of the lead-triage / ops assistant is not in the repos",
+      "evidence": [
+        {"source": "https://platform.claude.com/docs/en/about-claude/pricing", "locator": "as of 2026-10-01, Model pricing table", "quote": "the top-tier model: $4 / MTok input, $20 / MTok output; the mid-tier model: $2 / MTok, $10 / MTok; the small-tier model: $1 / MTok, $5 / MTok; Batch API ... 50% discount; Cache read (hit) 0.1x base input price (0.05x on the top tier)"}
+      ]
+    },
+    {
+      "name": "S1/S3 cost line: HubSpot private app (API token) = no licence fee",
+      "kind": "cost-line",
+      "lives_in": "https://developers.hubspot.com/docs/guides/apps/private-apps/overview",
+      "built_on": "HubSpot developer docs (no price; limits by tier)",
+      "status": "sourced (official docs): private apps carry no price line; only API rate limits scale with tier",
+      "scenario_relevance": "S1 (Hs-Logic is built on a private-app token, BRIEF 2e); S3",
+      "gate_rows": ["New cost lines", "Depends on"],
+      "owner_dependency": "none",
+      "evidence": [
+        {"source": "https://developers.hubspot.com/docs/guides/apps/private-apps/overview", "locator": "as of 2026-10-01", "quote": "You can create up to 20 private apps in your HubSpot account. Free & Starter: 100 / private app per 10 seconds, 250,000 / account per day; Professional: 190 / private app, 625,000 / account; Enterprise: 190 / private app, 1,000,000 / account"}
+      ]
+    }
+  ],
+  "facts": [
+    {
+      "id": "P-S3-01",
+      "statement": "HubSpot Data Hub Starter list price (confidence: list price, official pricing page; note HubSpot's own blog lists $9/seat annual and $15/seat monthly, see gaps).",
+      "value": "USD 7 per seat per month (annual commitment, 'starts at'); USD 20 per seat per month (monthly commitment)",
+      "story_link": "S3 · gate row 'New cost lines'",
+      "evidence": [
+        {"source": "https://www.hubspot.com/pricing/data", "locator": "as of 2026-10-01, Starter card", "quote": "Starts at $7/mo/seat ... $20/mo/seat"}
+      ]
+    },
+    {
+      "id": "P-S3-02",
+      "statement": "HubSpot Data Hub Professional list price (confidence: list price, official pricing page).",
+      "value": "USD 720 per month (annual commitment) or USD 800 per month (monthly); includes 1 Core Seat; additional Core Seats USD 45 per month; 5,000 HubSpot Credits included",
+      "story_link": "S3 · gate row 'New cost lines'",
+      "evidence": [
+        {"source": "https://www.hubspot.com/pricing/data", "locator": "as of 2026-10-01, Professional card", "quote": "Starts at $720/mo ... $800/mo ... Includes 1 Core Seat ... Additional Core Seats $45/mo"}
+      ]
+    },
+    {
+      "id": "P-S3-03",
+      "statement": "HubSpot Data Hub Enterprise list price (confidence: list price, official pricing page).",
+      "value": "USD 2,000 per month (annual); includes 1 Core Seat; additional Core Seats USD 75 per month; 10,000 HubSpot Credits included",
+      "story_link": "S3 · gate row 'New cost lines'",
+      "evidence": [
+        {"source": "https://www.hubspot.com/pricing/data/enterprise", "locator": "as of 2026-10-01", "quote": "Starts at $2,000/mo; Includes 1 Core Seat; Additional Core Seats start at $75/mo"}
+      ]
+    },
+    {
+      "id": "P-S3-04",
+      "statement": "Data quality automation (auto-fix formatting rules) is gated to Data Hub Professional and Enterprise (confidence: official docs).",
+      "value": "gate: Data Hub Professional+",
+      "story_link": "S3 · gate rows 'New cost lines', 'Rules to comply'",
+      "evidence": [
+        {"source": "https://knowledge.hubspot.com/reports/data-quality-command-center", "locator": "as of 2026-10-01, Formatting issues section", "quote": "Automation (Data Hub Professional and Enterprise only): set rules for any current records with formatting issues."}
+      ]
+    },
+    {
+      "id": "P-S3-05",
+      "statement": "HubSpot native duplicate management: individual merge at any Professional/Enterprise hub; bulk merge, custom detection rules and larger pair limits need Data Hub Professional/Enterprise (confidence: official docs). Relevant to Hs-Logic's 281 contact and 226 company duplicate clusters (BRIEF 2a).",
+      "value": "duplicate pair limits: 10,000 (Professional, non-Data Hub) / 30,000 (Data Hub Professional) / 100,000 (Data Hub Enterprise); objects: contacts and companies; custom rules up to 2 per object, 9 properties max",
+      "story_link": "S3 · gate rows 'New cost lines', 'Declarative action layer' ('The tool's bulk and automatic fixes')",
+      "evidence": [
+        {"source": "https://knowledge.hubspot.com/records/manage-duplicate-records", "locator": "as of 2026-10-01, requirements and limits", "quote": "Data Hub Professional or Enterprise subscription is required for bulk duplicate management, custom duplicate detection rules (up to 2 per object, 9 properties max); maximum pairs: Professional (non-Data Hub) up to 10,000; Data Hub Professional up to 30,000; Data Hub Enterprise up to 100,000"}
+      ]
+    },
+    {
+      "id": "P-S3-06",
+      "statement": "Custom-code workflow actions (JavaScript/Python) require Data Hub Professional or Enterprise, with 20 s / 128 MB execution limits (confidence: official docs). Matches HubSpot-Ruler hermes-agent SCOPING.md note that custom-code actions need Ops/Data Hub Pro+ (BRIEF 2e).",
+      "value": "gate: Data Hub Professional+; 20 seconds, 128 MB per execution",
+      "story_link": "S3 · gate row 'Declarative action layer'",
+      "evidence": [
+        {"source": "https://developers.hubspot.com/docs/api/workflows/custom-code-actions", "locator": "as of 2026-10-01", "quote": "If you have an Data Hub Professional or Enterprise account, use the Custom code action in workflows to write and execute JavaScript or Python ... Finish running within 20 seconds ... Can only use up to 128 MB of memory"}
+      ]
+    },
+    {
+      "id": "P-S3-07",
+      "statement": "Datasets require Data Hub Professional or Enterprise (confidence: official docs).",
+      "value": "gate: Data Hub Professional+",
+      "story_link": "S3 · gate row 'New cost lines'",
+      "evidence": [
+        {"source": "https://knowledge.hubspot.com/reports/create-and-use-datasets", "locator": "as of 2026-10-01, requirements box", "quote": "Data Hub Professional, Enterprise"}
+      ]
+    },
+    {
+      "id": "P-S3-08",
+      "statement": "Snowflake data share / warehouse integrations (Snowflake, BigQuery, S3) are Data Hub Enterprise only (confidence: official docs + pricing page).",
+      "value": "gate: Data Hub Enterprise (USD 2,000/month)",
+      "story_link": "S3 · gate row 'New cost lines' (also S1 overlap: BigQuery is the DIY warehouse)",
+      "evidence": [
+        {"source": "https://knowledge.hubspot.com/integrations/connect-hubspot-and-snowflake-data-sync", "locator": "as of 2026-10-01, requirements box", "quote": "Data Hub Enterprise"},
+        {"source": "https://www.hubspot.com/pricing/data/enterprise", "locator": "as of 2026-10-01, feature list", "quote": "bi-directional cloud data warehouse integrations with Snowflake, BigQuery, and AWS S3"}
+      ]
+    },
+    {
+      "id": "P-S3-09",
+      "statement": "Sales Hub Professional per-seat list price (confidence: list price, official pricing page).",
+      "value": "USD 90 per seat per month (annual) / USD 100 (monthly); one-time Professional Onboarding USD 1,500; 3,000 credits included",
+      "story_link": "S3 · gate row 'New cost lines'",
+      "evidence": [
+        {"source": "https://www.hubspot.com/pricing/sales", "locator": "as of 2026-10-01, Professional card", "quote": "Starts at $90/mo/seat ... $100/mo/seat ... required, one-time Professional Onboarding for a fee of $1,500"}
+      ]
+    },
+    {
+      "id": "P-S3-10",
+      "statement": "Sales Hub Enterprise per-seat list price (confidence: list price, official pricing page).",
+      "value": "USD 150 per seat per month; one-time Enterprise Onboarding USD 3,500; 5,000 credits included",
+      "story_link": "S3 · gate row 'New cost lines'",
+      "evidence": [
+        {"source": "https://www.hubspot.com/pricing/sales", "locator": "as of 2026-10-01, Enterprise card", "quote": "Starts at $150/mo/seat ... required, one-time Enterprise Onboarding for a fee of $3,500"}
+      ]
+    },
+    {
+      "id": "P-S3-11",
+      "statement": "HubSpot seat model: Core seats are the paid access unit; View-only seats are free and unlimited; Partner seats are free for eligible Solutions Partner staff; Developer seats are free (confidence: official docs). The portal already offers core, view-only, sales-pro, partner and developer seat types (BRIEF line 5).",
+      "value": "view-only = USD 0 (unlimited); partner seat = USD 0; developer seat = USD 0; core seat = paid per hub tier",
+      "story_link": "S3 · gate row 'New cost lines'; S2 · gate row 'Depends on' ('the account already offers a partner seat type')",
+      "evidence": [
+        {"source": "https://knowledge.hubspot.com/account-management/manage-seats", "locator": "as of 2026-10-01, seat types", "quote": "View-Only Seat ... These seats are free and unlimited for Starter, Professional, and Enterprise subscriptions. Core Seat provides access to core features and tools in the subscription services you've purchased. Partner Seat: a free seat that gives eligible HubSpot Solutions Partners employees access to all features in a client's account. Developer Seat ... provides access only to the developer platform"}
+      ]
+    },
+    {
+      "id": "P-S3-12",
+      "statement": "HubSpot Credits (the unit Breeze Intelligence / enrichment and agents consume) cost USD 0.010 per credit beyond the included monthly allotment; credits expire monthly (confidence: list price, official). Per-record enrichment consumption is not published on the fetched official pages (see gaps).",
+      "value": "USD 0.010 per credit (pay-as-you-go in increments of 10) ; included per month: Sales Hub Starter 500 / Pro 3,000 / Ent 5,000; Data Hub Starter 500 / Pro 5,000 / Ent 10,000",
+      "story_link": "S3 · gate rows 'New cost lines', 'Sampling probe' ('Breeze')",
+      "evidence": [
+        {"source": "https://knowledge.hubspot.com/account-management/understand-hubspot-credits-and-billing", "locator": "as of 2026-10-01", "quote": "$0.010 per credit, invoiced in increments of 10 credits ... Unused credits expire at the end of each usage period and do not roll over to the next month ... Breeze Intelligence Credits transitioned to HubSpot Credits"},
+        {"source": "https://www.hubspot.com/pricing/sales", "locator": "as of 2026-10-01, credits block", "quote": "Starter: 500 credits; Professional: 3,000 credits; Enterprise: 5,000 credits; Additional credits available at $0.010 per credit"},
+        {"source": "https://www.hubspot.com/pricing/data", "locator": "as of 2026-10-01, credits block", "quote": "Starter: 500 HubSpot Credits; Professional: 5,000 HubSpot Credits; Enterprise: 10,000 HubSpot Credits"}
+      ]
+    },
+    {
+      "id": "P-S3-13",
+      "statement": "Insycle (HubSpot data-management app) list price, priced by total records in the connected portal (confidence: list price, vendor page).",
+      "value": "USD 100 / 150 / 200 per month billed annually (Starter 1 module / Growth 2 modules / Professional all modules); Enterprise custom; monthly billing available for portals up to 500K records; 20% off annually",
+      "story_link": "S3 · gate row 'New cost lines' ('Subscription (often priced by record count)')",
+      "evidence": [
+        {"source": "https://www.insycle.com/pricing", "locator": "as of 2026-10-01", "quote": "4 tiers priced by total records in connected databases ... Starter $100/month billed annually ... Growth $150/month billed annually ... Professional $200/month billed annually ... Enterprise Custom ... Monthly options for Starter/Growth/Professional (databases up to 500K records)"}
+      ]
+    },
+    {
+      "id": "P-S3-14",
+      "statement": "Koalify (HubSpot dedupe app) list price, priced by records selected for deduplication, not by usage (confidence: list price, vendor page).",
+      "value": "USD 0 for 0-250K selected records; USD 25 per month for 250K-500K; price cap USD 500 per month billed yearly or USD 1,000 per month billed monthly above 1M records",
+      "story_link": "S3 · gate row 'New cost lines'",
+      "evidence": [
+        {"source": "https://koalify.io/pricing", "locator": "as of 2026-10-01", "quote": "You only pay for the objects you select to deduplicate. It is not usage-based and does not depend on scans or merges ... Free: 0-250K records; $25/month: 250K-500K records ... $500/month when billed yearly or $1,000/month when billed monthly for portals exceeding 1M records"}
+      ]
+    },
+    {
+      "id": "P-S3-15",
+      "statement": "Dedupely (HubSpot dedupe app) entry price by record count; higher-tier prices not displayed on the marketplace listing and the vendor site was unreachable through the session proxy (confidence: list price for Starter only).",
+      "value": "USD 32 per month up to 30,000 records (Starter); tiers up to 60K / 120K / 240K / 480K records (prices not shown)",
+      "story_link": "S3 · gate row 'New cost lines'",
+      "evidence": [
+        {"source": "https://ecosystem.hubspot.com/marketplace/apps/dedupely", "locator": "as of 2026-10-01, pricing tab", "quote": "Starter $32/month up to 30.000 records ... Basic up to 60.000 records ... Pro up to 120.000 ... Premium up to 240.000 ... Gold up to 480.000 records; All plans include all features"}
+      ]
+    },
+    {
+      "id": "P-S2-01",
+      "statement": "HubSpot managed-operations retainer, INSIDEA (HubSpot partner): from USD 2,000/month, 6-12 month minimum, licences separate (confidence: range from partner site).",
+      "value": "USD 2,000+ per month; 6-12 month minimum commitment",
+      "story_link": "S2 · gate row 'New cost lines' ('Retainer or per-audit fees')",
+      "evidence": [
+        {"source": "https://insidea.com/hubspot/managed-operations", "locator": "as of 2026-10-01, pricing block", "quote": "Retainers, from $2,000 ... scale with scope across our Growth, Build, and Strategic tiers ... Minimum commitment is 6 to 12 months depending on tier ... License costs are separate, paid directly to HubSpot at partner-discount rates."}
+      ]
+    },
+    {
+      "id": "P-S2-02",
+      "statement": "HIVE Strategy (HubSpot partner) published menu: fractional admin, retainers, audit, training (confidence: range from partner site).",
+      "value": "Fractional Admin from USD 2,000/month (10 h); Essential retainer from USD 5,000/month; Growth from USD 7,500/month; Enterprise from USD 15,000/month; Audit from USD 3,000; Advanced onboarding from USD 5,000; Training from USD 200/hour",
+      "story_link": "S2 · gate rows 'New cost lines', 'Sampling probe' ('Partner audits independently')",
+      "evidence": [
+        {"source": "https://www.hivestrategy.com/pricing", "locator": "as of 2026-10-01", "quote": "HubSpot Fractional Admin: Starting at $2,000 (starting at 10 hours per month); Essential Retainer: Starting at $5k/mo; Growth Retainer: Starting at $7.5k/mo; Enterprise Retainer: Starting at $15k/mo; HubSpot Audit: Starting at $3,000; HubSpot Advanced Onboarding: Starting at $5,000; HubSpot Training: Starting at $200/hr"}
+      ]
+    },
+    {
+      "id": "P-S2-03",
+      "statement": "Lean Labs (HubSpot Diamond partner) published project prices; free assessment (confidence: range from partner site).",
+      "value": "Onboarding from USD 2,000; Migrations from USD 7,000; Integrations from USD 15,000 (one-time); assessment USD 0",
+      "story_link": "S2 · gate row 'New cost lines' ('time to hand over knowledge')",
+      "evidence": [
+        {"source": "https://www.leanlabs.com/pricing.md", "locator": "as of 2026-10-01", "quote": "Free HubSpot assessments and consults. No cost or obligation. HubSpot Onboarding starting at $2,000 ... HubSpot Migrations starting at $7,000 ... HubSpot Integrations starting at $15,000"}
+      ]
+    },
+    {
+      "id": "P-S2-04",
+      "statement": "HubSpot portal audit price ranges from a 2026 cost survey, including a real partner quote; also prices the DIY audit in staff time, which is the S1 'your time' line (confidence: range from a vendor blog, dated January 30, 2026).",
+      "value": "Consulting audit USD 2,000-5,000 (standard) / USD 5,000-10,000+ (enterprise); ongoing advisory USD 150-300 per hour; one cited partner quote USD 8,200; DIY audit = USD 1,350-4,500 of staff time per run (20-40 h)",
+      "story_link": "S2 · gate row 'New cost lines' ('per-audit fees'); S1 · gate row 'New cost lines' ('your time')",
+      "evidence": [
+        {"source": "https://portalpilot.io/blog/hubspot-audit-cost", "locator": "as of 2026-10-01, article dated January 30, 2026", "quote": "The 'free' DIY audit costs $1,350-$4,500 in staff time. Run it quarterly, and you're spending $5,400-$18,000 per year on manual auditing ... Standard audit: $2,000-$5,000; Enterprise audit: $5,000-$10,000+; Ongoing advisory: $150-$300/hour ... The quote was $8,200."}
+      ]
+    },
+    {
+      "id": "P-S2-05",
+      "statement": "Technical / RevOps HubSpot agency retainer range from IMPACT (HubSpot Elite partner) cost guide (confidence: range from partner site, article dated June 9, 2024 - older than other sources).",
+      "value": "USD 2,500-10,000 per month for ongoing DevOps or RevOps retainers; basic onboarding USD 3,000-6,000 one-time; complex multi-hub implementations USD 10,000-25,000+",
+      "story_link": "S2 · gate row 'New cost lines'",
+      "evidence": [
+        {"source": "https://www.impactplus.com/blog/how-much-does-working-with-a-hubspot-partner-agency-cost", "locator": "as of 2026-10-01, article dated June 9, 2024", "quote": "Ongoing support retainers: $2,500 to $10,000/month for ongoing DevOps or RevOps services ... Basic onboarding: $3,000 to $6,000 (one-time) ... Complex implementations with multiple hubs and integrations: $10,000 to $25,000+ (one-time)"}
+      ]
+    },
+    {
+      "id": "P-S2-06",
+      "statement": "Partner hourly rate and platform-management benchmark collected by a pricing-research site quoting partner pages (confidence: range, secondary source quoting partner sites).",
+      "value": "SmartBug USD 185 per hour (15 h guided onboarding = USD 2,775); Orbital ongoing platform management USD 2,000 per month",
+      "story_link": "S2 · gate row 'New cost lines'",
+      "evidence": [
+        {"source": "https://www.getmonetizely.com/articles/how-do-hubspot-implementation-partners-price-their-services-in-2025", "locator": "as of 2026-10-01", "quote": "Guided onboarding is built from 15 hours at $185 per hour, totalling $2,775 ... Orbital: Hub-specific Quick Starts are $1,500, its Launch implementation starts at $5,000, and ongoing platform management is listed at $2,000 per month"}
+      ]
+    },
+    {
+      "id": "P-S2-07",
+      "statement": "HubSpot Solutions Partner tier definitions: five tiers ranked by sourced/total points (sold and managed MRR) and gross revenue retention; entry membership USD 400/month (confidence: official HubSpot partner page; third-party guides state the quoted thresholds are the January 15, 2027 values and that 2026 thresholds are lower, see gaps).",
+      "value": "Gold 115 sourced / 345 total points; Platinum 425 / 1,275; Diamond 1,250 / 3,750 and >=75% GRR; Elite 2,750 / 11,000 and >=80% GRR; membership USD 400/month",
+      "story_link": "S2 · gate row 'Depends on' ('The partner's HubSpot depth and access')",
+      "evidence": [
+        {"source": "https://www.hubspot.com/solutions-partners-tiers-and-benefits-2026", "locator": "as of 2026-10-01", "quote": "As of July 15, 2026, the program will be structured into five tiers ... $400/month partner program membership as the entry requirement ... Diamond ... Avg GRR >=75% ... Elite ... >=80%"},
+        {"source": "https://www.mo.agency/blog/hubspot-partner-tiers", "locator": "as of 2026-10-01 (search snippet)", "quote": "Current 2026 thresholds include: Gold (110 sourced points, 325 total points), Platinum (325 sourced points, 925 total points), Diamond (950 sourced points, 3,100 total points with at least 75% average GRR), and Elite (2,100 sourced points, 9,000 total points with at least 80% average GRR). Starting January 15, 2027, the thresholds increase"}
+      ]
+    },
+    {
+      "id": "P-S1-01",
+      "statement": "StackSync list price; basis = active syncs + records in sync, no free tier (confidence: list price, vendor page). The team's actual plan is not in the repos.",
+      "value": "Starter USD 1,000 per month billed annually (USD 1,400 month-to-month): 1 active sync, 50K records; Pro USD 3,000 per month annually (USD 3,700): 3 syncs, 1M records; Managed Pro USD 4,200 per month; overage USD 8 per 1,000 records (50K-150K), USD 2 (150K-1M), USD 0.9 (1M-10M)",
+      "story_link": "S1 · gate rows 'New cost lines' ('ongoing cost of the open items'), 'Sampling probe', 'Rules to comply', 'Declarative action layer'; S2 ('StackSync is outsourced')",
+      "evidence": [
+        {"source": "https://www.stacksync.com/pricing", "locator": "as of 2026-10-01, plan cards and usage table", "quote": "Starter: $1,000 / mo, billed annually ($1,400 month-to-month), 1 Active Sync, 50K records in sync; Pro: $3,000 / mo, billed annually ($3,700 month-to-month), 3 Active Syncs, 1M records in sync; Managed Pro: $4,200 / mo ... 50K-150K: $8 per 1,000; 150K-1M: $2; 1M-10M: $0.9 ... No free tier"}
+      ]
+    },
+    {
+      "id": "P-S1-02",
+      "statement": "BigQuery on-demand analysis and storage list prices (confidence: list price, official page, us-central1).",
+      "value": "USD 6.25 per TiB scanned after the first 1 TiB free per month; active logical storage USD 0.000031507 per GiB-hour (about USD 0.023 per GiB-month, derived at 730 h); long-term logical storage USD 0.000021918 per GiB-hour (about USD 0.016 per GiB-month, derived); first 10 GiB storage free per month",
+      "story_link": "S1 · gate row 'New cost lines' (Bq-dbt, Mir-Load)",
+      "evidence": [
+        {"source": "https://cloud.google.com/bigquery/pricing", "locator": "as of 2026-10-01, On-demand compute pricing and Storage pricing tables", "quote": "Queries (on-demand): 0 tebibyte to 1 tebibyte Free per 1 month / account; 1 tebibyte and above $6.25 / 1 tebibyte, per 1 month / account. The first 1 TiB per month is free ... Active logical storage $0.000031507 / 1 gibibyte hour ... Long-term logical storage $0.000021918 / 1 gibibyte hour ... The first 10 GiB is free each month."}
+      ]
+    },
+    {
+      "id": "P-S1-03",
+      "statement": "Cloud Run list price basis for the HS-LOGIC 'serverless query layer' (request-based billing, us-central1) (confidence: list price, official page).",
+      "value": "USD 0.000024 per vCPU-second active; USD 0.0000025 per GiB-second active; USD 0.40 per million requests; free tier 180,000 vCPU-s, 360,000 GiB-s and 2 million requests per month",
+      "story_link": "S1 · gate row 'New cost lines' (HS-LOGIC on Cloud Run, BRIEF 2c/2e)",
+      "evidence": [
+        {"source": "https://cloud.google.com/run/pricing", "locator": "as of 2026-10-01, Services (Requests-based billing) table", "quote": "CPU (per vCPU-second) Active time $0.000024 ... Memory (per GiB-second) Active time $0.0000025 ... Requests (per 1,000,000) $0.40 ... Free tier: CPU - First 180,000 vCPU-seconds free per month, RAM - First 360,000 GiB-seconds free per month, Requests - 2 million requests free per month"}
+      ]
+    },
+    {
+      "id": "P-S1-04",
+      "statement": "Small Compute Engine instance for Mir-Load: order of magnitude USD 6-32 per month; one e2-micro per month is free under the GCP Free Tier in three US regions (confidence: official for the free tier; order of magnitude from a public price mirror for e2-medium because the official VM pricing table is rendered client-side).",
+      "value": "e2-micro USD 6.11 per month us-central1 (USD 0 under Free Tier); e2-medium (2 shared vCPU, 4 GB) USD 24.46 per month us-central1, USD 32.04 per month europe-west6 Zurich",
+      "story_link": "S1 · gate row 'New cost lines' ('Mir-Load (laptop -> GCP instance, Sep)')",
+      "evidence": [
+        {"source": "https://cloud.google.com/free/docs/free-cloud-features", "locator": "as of 2026-10-01, Compute Engine row", "quote": "1 non-preemptible e2-micro VM instance per month in one of the following US regions: Oregon: us-west1. Iowa: us-central1. South Carolina: us-east1. 30 GB-months standard persistent disk."},
+        {"source": "https://gcloud-compute.com/e2-micro.html", "locator": "as of 2026-10-01 ('Last Update: Sun Sep 27 01:50:31 2026 (GMT)')", "quote": "e2-micro 2 Shared vCPU, 1 GB: Hourly $0.0084, Monthly $6.11 (us-central1)"},
+        {"source": "https://gcloud-compute.com/e2-medium.html", "locator": "as of 2026-10-01 ('Last Update: Sun Sep 27 01:50:31 2026 (GMT)')", "quote": "e2-medium 2 Shared vCPU, 4 GB: us-central1 Monthly $24.46; europe-west6 (Zurich) Monthly $32.04"}
+      ]
+    },
+    {
+      "id": "P-S1-05",
+      "statement": "dbt Core is free, open source under Apache 2.0; dbt platform (Cloud) has a free single-developer tier and a USD 100 per user per month Starter tier (confidence: list price, official).",
+      "value": "dbt Core USD 0; dbt platform Developer USD 0 (1 seat, 3,000 models/month); Starter USD 100 per user per month; Enterprise custom",
+      "story_link": "S1 · gate row 'New cost lines' (Bq-dbt; 'four kept: DBT, BigQuery, Stacksync, HubSpot serverless')",
+      "evidence": [
+        {"source": "https://github.com/dbt-labs/dbt-core", "locator": "as of 2026-10-01, README", "quote": "The source code in this repository is licensed under the Apache License 2.0."},
+        {"source": "https://www.getdbt.com/pricing", "locator": "as of 2026-10-01", "quote": "Developer (Free): One Developer seat, 3,000 successful models built per month, 1 project. Starter: $100 per user/month ... Enterprise: Custom pricing"}
+      ]
+    },
+    {
+      "id": "P-S1-06",
+      "statement": "Oban Pro licence for the planned Elixir job runner ('Migrate Stacksync workload to Oban'); Oban open source is free (confidence: list price, vendor page).",
+      "value": "USD 150 per month billed monthly or USD 135 per month billed yearly (USD 1,620 per year); open source USD 0",
+      "story_link": "S1 · gate rows 'New cost lines', 'Declarative action layer' ('plus the Elixir sync if built')",
+      "evidence": [
+        {"source": "https://oban.pro/pricing", "locator": "as of 2026-10-01", "quote": "Pro: $150/mo, billed monthly; $135/mo, billed yearly as $1,620 ... Open Source: Free"}
+      ]
+    },
+    {
+      "id": "P-S1-07",
+      "statement": "Anthropic Claude API list prices per million tokens; the monthly line for an ops/lead-triage assistant is an ORDER OF MAGNITUDE derived from list price under an assumed 1,000 calls per month x (5,000 input + 1,000 output tokens) = 5M input + 1M output tokens (confidence: list price for unit rates; order of magnitude for the monthly total, assumption stated).",
+      "value": "top tier USD 4 / 20 per MTok (in/out) -> about USD 40 per month at the assumed volume; mid tier USD 2 / 10 -> about USD 20 per month; small tier USD 1 / 5 -> about USD 10 per month; Batch API 50% off; cache reads 0.1x input (0.05x on the top tier)",
+      "story_link": "S1 · gate row 'New cost lines' ('Now AI can do everything'; lead triage AI auto-qualification from 7 Sep, BRIEF 2c)",
+      "evidence": [
+        {"source": "https://platform.claude.com/docs/en/about-claude/pricing", "locator": "as of 2026-10-01, Model pricing and Batch processing tables", "quote": "Model pricing table (three current models): $4 / MTok ... $20 / MTok; $2 / MTok ... $10 / MTok; $1 / MTok ... $5 / MTok; The Batch API allows asynchronous processing of large volumes of requests with a 50% discount on both input and output tokens; Cache read (hit) 0.1x base input price ... 0.05x on the top tier"}
+      ]
+    },
+    {
+      "id": "P-S1-08",
+      "statement": "A HubSpot private app (the token Hs-Logic and the loaders use) has no licence price; the only tier-dependent factor is the API rate limit (confidence: official developer docs; no price line exists on the page).",
+      "value": "USD 0; up to 20 private apps per account; Professional 190 requests per 10 s per private app and 625,000 per day per account; Enterprise 1,000,000 per day",
+      "story_link": "S1 · gate rows 'New cost lines' ('None new'), 'Depends on' ('One operator plus the engine'); S3",
+      "evidence": [
+        {"source": "https://developers.hubspot.com/docs/guides/apps/private-apps/overview", "locator": "as of 2026-10-01", "quote": "You can create up to 20 private apps in your HubSpot account ... Professional: 190 / private app (per 10 seconds), 625,000 / account (per day); Enterprise: 190 / private app, 1,000,000 / account"}
+      ]
+    }
+  ],
+  "gaps": [
+    "Data Hub Starter / Professional extra-seat figures differ between HubSpot's official pricing page (Starter 'starts at $7/mo/seat' annual, $20 monthly; Pro extra Core Seat $45) and HubSpot's own blog 'Data Hub pricing guide' updated 07/28/26 ($9/seat annual, $15/seat monthly; Pro extra seat $50). Facts use the pricing page; the deck should say 'list price as shown on hubspot.com/pricing/data on 2026-10-01'.",
+    "No onboarding fee is shown for Data Hub Professional/Enterprise on the pricing page (Sales Hub shows $1,500 / $3,500); a sales quote is needed before any S3 total.",
+    "Breeze Intelligence / Data Enrichment per-record credit consumption is not stated on the fetched official pages; third-party posts claim standard enrichment is now included for paid Core Seats and only Buyer Intent consumes credits - unverified, do not put on a slide.",
+    "Dedupely prices above the $32/month Starter tier are not shown on the HubSpot marketplace listing and dedupely.com was unreachable through the session proxy (CONNECT 502).",
+    "HubSpot partner-tier thresholds: the official 2026 page fetch returned Gold 115/345 ... Elite 2,750/11,000, while third-party guides say those are the January 15, 2027 values and 2026 values are lower (Gold 110/325 ...). Quote the official page and date it.",
+    "Google's VM instance pricing table is rendered client-side; e2 monthly figures come from a public mirror (gcloud-compute.com, last update 2026-09-27). Only the e2-micro Free Tier statement is from an official Google page. Actual Mir-Load instance size is not in the repos.",
+    "No partner publishes a Swiss / EUR price list; all partner ranges are US or UK agencies in USD (revio.agency lists GBP 1,500-6,000 for 'Data configuration: dedupe rules, field mapping' but is not HubSpot-specific, so it was not used as a fact).",
+    "Exit and overlap costs named in the S3 gate row ('setup, overlap and exit costs') have no public list price; only the subscription lines are priced here.",
+    "The S1 'your time' line is not priced from the repos; the only public proxy is the DIY-audit staff-time range in P-S2-04 (USD 1,350-4,500 per 20-40 h audit), which should be labelled 'illustrative, not measured'.",
+    "The Claude API monthly figure depends on an assumed call volume (1,000 calls/month); the real lead-triage volume is not in the repos or the deck.",
+    "StackSync: the team's actual plan and record count are not in the repos; the Hs-Logic scan cap (10,000 records) means the portal's true record count - the pricing basis for StackSync, Insycle, Koalify and Dedupely - was not measured in this role."
+  ],
+  "output_file": "projects/crm-three-scenarios/explore/explore-pricing.json"
+}
