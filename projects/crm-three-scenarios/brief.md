@@ -261,3 +261,30 @@ what keeps the deck a presentation layer: a slide may only cite entities that ha
   (e.g. data-source="hs-logic-screenshot-2026-09", "sealsq-property-set-2026-09-14", "tracker-210926",
   "live-hubsql-2026-10-01", "public-pricing-<url>").
 - Intermediate agent outputs go to scratchpad/work/ (this directory).
+
+----------------------------------------------------------------------------------------------------
+## 5. Sequel request (2026-10-12) and the remediation-plan tracker (2026-10-13)
+----------------------------------------------------------------------------------------------------
+
+User request, verbatim: "good as a sequel to the earlier presentation and using the newly added ppt recovery pattern
+append 3 slides that chunk the following list into layer whereby each layer is tied to the phase.
+foundation : L1+L2
+E2:E4 : L3"
+
+Reading (orchestrator): the three appended slides chunk the remediation plan by layer; the Foundation engine of the
+21/09/26 roadmap corresponds to layers L1 + L2 of the plan, and engines E2 to E4 correspond to layer L3. The slides
+are inserted after the closing slide and before the appendices; the HTML -> markdown -> pptx producer is re-run.
+
+### 5a. New source — tag `tracker-remediation-2026-10-13`
+File: projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv (22 task rows, lines 2-23; header
+line 1). Columns: TASK, Goal, Priority level, PHASE, ENGINE, OWNER, START, ESTIMATED DURATION, END, COMPLETED,
+PROGRESS, Critical, Status, Project Name, Project Start date, Date for tracking progress. Project "Remediation plan",
+start 13-Oct-26, engine "Remediation" on every row, status "pending", progress 0%, owner empty, priority empty.
+Phases: Foundation (lines 2-6, start 13-Oct-26, no end/duration), L1 (lines 7-11, start 13-Oct-26, no end/duration),
+L2 (lines 12-19, 16-Nov-26 to 30-Nov-26, 11 days, Critical = yes), L3 (lines 20-23, 01-Dec-26 to 20-Dec-26, 14 days,
+Critical = yes). The tracker is the user's plan: it is admissible as "what is planned", never as a measurement.
+
+### 5b. Sequel-request tag `brief-2026-10-12` (registered at the QA pass of 2026-10-12)
+The user's sequel request and chunking rule (section 5, lines 269-272, verbatim) carry the provenance tag
+`brief-2026-10-12` in the deck's `data-source` attribute: the user's own words, admissible as what was asked, never as
+a measurement (claim C166). Appended after section 5a so that the line locators of 5 and 5a stay valid.

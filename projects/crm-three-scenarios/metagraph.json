@@ -13,7 +13,9 @@
    "gate_cell",
    "project",
    "cost_line",
-   "evidence_fact"
+   "evidence_fact",
+   "plan",
+   "plan_layer"
   ],
   "edge_types": [
    "illustrates",
@@ -62,9 +64,68 @@
    "rule": "refuted -> node, edges and view cites deleted; caveat -> attrs.caveat; confirmed -> attrs.status only",
    "post_pass_additions": [
     "C157"
-   ]
+   ],
+   "second_pass": {
+    "date": "2026-10-12",
+    "counts": {
+     "caveat": 13,
+     "confirmed": 1
+    },
+    "source": "tracker-remediation-2026-10-13",
+    "claims": "C158-C171",
+    "refuted_kept_uncited": [],
+    "side_findings_filed": [
+     "C172",
+     "C173",
+     "C174",
+     "C175",
+     "C176",
+     "C177",
+     "C178",
+     "C179",
+     "C180",
+     "C181",
+     "C182",
+     "C183",
+     "C184",
+     "C185",
+     "C186",
+     "C187"
+    ],
+    "side_findings_skipped_as_duplicates": [
+     "91.9% / 1,105 pins the row to the live query (already C164's caveat)",
+     "21/09/26 roadmap header counts (already C031)"
+    ],
+    "rule": "refuted -> node kept with status refuted, cited by no view; caveat -> attrs.caveat; confirmed -> attrs.status only; side findings -> C172+ with evidence, re-checked by the maintainer",
+    "qa_round_1": {
+     "date": "2026-10-12",
+     "view_cites_added": {
+      "V25": [
+       "C150"
+      ]
+     },
+     "caveat_aligned": [
+      "C162 (second caveat aligned with C169: the row's ~33% qualifies 'full Orphan companies' and states no denominator)"
+     ],
+     "tags_registered": [
+      "brief-2026-10-12 (C166)"
+     ]
+    }
+   }
   },
-  "paths": "Paths are relative to the presentation-builder repository root. Hs-Logic/… and HubSpot-Ruler/… refer to the sibling GitHub repositories Wkayaobama/Hs-Logic and Wkayaobama/HubSpot-Ruler at their 2026-10-01 heads."
+  "paths": "Paths are relative to the presentation-builder repository root. Hs-Logic/… and HubSpot-Ruler/… refer to the sibling GitHub repositories Wkayaobama/Hs-Logic and Wkayaobama/HubSpot-Ruler at their 2026-10-01 heads.",
+  "sequel": {
+   "date": "2026-10-12",
+   "views": [
+    "V23",
+    "V24",
+    "V25"
+   ],
+   "chunking_rule": "foundation : L1+L2 / E2:E4 : L3 (the user's words, brief.md lines 271-272)"
+  },
+  "sources_added": [
+   "tracker-remediation-2026-10-13 (projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv, added 2026-10-12)"
+  ]
  },
  "nodes": [
   {
@@ -2532,7 +2593,8 @@
     "kind": "number",
     "claim": "Missing fields across the 10,000 scanned contacts: email 1.7% (170), phone 53.3% (5,329), name 16.5% (1,651), company 31.4% (3,135).",
     "used_by": [
-     "V06"
+     "V06",
+     "V25"
     ],
     "evidence": [
      {
@@ -2564,7 +2626,8 @@
     "claim": "CRM Health (Hs-Logic, 10,000 companies scanned, cap reached): 1,034 deals with final_customer; 709 edge-companies excluded; 9,150 orphan companies; 226 duplicate clusters. Example orphans: World Micro, Domainregistrationcorp, Revilian, eidoo.io, indiabusinessconsulting.in.",
     "used_by": [
      "V06",
-     "V07"
+     "V07",
+     "V23"
     ],
     "evidence": [
      {
@@ -2837,7 +2900,8 @@
     "claim": "SEALSQ property set captured 2026-09-14 by direct HubSpot MCP calls; scope SealSQ Hardware, SealSQ Services, Icalps_hardware, SEALCOIN = 1,820 of 1,960 deals; 498 deal / 30 contact / 30 company / 14 ticket properties.",
     "used_by": [
      "V08",
-     "V21"
+     "V21",
+     "V25"
     ],
     "evidence": [
      {
@@ -4320,7 +4384,8 @@
     "kind": "number",
     "claim": "Contacts with no company association: 6,570 of 26,293 (25.0%); 19,723 associated (live, uncapped).",
     "used_by": [
-     "V06"
+     "V06",
+     "V23"
     ],
     "evidence": [
      {
@@ -4354,7 +4419,8 @@
     "used_by": [
      "V06",
      "V07",
-     "V10"
+     "V10",
+     "V24"
     ],
     "evidence": [
      {
@@ -5359,7 +5425,8 @@
      "V05",
      "V08",
      "V10",
-     "V11"
+     "V11",
+     "V25"
     ],
     "evidence": [
      {
@@ -5590,6 +5657,1100 @@
     "status": "confirmed",
     "verified": "2026-10-01",
     "note": "added after the verification pass; verified directly against git log by the maintainer"
+   }
+  },
+  {
+   "id": "plan_remediation",
+   "type": "plan",
+   "label": "Remediation plan — tracker 13-Oct-26 (the user's sequel)",
+   "depth": 1,
+   "parent": null,
+   "attrs": {
+    "source_tag": "tracker-remediation-2026-10-13",
+    "file": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "rows": "lines 2-23 (22 task rows; header line 1)",
+    "phases": "Foundation 5 (lines 2-6) · L1 5 (lines 7-11) · L2 8 (lines 12-19) · L3 4 (lines 20-23)",
+    "project_start": "13-Oct-26 (one day after this deck's sequel date 2026-10-12)",
+    "state": "ENGINE = Remediation, Status = pending, PROGRESS = 0%, OWNER and Priority level empty on all 22 rows",
+    "admissible_as": "what is planned, never a measurement (brief.md section 5a, line 285)",
+    "chunking_rule": "the user's words, two lines: 'foundation : L1+L2' / 'E2:E4 : L3' (brief.md lines 271-272); read by the deck as Foundation engine of the 21/09/26 roadmap <-> layers L1 + L2, engines E2-E4 <-> layer L3 (orchestrator reading, brief.md lines 274-275)"
+   }
+  },
+  {
+   "id": "layer_l1",
+   "type": "plan_layer",
+   "label": "Layer L1 — prepare and archive the first pass (from 13-Oct-26)",
+   "depth": 2,
+   "parent": "plan_remediation",
+   "attrs": {
+    "engine": "Foundation",
+    "rows": "lines 7-11 (5 tasks: 4 [Ops] + 1 [Document])",
+    "prep_rows": "lines 2-6 (the plan's own PHASE 'Foundation', 5 [Data] tasks); not named in the user's rule, which lists only L1, L2, L3; shown with L1 as preparation by the orchestrator's reading",
+    "dates": "START 13-Oct-26 on all ten rows (lines 2-11); ESTIMATED DURATION and END empty; Critical empty",
+    "user_rule": "foundation : L1+L2"
+   }
+  },
+  {
+   "id": "layer_l2",
+   "type": "plan_layer",
+   "label": "Layer L2 — 16 to 30 November 2026, eight critical tasks",
+   "depth": 2,
+   "parent": "plan_remediation",
+   "attrs": {
+    "engine": "Foundation",
+    "rows": "lines 12-19 (8 tasks: 4 [Ops] + 3 [Data] + 1 [Admin])",
+    "dates": "START 16-Nov-26, END 30-Nov-26, ESTIMATED DURATION 11 (tracker column, no unit; equals the weekday count of the span, which is 15 calendar days); Critical = yes on all 8 rows",
+    "user_rule": "foundation : L1+L2"
+   }
+  },
+  {
+   "id": "layer_l3",
+   "type": "plan_layer",
+   "label": "Layer L3 — 1 to 20 December 2026, four confirmations",
+   "depth": 2,
+   "parent": "plan_remediation",
+   "attrs": {
+    "engine": "E2 → E4",
+    "rows": "lines 20-23 (4 tasks: 3 [Data] + 1 [Admin])",
+    "dates": "START 01-Dec-26, END 20-Dec-26 (a Sunday), ESTIMATED DURATION 14 (tracker column, no unit; equals the weekday count of the span, which is 20 calendar days); Critical = yes on all 4 rows",
+    "user_rule": "E2:E4 : L3",
+    "engine_legend": "E2 = After Foundation we start rebuilding a cleaner data structure · E3 = After the data we can now leverage the data for GTM and Reporting/RevOps · E4 = Self - autonomous AI powered CRM (21/09/26 tracker, sheet 'RevOps 6-month plan (2)', extract lines 23-25)"
+   }
+  },
+  {
+   "id": "C158",
+   "type": "evidence_fact",
+   "label": "Remediation plan tracker dated 13-Oct-26: 22 tasks in four phases (Foundation 5, L1 5, L2 8, L3 4), engine 'R…",
+   "depth": 4,
+   "parent": "plan_remediation",
+   "attrs": {
+    "kind": "status",
+    "claim": "Remediation plan tracker dated 13-Oct-26: 22 tasks in four phases (Foundation 5, L1 5, L2 8, L3 4), engine 'Remediation' on every row, status pending, progress 0%, owner and priority empty on every row.",
+    "used_by": [
+     "V23"
+    ],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "lines 2-23 (PHASE, ENGINE, OWNER, PROGRESS, Status columns)",
+      "quote": "Foundation,Remediation,,13-Oct-26,,,0,0%,,pending"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "lines 2-23 (PHASE, ENGINE, OWNER, PROGRESS, Status columns)",
+    "quote": "Foundation,Remediation,,13-Oct-26,,,0,0%,,pending",
+    "status": "caveat",
+    "verified": "2026-10-12",
+    "confidence": "tracker words",
+    "story_link": "sequel · plan overview",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "caveat": "[caveat] Parsed the CSV (header line 1, 22 data rows, 16 columns): PHASE counts Foundation 5 (lines 2-6), L1 5 (7-11), L2 8 (12-19), L3 4 (20-23); ENGINE = 'Remediation', Status = 'pending', PROGRESS = '0%', OWNER and 'Priority level' empty on all 22 rows; 'Project Start date' and 'Date for tracking progress' = 13-Oct-26 on every row. The quote 'Foundation,Remediation,,13-Oct-26,,,0,0%,,pending' is present verbatim on line 2. Missing scope: the plan's own start date is 13-Oct-26, the day after today (2026-10-12), so 'pending / 0%' is the state of a plan that has not yet started, and the tracker is the user's wording, not a measurement. → Slide wording: 'Tracker export dated 13-Oct-26 (plan start date; one day after this deck's date): 22 tasks, all pending, 0% progress, no owner, no priority — the plan as written before its start, not a measurement of progress.'"
+   }
+  },
+  {
+   "id": "C159",
+   "type": "evidence_fact",
+   "label": "Foundation (5 rows) and L1 (5 rows) start 13-Oct-26 with no end date or duration; L2 (8 rows) runs 16-Nov-26…",
+   "depth": 4,
+   "parent": "plan_remediation",
+   "attrs": {
+    "kind": "number",
+    "claim": "Foundation (5 rows) and L1 (5 rows) start 13-Oct-26 with no end date or duration; L2 (8 rows) runs 16-Nov-26 to 30-Nov-26, 11 days, every row Critical = yes; L3 (4 rows) runs 01-Dec-26 to 20-Dec-26, 14 days, every row Critical = yes.",
+    "used_by": [
+     "V23",
+     "V25"
+    ],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "lines 2-11 (START 13-Oct-26, END empty); lines 12-19 (16-Nov-26,11,30-Nov-26,...,yes); lines 20-23 (01-Dec-26,14,20-Dec-26,...,yes)",
+      "quote": "L2,Remediation,,16-Nov-26,11,30-Nov-26,0,0%,yes,pending"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "lines 2-11 (START 13-Oct-26, END empty); lines 12-19 (16-Nov-26,11,30-Nov-26,...,yes); lines 20-23 (01-Dec-26,14,20-Dec-26,...,yes)",
+    "quote": "L2,Remediation,,16-Nov-26,11,30-Nov-26,0,0%,yes,pending",
+    "status": "caveat",
+    "verified": "2026-10-12",
+    "confidence": "tracker words",
+    "story_link": "sequel · layers tied to dates",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "caveat": "[caveat] Lines 2-11: START 13-Oct-26, ESTIMATED DURATION empty, END empty, Critical empty. Lines 12-19: '16-Nov-26,11,30-Nov-26,0,0%,yes'; lines 20-23: '01-Dec-26,14,20-Dec-26,0,0%,yes'. The quote 'L2,Remediation,,16-Nov-26,11,30-Nov-26,0,0%,yes,pending' is present verbatim on lines 12-19. But the CSV column is 'ESTIMATED DURATION' with no unit; '11 days' and '14 days' add a unit the source does not state. Recomputed: 16-30 Nov inclusive is 15 calendar days and 11 weekdays; 1-20 Dec inclusive is 20 calendar days and 14 weekdays (20-Dec-26 is a Sunday). So 11 and 14 are working-day counts, not calendar days. → Slide wording: 'L2 16-30 Nov-26, estimated duration 11 (tracker column; equals the weekday count of the span, which is 15 calendar days); L3 1-20 Dec-26, estimated duration 14 (weekday count; 20 calendar days). Foundation and L1: start 13-Oct-26, no duration, no end date.'\n[caveat] Row facts confirmed: lines 2-11 START 13-Oct-26 with END and ESTIMATED DURATION empty; lines 12-19 '16-Nov-26,11,30-Nov-26' with Critical=yes on all 8 (grep count 8); lines 20-23 '01-Dec-26,14,20-Dec-26' with Critical=yes on all 4 (grep count 4). But '11 days' and '14 days' are the tracker's ESTIMATED DURATION values, not the calendar span: 16-Nov-26 (Mon) to 30-Nov-26 (Mon) is a 14-day difference / 15 days inclusive, and 01-Dec-26 (Tue) to 20-Dec-26 (Sun) is 19 / 20 days. The 11 and 14 equal the Mon-Fri working days inclusive in each window, so the deck must not present them as elapsed days. → Show as: 'L2 16-30 Nov 2026 (tracker estimate 11 working days; 15 calendar days), L3 1-20 Dec 2026 (tracker estimate 14 working days; 20 calendar days, END falls on a Sunday)'. Label 11 and 14 as the plan's ESTIMATED DURATION column."
+   }
+  },
+  {
+   "id": "C160",
+   "type": "evidence_fact",
+   "label": "Foundation phase, five [Data] tasks: score each object in the CRM against defined criteria (goal 'Realistic a…",
+   "depth": 4,
+   "parent": "layer_l1",
+   "attrs": {
+    "kind": "quote",
+    "claim": "Foundation phase, five [Data] tasks: score each object in the CRM against defined criteria (goal 'Realistic assessment of stale records in the CRM'); define each bucket by its total ratio in the pipeline; write the script to archive stale records (SEALSQ only); prevent the entry of non-relevant records; document the set of properties: SEALSQ, IC'Alps, Connex.",
+    "used_by": [
+     "V23"
+    ],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "lines 2-6",
+      "quote": "[Data] Score each object in the CRM pertaining to defined criteria.,Realistic assessment of stale records in the CRM."
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "lines 2-6",
+    "quote": "[Data] Score each object in the CRM pertaining to defined criteria.,Realistic assessment of stale records in the CRM.",
+    "status": "caveat",
+    "verified": "2026-10-12",
+    "confidence": "tracker words",
+    "story_link": "sequel · Foundation engine · layer L1 (preparation rows)",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "caveat": "[caveat] Lines 2-6 all begin '[Data]' and read, in order: 'Score each object in the CRM pertaining to defined criteria.' (Goal 'Realistic assessment of stale records in the CRM.'), 'Define each bucket in the CRM based on their total ratio in the pipeline.', 'Write the script to archive stale records in the CRM (SEALSQ only).', 'Prevent the entry of non-relevant records in the CRM.', 'Document the set of properties: SEALSQ, IC'Alps, Connex.' The quote is present verbatim on line 2. Content confirmed. Scope issue in the story_link ('Foundation engine · layer L1 (preparation rows)'): these five rows carry the plan's own PHASE label 'Foundation', which is not L1 or L2; the user's rule (brief.md lines 271-272: 'foundation : L1+L2 / E2:E4 : L3') names only L1, L2 and L3 and never says where the plan's Foundation-phase rows go. Placing them under the Foundation engine is the orchestrator's reading, not the user's rule. → Slide wording: 'Plan phase \"Foundation\" (5 rows, CSV lines 2-6) — a phase label of the plan, distinct from the 21/09/26 roadmap's Foundation engine; not named in the user's chunking rule, shown beside L1 + L2 under the Foundation engine as a reading, not as the user's instruction.' Also keep line 3 wording as 'Define each bucket in the CRM based on their total ratio in the pipeline'.\n[caveat] Lines 2-6 are exactly five rows, all prefixed [Data], PHASE Foundation, START 13-Oct-26; the five task texts and the single Goal 'Realistic assessment of stale records in the CRM.' (line 2 only; lines 3-6 have no Goal) match the statement; the quote is verbatim on line 2. Logical issue is the story_link 'Foundation engine · layer L1 (preparation rows)': the user's rule (brief section 5) maps the 21/09/26 roadmap's Foundation engine to layers L1 + L2; it says nothing about the plan's own 'Foundation' phase (lines 2-6), which is a fifth bucket outside L1/L2/L3. Placing these rows under L1 is the orchestrator's reading, not the user's rule, and must be labelled as such. → Keep the five rows but tag them 'Foundation phase of the plan (not a layer); shown with L1 by the orchestrator's reading of the chunking rule, which names only L1, L2, L3'. State that only one of the five rows carries a Goal."
+   }
+  },
+  {
+   "id": "C161",
+   "type": "evidence_fact",
+   "label": "L1, five tasks: [Ops] ledger the previous pass for all records and properties; [Ops] archive the first pass o…",
+   "depth": 4,
+   "parent": "layer_l1",
+   "attrs": {
+    "kind": "quote",
+    "claim": "L1, five tasks: [Ops] ledger the previous pass for all records and properties; [Ops] archive the first pass of records; [Ops] survey the sales director and ensure best practices in the daily workflow; [Document] document the full property set and the boundaries between SEALSQ and IC'Alps; [Ops] remove all object auto-creation workflows.",
+    "used_by": [
+     "V23"
+    ],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "lines 7-11",
+      "quote": "[Ops] Remove all object auto-creation workflows.,,,L1,Remediation"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "lines 7-11",
+    "quote": "[Ops] Remove all object auto-creation workflows.,,,L1,Remediation",
+    "status": "confirmed",
+    "verified": "2026-10-12",
+    "confidence": "tracker words",
+    "story_link": "sequel · Foundation engine · layer L1",
+    "source_tag": "tracker-remediation-2026-10-13"
+   }
+  },
+  {
+   "id": "C162",
+   "type": "evidence_fact",
+   "label": "L1 archive row as written: 'Archive the first pass of records (full NQL, full Orphan companies ~33% of total…",
+   "depth": 4,
+   "parent": "layer_l1",
+   "attrs": {
+    "kind": "number",
+    "claim": "L1 archive row as written: 'Archive the first pass of records (full NQL, full Orphan companies ~33% of total CRM records). Delete 6,570 orphan contacts, 2,043 companies with neither deals nor contacts, 10,574 contacts-only auto-creations.' Goal: 'Low-risk purge of records strictly polluting the CRM.'",
+    "used_by": [
+     "V23"
+    ],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "line 8",
+      "quote": "Delete 6,570 orphan contacts, 2,043 companies with neither deals nor contacts, 10,574 contacts-only auto-creations."
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "line 8",
+    "quote": "Delete 6,570 orphan contacts, 2,043 companies with neither deals nor contacts, 10,574 contacts-only auto-creations.",
+    "status": "caveat",
+    "verified": "2026-10-12",
+    "confidence": "tracker words",
+    "story_link": "sequel · L1 purge scope",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "caveat": "[caveat] Line 8 reads exactly: '[Ops] Archive the first pass of records (full NQL, full Orphan companies ~33% of total CRM records). Delete 6,570 orphan contacts, 2,043 companies with neither deals nor contacts, 10,574 contacts-only auto-creations.' with Goal 'Low-risk purge of records strictly polluting the CRM.'; the quoted fragment is present verbatim. The claim is typed 'number' but all four figures are the plan's own words: ledger row C111 (live-hubsql-2026-10-01) gives 'Contacts with no company association: 6,570 of 26,293 (25.0%)' with a same-day re-run of 6,571, so 6,570 coincides with a deck measurement; 2,043, 10,574 and '~33%' match no ledger row (C112 counts 12,574 companies without a deal portal-wide; C053 counts 9,150 orphan companies in a capped 10,000 scan). → Slide wording: 'Counts as written in the plan (the user's wording, not a measurement). 6,570 coincides with the deck's live count of contacts with no company on 2026-10-01 (C111; same-day re-run 6,571). 2,043, 10,574 and \"~33% of total CRM records\" have no admissible measurement behind them.'\n[caveat] The row text and Goal are quoted verbatim from line 8 (confirmed character for character). Numeric scope: 6,570 + 2,043 + 10,574 = 19,187; against the health check's record basis (line 46: 13,679 + 26,293 + 1,972 = 41,944, recomputed correctly) that is 45.74%; the row attaches '~33%' to 'full Orphan companies' and states no denominator. Only 6,570 coincides with a measurement, and that measurement (C111) is labelled 'contacts with no company association', not 'orphan contacts' (and re-ran at 6,571 the same day). 2,043 and 10,574 are not in C111, C112, C053 or any ledger row. The claim is 'as written', so the numbers are admissible as the plan's words only. → Carry: 'Counts as written in the plan (tracker-remediation-2026-10-13). 6,570 equals the deck's 2026-10-01 count of contacts with no company association (C111); 2,043 and 10,574 were not measured by any source in this deck; the three sum to 19,187 = 45.7% of the 41,944 records measured on 2026-10-01 (a figure the row does not state); the row's ~33% qualifies \"full Orphan companies\" and states no denominator (all companies are 32.6% of those records).'"
+   }
+  },
+  {
+   "id": "C163",
+   "type": "evidence_fact",
+   "label": "L2, eight tasks (16-30 Nov, all critical): solve the final-customer target '91.9%; only 1,105 companies have…",
+   "depth": 4,
+   "parent": "layer_l2",
+   "attrs": {
+    "kind": "quote",
+    "claim": "L2, eight tasks (16-30 Nov, all critical): solve the final-customer target '91.9%; only 1,105 companies have a deal'; delete all contacts without a legitimate source (no owner, no recent activities); delete all duplicates with no record attached (goal '50% of duplicates suppressed'); implement reports and quality checks generated automatically via Quarto-BQ (HS-Standalone connector); reduce friction in form settings for new records; add the 'project type' property; surface/audit the property set based on L1 and remove unfilled properties (goal 'Remove 25% of SEALSQ properties'); define a co-owner of quality metrics in the CRM.",
+    "used_by": [
+     "V24"
+    ],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "lines 12-19",
+      "quote": "[Ops] Delete all duplicates with no record attached.,50% of duplicates suppressed.,,L2"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "lines 12-19",
+    "quote": "[Ops] Delete all duplicates with no record attached.,50% of duplicates suppressed.,,L2",
+    "status": "caveat",
+    "verified": "2026-10-12",
+    "confidence": "tracker words",
+    "story_link": "sequel · Foundation engine · layer L2",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "caveat": "[caveat] Lines 12-19 all have PHASE = L2, START 16-Nov-26, END 30-Nov-26, Critical = yes. Task texts match the statement: line 12 'Solve the final-customer target: 91.9%; only 1,105 companies have a deal.'; 13 'Delete all contacts that don't have a legitimate source (no owner, no recent activities).'; 14 'Delete all duplicates with no record attached.' Goal '50% of duplicates suppressed.'; 15 'Implement reports and quality checks automatically generated via Quarto-BQ (HS-Standalone connector).'; 16 'Reduce friction in form settings for new records.'; 17 'Add the 'project type' property.'; 18 'Surface/audit the property set based on L1 and remove unfilled properties.' Goal 'Remove 25% of SEALSQ properties.'; 19 'Define a co-owner of quality metrics in the CRM (e.g. Mike).' (the statement omits the parenthetical name, which is acceptable). The quote is present verbatim on line 14. The percentages (91.9%, 50%, 25%) are the plan's targets or restated figures, not measured baselines, and the slide must say so. → Slide wording: 'Eight L2 tasks, 16-30 Nov-26, all marked critical; goals and percentages are the plan's targets as written, not measurements. 91.9% / 1,105 restate the deck's portal-wide live figures of 2026-10-01 (C112); 50% of duplicates and 25% of SEALSQ properties are targets against baselines that are capped (C051, C053) or snapshot-dated 2026-09-14 (C062, C086).'"
+   }
+  },
+  {
+   "id": "C164",
+   "type": "evidence_fact",
+   "label": "The L2 target '91.9%; only 1,105 companies have a deal' is the deck's own live measurement of 2026-10-01 (cla…",
+   "depth": 4,
+   "parent": "layer_l2",
+   "attrs": {
+    "kind": "number",
+    "claim": "The L2 target '91.9%; only 1,105 companies have a deal' is the deck's own live measurement of 2026-10-01 (claim C112: 12,574 of 13,679 companies carry no deal, 91.9%; 1,105 carry one); the plan quotes the measurement as its target.",
+    "used_by": [
+     "V24"
+    ],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "line 12",
+      "quote": "[Ops] Solve the final-customer target: 91.9%; only 1,105 companies have a deal."
+     },
+     {
+      "source": "projects/crm-three-scenarios/evidence-ledger.md",
+      "locator": "row C112",
+      "quote": "Companies with no deal association: 12,574 of 13,679 (91.9%); only 1,105 companies carry a deal (live, uncapped"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "line 12",
+    "quote": "[Ops] Solve the final-customer target: 91.9%; only 1,105 companies have a deal.",
+    "status": "caveat",
+    "verified": "2026-10-12",
+    "confidence": "measured (cross-reference)",
+    "story_link": "sequel · L2 final-customer target vs the deck's measurement",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "caveat": "[caveat] Line 12 reads exactly '[Ops] Solve the final-customer target: 91.9%; only 1,105 companies have a deal.' and ledger row C112 (source live-hubsql-2026-10-01, query SELECT COUNT(*) FROM COMPANY WHERE hs_object_id IS NOT NULL AND associations.DEAL IS NULL, result 12574) reads 'Companies with no deal association: 12,574 of 13,679 (91.9%); only 1,105 companies carry a deal (live, uncapped'; 13,679 - 12,574 = 1,105 and 12,574 / 13,679 = 91.9%. Both quotes present; the figures coincide exactly. Two scope points the claim omits: (a) 'the plan quotes the measurement as its target' is a reading — the row states 91.9% / 1,105 as the condition to 'solve' and sets no numeric target of its own; (b) C112 is portal-wide (all 13,679 companies, every entity), whereas the row says 'final-customer' and the plan's L3 rows are SEALSQ-only; no SEALSQ-only baseline exists in the ledger, and the deck's 'final_customer' figures (C053: 1,034 deals with final_customer, capped scan; C095: 1,043 of 1,972 deals, live) measure a deal property, not company-deal association. → Slide wording: 'The L2 row restates the deck's live, portal-wide figures of 2026-10-01 (C112: 12,574 of 13,679 companies without a deal, 91.9%; 1,105 with one) as the condition to solve; the row sets no numeric target of its own and no SEALSQ-only baseline was measured.' Replace 'quotes the measurement as its target' with 'restates the measurement as the condition to solve'.\n[caveat] Arithmetic confirmed: 12,574 / 13,679 = 91.92% -> 91.9%; 13,679 - 12,574 = 1,105; the ledger row C112 carries exactly 'Companies with no deal association: 12,574 of 13,679 (91.9%); only 1,105 companies carry a deal (live, uncapped' and has no caveat. The pair 91.9% / 1,105 matches only the live uncapped query of 2026-10-01, not Hs-Logic's capped scan (9,150 / 10,000 = 91.5%, C053), so the cross-reference is unambiguous. Two wording issues: (a) the row reads 'Solve the final-customer target: 91.9%; only 1,105 companies have a deal.' — it restates the measurement as the state to solve and gives no target value, so 'quotes the measurement as its target' over-reads it; (b) '1,105 carry one' should be 'carry at least one deal' (C112 counts associations.DEAL not null, not exactly one). The 'final-customer' label refers to the cardinality trap, whereas C112 measures deal association, a related but different test. → Carry: 'The L2 row restates the deck's live 2026-10-01 measurement (C112: 12,574 of 13,679 companies, 91.9%, with no deal; 1,105 with at least one deal) as the state to solve; the row names no target value. Cross-reference, not a new measurement.'"
+   }
+  },
+  {
+   "id": "C165",
+   "type": "evidence_fact",
+   "label": "L3, four confirmation tasks (1-20 Dec, all critical): confirm 90% of SEALSQ companies are not orphaned; confi…",
+   "depth": 4,
+   "parent": "layer_l3",
+   "attrs": {
+    "kind": "quote",
+    "claim": "L3, four confirmation tasks (1-20 Dec, all critical): confirm 90% of SEALSQ companies are not orphaned; confirm 80% of SEALSQ contacts have at least email + telephone/LinkedIn; confirm all users are trained for CRM best practice in data; confirm all deals are properly documented and categorised (goal 'Remove 50% of SEALSQ properties').",
+    "used_by": [
+     "V25"
+    ],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "lines 20-23",
+      "quote": "[Data] Confirm all deals are properly documented and categorised.,Remove 50% of SEALSQ properties.,,L3"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "lines 20-23",
+    "quote": "[Data] Confirm all deals are properly documented and categorised.,Remove 50% of SEALSQ properties.,,L3",
+    "status": "caveat",
+    "verified": "2026-10-12",
+    "confidence": "tracker words",
+    "story_link": "sequel · engines E2-E4 · layer L3",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "caveat": "[caveat] Source fidelity holds: CSV lines 20-23 carry exactly the four L3 tasks named, each with START 01-Dec-26, ESTIMATED DURATION 14, END 20-Dec-26, Critical yes, Status pending; the Goal 'Remove 50% of SEALSQ properties.' sits only on line 23; the cited quote is verbatim at line 23. What the claim and slide do not yet say: these rows are the user's plan (brief.md line 285: 'admissible as \"what is planned\", never as a measurement'), the 'Confirm 90% / 80%' figures are targets with no SEALSQ-only baseline in any admissible source, and OWNER / Priority are empty on all four rows. → Slide wording: 'L3 (1-20 Dec 2026, 4 rows, all Critical = yes, status pending, 0%, no owner) as written in the remediation tracker of 13-Oct-26: targets, not measurements. The SEALSQ-only baselines these confirmations assume (companies not orphaned, contacts with phone/LinkedIn, users trained, deals categorised) have not been measured by any admissible source.'"
+   }
+  },
+  {
+   "id": "C166",
+   "type": "evidence_fact",
+   "label": "The user's chunking rule for the three appended slides: the Foundation engine of the 21/09/26 roadmap corresp…",
+   "depth": 4,
+   "parent": "plan_remediation",
+   "attrs": {
+    "kind": "mapping",
+    "claim": "The user's chunking rule for the three appended slides: the Foundation engine of the 21/09/26 roadmap corresponds to layers L1 + L2 of the remediation plan; engines E2 to E4 correspond to layer L3. The engine ladder itself (Foundation -> E2 rebuild a cleaner data structure -> E3 leverage the data for GTM/RevOps -> E4 self-autonomous AI-powered CRM) is the 21/09/26 tracker's legend.",
+    "used_by": [
+     "V23",
+     "V24",
+     "V25"
+    ],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/brief.md",
+      "locator": "line 271 (section 5, user request verbatim)",
+      "quote": "foundation : L1+L2"
+     },
+     {
+      "source": "projects/crm-three-scenarios/brief.md",
+      "locator": "line 272 (section 5, user request verbatim)",
+      "quote": "E2:E4 : L3"
+     },
+     {
+      "source": "projects/crm-three-scenarios/brief.md",
+      "locator": "lines 274-275 ('Reading (orchestrator)')",
+      "quote": "the Foundation engine of the 21/09/26 roadmap corresponds to layers L1 + L2 of the plan, and engines E2 to E4 correspond to layer L3"
+     },
+     {
+      "source": "projects/crm-three-scenarios/sources/AYA_trackerv4_210926-xlsx-extract.txt",
+      "locator": "line 23 (sheet 'RevOps 6-month plan (2)', legend)",
+      "quote": "E2 = After Foundation we start rebuilding a cleaner data structure"
+     },
+     {
+      "source": "projects/crm-three-scenarios/sources/AYA_trackerv4_210926-xlsx-extract.txt",
+      "locator": "line 24 (sheet 'RevOps 6-month plan (2)', legend)",
+      "quote": "E3 = After the data we can now leverage the data for GTM and Reporting/RevOps"
+     },
+     {
+      "source": "projects/crm-three-scenarios/sources/AYA_trackerv4_210926-xlsx-extract.txt",
+      "locator": "line 25 (sheet 'RevOps 6-month plan (2)', legend)",
+      "quote": "E4 = Self - autonomous AI powered CRM"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/brief.md",
+    "locator": "line 271 (section 5, user request verbatim)",
+    "quote": "foundation : L1+L2",
+    "status": "caveat",
+    "verified": "2026-10-12",
+    "confidence": "user statement",
+    "story_link": "sequel · chunking rule",
+    "source_tag": "brief-2026-10-12",
+    "caveat": "[caveat] brief.md lines 271-272 carry the user's rule verbatim on two separate lines, 'foundation : L1+L2' and 'E2:E4 : L3'; the claim's quote joins them with ' / ', which is not in the file. The expansion 'the Foundation engine of the 21/09/26 roadmap corresponds to layers L1 + L2' is the orchestrator's reading at brief.md lines 274-275 ('Reading (orchestrator)'), not the user's words. The legend quote 'E2 = After Foundation we start rebuilding a cleaner data structure' is verbatim at AYA_trackerv4_210926-xlsx-extract.txt line 23 (sheet 'RevOps 6-month plan (2)'); E3 (line 24) reads 'After the data we can now leverage the data for GTM and Reporting/RevOps' and E4 (line 25) 'Self - autonomous AI powered CRM', both paraphrased in the claim. 'Foundation' is an ENGINE value in that tracker (extract line 8 header, line 10 row) but a PHASE value in the remediation CSV (ENGINE = Remediation), and the user's rule assigns no chunk to the CSV's own Foundation phase (lines 2-6). → Quote the rule as two lines attributed to the user ('foundation : L1+L2' / 'E2:E4 : L3', brief section 5) and label the engine-to-layer reading 'orchestrator reading of the user's rule'. Quote the legend verbatim: 'E2 = After Foundation we start rebuilding a cleaner data structure'; 'E3 = After the data we can now leverage the data for GTM and Reporting/RevOps'; 'E4 = Self - autonomous AI powered CRM'. Add: 'The five Foundation-phase rows of the plan (lines 2-6) are not named in the user's rule.'\n[caveat] The user's words are verbatim in brief.md section 5 ('foundation : L1+L2' / 'E2:E4 : L3') and the legend lines E2/E3/E4 are verbatim at lines 23-25 of the extract, inside sheet 'RevOps 6-month plan (2)' (lines 2-30). But the words 'engine' and '21/09/26 roadmap' are the orchestrator's reading (brief section 5 says so): the user's 'foundation' also names the remediation CSV's own first PHASE (lines 2-6, 5 rows), which the rule as written does not place. The engine ladder paraphrase is fair (E3 verbatim: 'leverage the data for GTM and Reporting/RevOps'). → Show the mapping as 'the user's rule, read by the deck as: Foundation engine of the 21/09/26 roadmap <-> layers L1 + L2; engines E2-E4 <-> layer L3' and state on the slide where the five rows of the CSV's own Foundation phase (lines 2-6) are placed, since the rule names only L1, L2 and L3."
+   }
+  },
+  {
+   "id": "C167",
+   "type": "evidence_fact",
+   "label": "'Connex' appears in the Foundation documentation task as a third entity beside SEALSQ and IC'Alps; the name o…",
+   "depth": 4,
+   "parent": "layer_l1",
+   "attrs": {
+    "kind": "mapping",
+    "claim": "'Connex' appears in the Foundation documentation task as a third entity beside SEALSQ and IC'Alps; the name occurs in no earlier admissible source (the brief, the review deck, the 21/09/26 tracker, the SEALSQ property set, the three repositories) — a grep returns nothing — so it is a new tenant name with no measured footprint.",
+    "used_by": [],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "line 6",
+      "quote": "[Data] Document the set of properties: SEALSQ, IC'Alps, Connex."
+     },
+     {
+      "source": "grep -rli connex over Hs-Logic, HubSpot-Ruler and presentation-builder (node_modules and .git excluded), the two source extracts and brief.md (re-run 2026-10-12)",
+      "locator": "repo_check",
+      "quote": "0 files outside the remediation CSV and the derived explore-remediation-plan.json"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "line 6",
+    "quote": "[Data] Document the set of properties: SEALSQ, IC'Alps, Connex.",
+    "status": "caveat",
+    "verified": "2026-10-12",
+    "confidence": "repo check",
+    "story_link": "sequel · a new tenant name",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "caveat": "[caveat] CSV line 6 reads exactly '[Data] Document the set of properties: SEALSQ, IC'Alps, Connex.' (the field is CSV-quoted). Grep re-run on 2026-10-12 (grep -rli connex, excluding node_modules and .git) over Hs-Logic, HubSpot-Ruler, the whole deck-factory repository and brief.md hits only the remediation CSV and the derived explore-remediation-plan.json; the deck extract and the 21/09/26 tracker extract contain no 'connex'. So absence is confirmed. 'New tenant name' is an inference: the row lists Connex beside SEALSQ and IC'Alps as a property set to document and says nothing about what Connex is. → Slide wording: 'Connex: named once in the plan (Foundation row, line 6, \"Document the set of properties: SEALSQ, IC'Alps, Connex\"); not found in any other admissible source (grep 2026-10-12 over the three repositories, the review deck, the 21/09/26 tracker and the brief). What Connex is, is not stated.'\n[caveat] Line 6 is verbatim. Re-ran grep -rli connex over the three repositories on disk (Hs-Logic, HubSpot-Ruler, presentation-builder minus the CSV and the explore JSON), both source extracts and brief.md: 0 hits, so the footprint finding holds. Two defects: the evidence string names only two repositories (Hs-Logic, HubSpot-Ruler) while the statement says three; and 'tenant' is the deck's vocabulary, not the row's, which only lists Connex as a third name in a property-documentation task. HubSpot-Ruler Claude.md (brief 2e) names SEALSQ, IC'Alps, WISeKey as the three companies sharing the CRM and SEALSQ, IC'Alps, MIRAEX, WeCan as the four context agents; Connex is in neither list. → Wording: 'Connex appears once, on line 6, beside SEALSQ and IC'Alps; the name occurs in no other admissible source (brief, review-deck extract, 21/09/26 tracker extract, Hs-Logic, HubSpot-Ruler, presentation-builder: grep 2026-10-12, 0 hits). What it designates is not stated.' Correct the evidence locator to list all three repositories."
+   }
+  },
+  {
+   "id": "C168",
+   "type": "evidence_fact",
+   "label": "The L2 task 'reports and quality checks automatically generated via Quarto-BQ (HS-Standalone connector)' name…",
+   "depth": 4,
+   "parent": "layer_l2",
+   "attrs": {
+    "kind": "mapping",
+    "claim": "The L2 task 'reports and quality checks automatically generated via Quarto-BQ (HS-Standalone connector)' names two items of the implementation health check: Hs-Logic / hs-standalone (rank 6, verdict simplify) and the DBT + BigQuery pipeline Bq-dbt (rank 1, verdict keep); neither repository contains a Quarto document today.",
+    "used_by": [
+     "V24"
+    ],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "line 15",
+      "quote": "[Ops] Implement reports and quality checks automatically generated via Quarto-BQ (HS-Standalone connector)."
+     },
+     {
+      "source": "projects/crm-three-scenarios/implementation-health-check.md",
+      "locator": "ranked table row 6 (line 35), item cell; verdict cell reads 'simplify'",
+      "quote": "Hs-Logic / hs-standalone (FastAPI + React CRM-health service)"
+     },
+     {
+      "source": "projects/crm-three-scenarios/implementation-health-check.md",
+      "locator": "ranked table row 1 (line 30), item cell; verdict cell reads 'keep'; location cell reads 'Not in any of the three repos.'",
+      "quote": "Bq-dbt — DBT + BigQuery merge / transformation pipeline"
+     },
+     {
+      "source": "projects/crm-three-scenarios/brief.md",
+      "locator": "line 76",
+      "quote": "the hs-standalone project = Hs-Logic"
+     },
+     {
+      "source": "grep -rli quarto over Hs-Logic, HubSpot-Ruler and presentation-builder (node_modules and .git excluded; re-run 2026-10-12)",
+      "locator": "repo_check",
+      "quote": "0 files outside the remediation CSV and the derived explore-remediation-plan.json"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "line 15",
+    "quote": "[Ops] Implement reports and quality checks automatically generated via Quarto-BQ (HS-Standalone connector).",
+    "status": "caveat",
+    "verified": "2026-10-12",
+    "confidence": "project docs",
+    "story_link": "sequel · L2 reporting task tied to what is built",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "caveat": "[caveat] CSV line 15 is verbatim. implementation-health-check.md ranked table: row 1 '**Bq-dbt — DBT + BigQuery merge / transformation pipeline**' verdict '**keep**', row 6 '**Hs-Logic / hs-standalone (FastAPI + React CRM-health service)**' verdict '**simplify**'; the claim's quote is a composite with arrows, not the cell text. The name 'hs-standalone' does not occur anywhere in the Hs-Logic repository (grep); the tie rests on brief.md line 76 ('the hs-standalone project = Hs-Logic') and line 219. 'BQ' -> Bq-dbt is a reading (BQ as BigQuery); row 1 of the health check states Bq-dbt is 'Not in any of the three repos', so 'neither repository contains a Quarto document' can only be checked for Hs-Logic and HubSpot-Ruler. grep -rli quarto re-run 2026-10-12: 0 files in Hs-Logic, 0 in HubSpot-Ruler, and in the deck-factory repo only the CSV and the derived explore file. → Slide wording: 'L2 row (line 15) names \"Quarto-BQ (HS-Standalone connector)\". By name: HS-Standalone is the user's label for Hs-Logic (brief, \"hs-standalone project = Hs-Logic\"; health check rank 6, simplify); BQ read as BigQuery points at the Bq-dbt pipeline (rank 1, keep), whose code is in none of the three repositories. No file in Hs-Logic or HubSpot-Ruler mentions Quarto (grep 2026-10-12).' Replace the composite quote with the two cell texts.\n[caveat] Line 15 verbatim; health-check ranked table row 1 = Bq-dbt, verdict keep, and row 6 = Hs-Logic / hs-standalone, verdict simplify (the evidence quote is a composite, not a verbatim line). grep quarto over Hs-Logic, HubSpot-Ruler and presentation-builder = 0 outside the CSV. But Bq-dbt is not a repository: the health check row 1 says 'Not in any of the three repos' and brief 2e lists it under 'NOT in any repo', so 'neither repository contains a Quarto document' cannot be checked for Bq-dbt. 'Quarto-BQ' -> BigQuery and 'HS-Standalone' -> hs-standalone are ties by name only (the explorer's own gap says so). → Wording: 'The row's names match, by name only, two health-check items: Hs-Logic / hs-standalone (rank 6, simplify) and the Bq-dbt pipeline (rank 1, keep, code in no repository available). No Quarto file exists in Hs-Logic or HubSpot-Ruler; Bq-dbt's code cannot be inspected.'"
+   }
+  },
+  {
+   "id": "C169",
+   "type": "evidence_fact",
+   "label": "Of the three L1 purge counts, 6,570 'orphan contacts' equals the deck's live count of contacts with no compan…",
+   "depth": 4,
+   "parent": "layer_l1",
+   "attrs": {
+    "kind": "number",
+    "claim": "Of the three L1 purge counts, 6,570 'orphan contacts' equals the deck's live count of contacts with no company association on 2026-10-01 (C111: 6,570 of 26,293, 25.0%); 2,043 'companies with neither deals nor contacts' and 10,574 'contacts-only auto-creations' were measured neither by the live probe (which counted 12,574 companies without a deal, C112) nor by Hs-Logic (9,150 orphan companies in a capped 10,000 scan, C053). The three counts sum to 19,187, which is 45.7% of the 41,944 records measured on 2026-10-01 (13,679 companies + 26,293 contacts + 1,972 deals), not the '~33% of total CRM records' the row states; the 33% is not recomputable from any admissible source.",
+    "used_by": [
+     "V23"
+    ],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "line 8",
+      "quote": "full Orphan companies ~33% of total CRM records). Delete 6,570 orphan contacts, 2,043 companies with neither deals nor contacts, 10,574 contacts-only auto-creations"
+     },
+     {
+      "source": "projects/crm-three-scenarios/evidence-ledger.md",
+      "locator": "rows C111, C112, C053, C089 and the record-count basis line of implementation-health-check.md (41,944)",
+      "quote": "Contacts with no company association: 6,570 of 26,293 (25.0%)"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "line 8",
+    "quote": "full Orphan companies ~33% of total CRM records). Delete 6,570 orphan contacts, 2,043 companies with neither deals nor contacts, 10,574 contacts-only auto-creations",
+    "status": "caveat",
+    "verified": "2026-10-12",
+    "confidence": "measured (cross-reference) + arithmetic",
+    "story_link": "sequel · L1 purge numbers against the deck's measurements",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "caveat": "[caveat] CSV line 8 quote verbatim; ledger C111 quote verbatim ('Contacts with no company association: 6,570 of 26,293 (25.0%)'); C112 12,574 and C053 9,150 (capped 10,000 scan) confirmed; 41,944 = 13,679 + 26,293 + 1,972 at implementation-health-check.md line 46; 6,570 + 2,043 + 10,574 = 19,187 = 45.7% of 41,944 recomputed. '2,043' and '10,574' occur in no ledger row (grep). Two fidelity problems: (1) the row's parenthetical attaches '~33% of total CRM records' to 'full Orphan companies', not to the three delete counts, so 'not the ~33% the row states' compares a sum the row never gives with a ratio the row assigns to something else; (2) '6,570 orphan contacts' equals the C111 number but the plan's label is not the deck's definition ('contacts with no company association'), and C111's caveat records a same-day re-run of 6,571 of 26,294. Nearest admissible ratios to 33%: 12,574 / 41,944 = 30.0%, 13,679 / 41,944 = 32.6%; neither is the row's definition, so 33% stays unrecomputable. → Slide wording: 'The L1 purge row (line 8) lists 6,570 orphan contacts, 2,043 companies with neither deals nor contacts and 10,574 contacts-only auto-creations. 6,570 matches the deck's live count of contacts with no company association on 2026-10-01 (C111, 25.0% of 26,293; same-day re-run 6,571); 2,043 and 10,574 are the plan's own counts, measured by no admissible source. The row's \"~33% of total CRM records\" is attached to \"full Orphan companies\" and is not recomputable from any admissible source; the three listed counts sum to 19,187, 45.7% of the 41,944 live records of 2026-10-01 (a figure the row does not state).'\n[caveat] Arithmetic holds: 6,570 + 2,043 + 10,574 = 19,187; 13,679 + 26,293 + 1,972 = 41,944 (health check line 46); 19,187 / 41,944 = 45.7%; 6,570 / 26,293 = 25.0% = C111 (same-day re-run 6,571 of 26,294, so a snapshot match). 2,043 and 10,574 appear in no ledger row. But the comparison with '~33%' is a scope conflation: on line 8 the '~33% of total CRM records' qualifies 'full Orphan companies' inside the parenthetical, not the three delete counts; and the 33% is approximately recomputable: companies are 13,679 / 41,944 = 32.6% of the live records, and 2,043 + 10,574 = 12,617 is 30.1% of 41,944 and within 43 of C112's 12,574 companies without a deal (read that way, '10,574 contacts-only auto-creations' may be companies, not contacts). The claim's 'not recomputable from any admissible source' is therefore too strong. → Wording: '6,570 orphan contacts equals the deck's live count of contacts with no company (C111, 2026-10-01 snapshot). 2,043 and 10,574 are the plan's own counts, measured by no admissible source. The three counts sum to 19,187, 45.7% of the 41,944 records of 2026-10-01; the row's \"~33%\" qualifies \"Orphan companies\" and its denominator is not stated (all companies are 32.6% of those records).' Drop 'not the ~33% the row states' and 'not recomputable'."
+   }
+  },
+  {
+   "id": "C170",
+   "type": "evidence_fact",
+   "label": "The plan's ratio targets, read against the baselines already in the ledger: '50% of duplicates suppressed' ag…",
+   "depth": 4,
+   "parent": "layer_l3",
+   "attrs": {
+    "kind": "mapping",
+    "claim": "The plan's ratio targets, read against the baselines already in the ledger: '50% of duplicates suppressed' against 226 company and 281 contact duplicate clusters found by exact match in a capped 10,000-record scan (C051, C053: floors, not counts); 'remove 25% of SEALSQ properties' (L2) then '50%' (L3) against the 2026-09-14 snapshots: 498 deal / 30 company / 30 contact properties in the SEALSQ-scope set (C062) and 565 DEAL / 40 COMPANY / 24 CONTACT rows in the Data-Toolkit schema (C086); '90% of SEALSQ companies not orphaned' against 8.1% of companies carrying a deal portal-wide on 2026-10-01 (C112; SEALSQ-only baseline not measured); '80% of contacts with email + telephone/LinkedIn' against phone missing on 53.3% and email on 1.7% of the first 10,000 contacts (C052, capped; LinkedIn not measured).",
+    "used_by": [
+     "V24",
+     "V25"
+    ],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "lines 14, 18, 20, 21, 23 (Goal and TASK columns)",
+      "quote": "50% of duplicates suppressed. ... Remove 25% of SEALSQ properties. ... [Data] Confirm 90% of SEALSQ companies are not orphaned. ... [Data] Confirm 80% of SEALSQ contacts have at least email + telephone/LinkedIn. ... Remove 50% of SEALSQ properties."
+     },
+     {
+      "source": "projects/crm-three-scenarios/evidence-ledger.md",
+      "locator": "row C051 (quote cell)",
+      "quote": "281 Duplicate clusters"
+     },
+     {
+      "source": "projects/crm-three-scenarios/evidence-ledger.md",
+      "locator": "row C053 (quote cell)",
+      "quote": "226 Duplicate clusters"
+     },
+     {
+      "source": "projects/crm-three-scenarios/evidence-ledger.md",
+      "locator": "row C062",
+      "quote": "498 deal / 30 contact / 30 company / 14 ticket properties"
+     },
+     {
+      "source": "projects/crm-three-scenarios/evidence-ledger.md",
+      "locator": "row C086",
+      "quote": "565 DEAL / 40 COMPANY / 24 CONTACT / 32 TICKET / 43 ACTIVITIES"
+     },
+     {
+      "source": "projects/crm-three-scenarios/evidence-ledger.md",
+      "locator": "row C112",
+      "quote": "Companies with no deal association: 12,574 of 13,679 (91.9%); only 1,105 companies carry a deal"
+     },
+     {
+      "source": "projects/crm-three-scenarios/evidence-ledger.md",
+      "locator": "row C052",
+      "quote": "email 1.7% (170), phone 53.3% (5,329)"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "lines 14, 18, 20, 21, 23 (Goal and TASK columns)",
+    "quote": "50% of duplicates suppressed. ... Remove 25% of SEALSQ properties. ... [Data] Confirm 90% of SEALSQ companies are not orphaned. ... [Data] Confirm 80% of SEALSQ contacts have at least email + telephone/LinkedIn. ... Remove 50% of SEALSQ properties.",
+    "status": "caveat",
+    "verified": "2026-10-12",
+    "confidence": "measured baselines (ledger)",
+    "story_link": "sequel · L2/L3 targets against the deck's baselines",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "caveat": "[caveat] Quotes present: line 14 '50% of duplicates suppressed.', line 18 'Remove 25% of SEALSQ properties.', line 20 '[Data] Confirm 90% of SEALSQ companies are not orphaned.', line 21 '[Data] Confirm 80% of SEALSQ contacts have at least email + telephone/LinkedIn.', line 23 'Remove 50% of SEALSQ properties.' (the claim's quote drops the '[Data] ' prefixes). Ledger: C051 'duplicate clusters 281' verbatim (contacts, capped 10,000); C053 '226 duplicate clusters' (claim writes 'Duplicate clusters = 226', not verbatim), capped 10,000 companies; C062 '498 deal / 30 contact / 30 company / 14 ticket properties' (claim reorders to 30 company / 30 contact; counts from sealsq_property_set.json per the C062 caveat, as-of 2026-09-14); C086 '565 DEAL / 40 COMPANY / 24 CONTACT / 32 TICKET / 43 ACTIVITIES' (portal-wide Data-Toolkit schema, not SEALSQ-only); C112 gives 91.9% without a deal, the '8.1%' is derived (1,105 / 13,679 = 8.08%) and collides with C098's stated 8.1% (deals with no company); C052 'phone 53.3% (5,329)', 'email 1.7% (170)' of 10,000 scanned contacts, portal-wide. Scope gaps the slide must carry: the plan's duplicates are 'with no record attached' (narrower than exact-match clusters); all baselines are portal-wide or capped floors; no SEALSQ-only baseline exists; LinkedIn never measured. → Slide wording: 'Baselines in the ledger, none SEALSQ-only: duplicates = 226 company and 281 contact exact-match clusters in the first 10,000 records scanned (floors, not totals; the plan counts only duplicates \"with no record attached\"); SEALSQ property set = 498 deal / 30 contact / 30 company properties captured 2026-09-14 (the portal-wide schema holds 565 deal / 40 company / 24 contact); companies with a deal = 1,105 of 13,679 portal-wide on 2026-10-01 (8.1%, derived from the 91.9% without); phone missing on 53.3% and email on 1.7% of the first 10,000 contacts, portal-wide; LinkedIn not measured.' Write the C053 quote as '226 Duplicate clusters' and keep the '[Data] ' prefixes in task quotes.\n[caveat] Every cross-reference resolves: C051 281 contact duplicate clusters and C053 226 company clusters (both capped 10,000 scans); C062 498 deal / 30 contact / 30 company properties; C086 565 DEAL / 40 COMPANY / 24 CONTACT; C112 1,105 / 13,679 = 8.08% -> 8.1%; C052 phone 53.3%, email 1.7% missing. CSV lines 14, 18, 20, 21, 23 quoted correctly. Three scope points the deck must carry: C086's figures are property entries inside hubspot_crm_schema.json, not 'rows' (C086 caveat); the plan does not define 'orphaned', and the ledger holds two baselines (C112: 91.9% of companies carry no deal, portal-wide; C053: 9,150 Hs-Logic orphans of the first 10,000 companies = 66.9% of 13,679), neither SEALSQ-only; 'email + telephone/LinkedIn' is a compound never measured (phone present on at most 46.7% of the first 10,000 contacts, LinkedIn not scanned). → Say 'property entries' for C086; state both orphan baselines (C112 portal-wide 91.9% without a deal; C053 9,150 of first 10,000 by Hs-Logic's definition) and that the plan's 'orphaned' is undefined; label all baselines portal-wide or capped, never SEALSQ-only; for the 80% target cite phone missing 53.3% and email 1.7% separately and mark LinkedIn and the compound as not measured."
+   }
+  },
+  {
+   "id": "C171",
+   "type": "evidence_fact",
+   "label": "The plan names no owner on any of its 22 rows and no priority; Foundation and L1 rows carry no end date or du…",
+   "depth": 4,
+   "parent": "plan_remediation",
+   "attrs": {
+    "kind": "status",
+    "claim": "The plan names no owner on any of its 22 rows and no priority; Foundation and L1 rows carry no end date or duration; the 'co-owner of quality metrics' row gives one example name in parentheses; the L2 property-audit row and the L3 deal-documentation row carry different removal targets for the same SEALSQ property set (25% then 50%).",
+    "used_by": [
+     "V24"
+    ],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "OWNER and 'Priority level' columns, lines 2-23; line 19; lines 18 and 23",
+      "quote": "[Admin] Define a co-owner of quality metrics in the CRM (e.g. Mike).,,,L2"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "OWNER and 'Priority level' columns, lines 2-23; line 19; lines 18 and 23",
+    "quote": "[Admin] Define a co-owner of quality metrics in the CRM (e.g. Mike).,,,L2",
+    "status": "caveat",
+    "verified": "2026-10-12",
+    "confidence": "tracker words",
+    "story_link": "sequel · what the plan does not yet say",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "caveat": "[caveat] Verified on the CSV: Priority level (column 3) and OWNER (column 6) are empty on all 22 rows (lines 2-23); lines 2-11 have empty ESTIMATED DURATION and END; line 19 is verbatim '[Admin] Define a co-owner of quality metrics in the CRM (e.g. Mike).'; line 18 Goal 'Remove 25% of SEALSQ properties.' and line 23 Goal 'Remove 50% of SEALSQ properties.'. The phrase 'different removal targets for the same SEALSQ property set' is a reading: the plan does not say whether the L3 50% is cumulative on the L2 25% or a second, conflicting target, and 'the same property set' is inferred from the shared words 'SEALSQ properties'. The example name is a personal first name supplied by the user in the CSV; it need not be printed on the slide. → Slide wording: 'No owner and no priority on any of the 22 rows; Foundation and L1 rows (lines 2-11) carry a start date (13-Oct-26) but no duration or end; the co-owner row (line 19) gives one example name in parentheses; property removal is set at 25% in L2 (line 18) and 50% in L3 (line 23), both worded \"SEALSQ properties\", and the plan does not state whether the 50% is cumulative.'"
+   }
+  },
+  {
+   "id": "C172",
+   "type": "evidence_fact",
+   "label": "The ESTIMATED DURATION values 11 (L2) and 14 (L3) equal the inclusive Monday-Friday weekday counts of the STA…",
+   "depth": 4,
+   "parent": "plan_remediation",
+   "attrs": {
+    "kind": "number",
+    "claim": "The ESTIMATED DURATION values 11 (L2) and 14 (L3) equal the inclusive Monday-Friday weekday counts of the START-END spans: 16-Nov-26 (Mon) to 30-Nov-26 (Mon) is 15 calendar days containing 11 weekdays; 01-Dec-26 (Tue) to 20-Dec-26 (Sun) is 20 calendar days containing 14 weekdays, the fourteenth falling on Fri 18-Dec-26. The L3 END date 20-Dec-26 is a Sunday. The CSV states no unit for the column.",
+    "used_by": [],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "line 1 (column header 'ESTIMATED DURATION'); line 12 (START, ESTIMATED DURATION, END); line 20",
+      "quote": "01-Dec-26,14,20-Dec-26,0,0%,yes,pending"
+     },
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "line 12 (START, ESTIMATED DURATION, END columns)",
+      "quote": "16-Nov-26,11,30-Nov-26"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "line 1 (column header 'ESTIMATED DURATION'); line 12 (START, ESTIMATED DURATION, END); line 20",
+    "quote": "01-Dec-26,14,20-Dec-26,0,0%,yes,pending",
+    "status": "confirmed",
+    "verified": "2026-10-12",
+    "confidence": "tracker words",
+    "story_link": "sequel · layers tied to dates (unit of the duration column)",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "note": "side finding of the 2026-10-12 verification pass; filed and re-checked against the source by the maintainer"
+   }
+  },
+  {
+   "id": "C173",
+   "type": "evidence_fact",
+   "label": "The plan's 'Project Start date' and 'Date for tracking progress' are both 13-Oct-26 (a Tuesday) on all 22 row…",
+   "depth": 4,
+   "parent": "plan_remediation",
+   "attrs": {
+    "kind": "status",
+    "claim": "The plan's 'Project Start date' and 'Date for tracking progress' are both 13-Oct-26 (a Tuesday) on all 22 rows, and COMPLETED is 0 on every row; 13-Oct-26 is one day after the sequel request date of 2026-10-12 stated in the brief, so the plan is dated in the future relative to the deck's 'today' and has not started at the time of the sequel.",
+    "used_by": [],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "lines 2-23, last three columns (Project Name, Project Start date, Date for tracking progress) and COMPLETED column",
+      "quote": "0,0%,,pending,Remediation plan,13-Oct-26,13-Oct-26"
+     },
+     {
+      "source": "projects/crm-three-scenarios/brief.md",
+      "locator": "section 5 heading",
+      "quote": "## 5. Sequel request (2026-10-12) and the remediation-plan tracker (2026-10-13)"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "lines 2-23, last three columns (Project Name, Project Start date, Date for tracking progress) and COMPLETED column",
+    "quote": "0,0%,,pending,Remediation plan,13-Oct-26,13-Oct-26",
+    "status": "confirmed",
+    "verified": "2026-10-12",
+    "confidence": "tracker words",
+    "story_link": "sequel · plan overview (the plan has not started)",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "note": "side finding of the 2026-10-12 verification pass; filed and re-checked against the source by the maintainer"
+   }
+  },
+  {
+   "id": "C174",
+   "type": "evidence_fact",
+   "label": "Task-tag distribution across the 22 rows: [Data] 11, [Ops] 8, [Admin] 2, [Document] 1 (11 + 8 + 2 + 1 = 22).…",
+   "depth": 4,
+   "parent": "plan_remediation",
+   "attrs": {
+    "kind": "number",
+    "claim": "Task-tag distribution across the 22 rows: [Data] 11, [Ops] 8, [Admin] 2, [Document] 1 (11 + 8 + 2 + 1 = 22). Per phase: Foundation 5 x [Data]; L1 4 x [Ops] + 1 x [Document]; L2 4 x [Ops] + 3 x [Data] + 1 x [Admin]; L3 3 x [Data] + 1 x [Admin]. The tag '[Document]' on line 10 differs from the '[DOC]' convention of the 21/09/26 tracker (its line 17: '[DOC] Draft PO for partner or Operations Hub').",
+    "used_by": [],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "lines 2-23, TASK column prefixes; line 10",
+      "quote": "[Document] Document the full set of properties within the CRM and the boundaries between SEALSQ and IC'Alps."
+     },
+     {
+      "source": "projects/crm-three-scenarios/sources/AYA_trackerv4_210926-xlsx-extract.txt",
+      "locator": "line 17 (sheet 'RevOps 6-month plan (2)')",
+      "quote": "[DOC] Draft PO for partner or Operations Hub"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "lines 2-23, TASK column prefixes; line 10",
+    "quote": "[Document] Document the full set of properties within the CRM and the boundaries between SEALSQ and IC'Alps.",
+    "status": "confirmed",
+    "verified": "2026-10-12",
+    "confidence": "tracker words",
+    "story_link": "sequel · plan overview (task types per layer)",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "note": "side finding of the 2026-10-12 verification pass; filed and re-checked against the source by the maintainer"
+   }
+  },
+  {
+   "id": "C175",
+   "type": "evidence_fact",
+   "label": "The Critical column is blank (not 'no') on the ten Foundation and L1 rows (lines 2-11) and 'yes' on the twelv…",
+   "depth": 4,
+   "parent": "plan_remediation",
+   "attrs": {
+    "kind": "status",
+    "claim": "The Critical column is blank (not 'no') on the ten Foundation and L1 rows (lines 2-11) and 'yes' on the twelve L2 and L3 rows (lines 12-23); the plan marks criticality only for the dated phases. The COMPLETED column is 0 on every row.",
+    "used_by": [],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "lines 2-11 (Critical column empty) versus lines 12-23 (Critical = yes); COMPLETED column all rows",
+      "quote": "L1,Remediation,,13-Oct-26,,,0,0%,,pending"
+     },
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "line 12",
+      "quote": "L2,Remediation,,16-Nov-26,11,30-Nov-26,0,0%,yes,pending"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "lines 2-11 (Critical column empty) versus lines 12-23 (Critical = yes); COMPLETED column all rows",
+    "quote": "L1,Remediation,,13-Oct-26,,,0,0%,,pending",
+    "status": "confirmed",
+    "verified": "2026-10-12",
+    "confidence": "tracker words",
+    "story_link": "sequel · plan overview (criticality only on dated phases)",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "note": "side finding of the 2026-10-12 verification pass; filed and re-checked against the source by the maintainer"
+   }
+  },
+  {
+   "id": "C176",
+   "type": "evidence_fact",
+   "label": "The deck already holds live 'final_customer' figures that differ in kind from the L2 row's 'final-customer ta…",
+   "depth": 4,
+   "parent": "layer_l2",
+   "attrs": {
+    "kind": "mapping",
+    "claim": "The deck already holds live 'final_customer' figures that differ in kind from the L2 row's 'final-customer target': 1,043 of 1,972 deals carry a final_customer string (live, 2026-10-01, C095) versus 1,034 in the capped Hs-Logic scan (C053); these measure a deal property, not which companies carry a deal, so the word 'final-customer' on CSV line 12 must not be tied to C095 or C053 without saying so.",
+    "used_by": [],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/evidence-ledger.md",
+      "locator": "row C095",
+      "quote": "Deals with the final_customer string set: 1,043 of 1,972 (52.9%) (live; the Hs-Logic screenshot showed 1,034 on its undated scan)."
+     },
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "line 12",
+      "quote": "[Ops] Solve the final-customer target: 91.9%; only 1,105 companies have a deal."
+     }
+    ],
+    "source": "projects/crm-three-scenarios/evidence-ledger.md",
+    "locator": "row C095",
+    "quote": "Deals with the final_customer string set: 1,043 of 1,972 (52.9%) (live; the Hs-Logic screenshot showed 1,034 on its undated scan).",
+    "status": "caveat",
+    "verified": "2026-10-12",
+    "confidence": "cross-reference",
+    "story_link": "sequel · L2 final-customer wording against two different measurements",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "note": "side finding of the 2026-10-12 verification pass; filed and re-checked against the source by the maintainer",
+    "caveat": "[caveat] The two ledger figures are verbatim (C095: 1,043 of 1,972 live; C053: 1,034 on the capped scan). The L2 row's figures (91.9% / 1,105) match C112 (company-deal association), not C095 or C053; the plan does not say which test it means by 'final-customer target'. → Slide wording: 'The row's \"final-customer target\" figures match the deck's company-deal association count (C112); the deck's final_customer figures (1,043 of 1,972 deals live on 2026-10-01; 1,034 on the capped scan) measure a deal property and are a different test.'"
+   }
+  },
+  {
+   "id": "C177",
+   "type": "evidence_fact",
+   "label": "No row is dated between 13-Oct-26 and 16-Nov-26: the ten Foundation and L1 rows carry only the 13-Oct-26 star…",
+   "depth": 4,
+   "parent": "plan_remediation",
+   "attrs": {
+    "kind": "number",
+    "claim": "No row is dated between 13-Oct-26 and 16-Nov-26: the ten Foundation and L1 rows carry only the 13-Oct-26 start, and the next dated row (L2) begins 34 days later; L2 (ends 30-Nov-26) and L3 (starts 01-Dec-26) are contiguous.",
+    "used_by": [],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "lines 2-11 (START 13-Oct-26, END empty) versus line 12 (START 16-Nov-26) and line 20 (START 01-Dec-26)",
+      "quote": "L1,Remediation,,13-Oct-26,,,0,0%,,pending"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "lines 2-11 (START 13-Oct-26, END empty) versus line 12 (START 16-Nov-26) and line 20 (START 01-Dec-26)",
+    "quote": "L1,Remediation,,13-Oct-26,,,0,0%,,pending",
+    "status": "confirmed",
+    "verified": "2026-10-12",
+    "confidence": "tracker words",
+    "story_link": "sequel · layers tied to dates (the undated gap)",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "note": "side finding of the 2026-10-12 verification pass; filed and re-checked against the source by the maintainer"
+   }
+  },
+  {
+   "id": "C178",
+   "type": "evidence_fact",
+   "label": "The Goal column is filled on only 5 of 22 rows (lines 2, 8, 14, 18, 23); 17 rows state no goal.",
+   "depth": 4,
+   "parent": "plan_remediation",
+   "attrs": {
+    "kind": "number",
+    "claim": "The Goal column is filled on only 5 of 22 rows (lines 2, 8, 14, 18, 23); 17 rows state no goal.",
+    "used_by": [],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "Goal column, lines 2-23",
+      "quote": "[Data] Define each bucket in the CRM based on their total ratio in the pipeline.,,,Foundation"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "Goal column, lines 2-23",
+    "quote": "[Data] Define each bucket in the CRM based on their total ratio in the pipeline.,,,Foundation",
+    "status": "confirmed",
+    "verified": "2026-10-12",
+    "confidence": "tracker words",
+    "story_link": "sequel · what the plan does not yet say (goals)",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "note": "side finding of the 2026-10-12 verification pass; filed and re-checked against the source by the maintainer"
+   }
+  },
+  {
+   "id": "C179",
+   "type": "evidence_fact",
+   "label": "The health check's record basis recomputes correctly: 13,679 + 26,293 + 1,972 = 41,944; its contacts + compan…",
+   "depth": 4,
+   "parent": "layer_l1",
+   "attrs": {
+    "kind": "number",
+    "claim": "The health check's record basis recomputes correctly: 13,679 + 26,293 + 1,972 = 41,944; its contacts + companies subtotal of 39,972 (line 96) is consistent with the same inputs. The L1 purge counts (6,570 + 2,043 + 10,574) sum to 19,187 = 45.74% of 41,944.",
+    "used_by": [],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/implementation-health-check.md",
+      "locator": "line 46 (record-count basis) and line 96 (Dedupely tier note)",
+      "quote": "13,679 companies + 26,293 contacts + 1,972 deals = **41,944 CRM records**"
+     },
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "line 8",
+      "quote": "Delete 6,570 orphan contacts, 2,043 companies with neither deals nor contacts, 10,574 contacts-only auto-creations."
+     }
+    ],
+    "source": "projects/crm-three-scenarios/implementation-health-check.md",
+    "locator": "line 46 (record-count basis) and line 96 (Dedupely tier note)",
+    "quote": "13,679 companies + 26,293 contacts + 1,972 deals = **41,944 CRM records**",
+    "status": "confirmed",
+    "verified": "2026-10-12",
+    "confidence": "cross-reference",
+    "story_link": "sequel · L1 purge numbers against the deck's record basis",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "note": "side finding of the 2026-10-12 verification pass; filed and re-checked against the source by the maintainer"
+   }
+  },
+  {
+   "id": "C180",
+   "type": "evidence_fact",
+   "label": "The word 'Foundation' sits in different columns in the two trackers: ENGINE in the 21/09/26 roadmap (where PH…",
+   "depth": 4,
+   "parent": "plan_remediation",
+   "attrs": {
+    "kind": "mapping",
+    "claim": "The word 'Foundation' sits in different columns in the two trackers: ENGINE in the 21/09/26 roadmap (where PHASE is Data / Admin / Sales Ops / GTM) and PHASE in the remediation plan (where ENGINE is 'Remediation' on every row). The remediation CSV's own PHASE 'Foundation' (5 rows, lines 2-6) is therefore distinct from the roadmap's Foundation engine; the user's chunking rule names only L1, L2 and L3, so these five rows have no explicit place in the three slides unless 'foundation' in the rule is read as this phase.",
+    "used_by": [],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "lines 2-6 (PHASE, ENGINE columns)",
+      "quote": "[Data] Score each object in the CRM pertaining to defined criteria.,Realistic assessment of stale records in the CRM.,,Foundation,Remediation"
+     },
+     {
+      "source": "projects/crm-three-scenarios/sources/AYA_trackerv4_210926-xlsx-extract.txt",
+      "locator": "line 9 (header) and line 10 (sheet 'RevOps 6-month plan (2)')",
+      "quote": "TASK | Goal | Priority level | PHASE | ENGINE | OWNER ... [DATA] Partern to Clean CRM companies & groups - assess best solution | ... | MEDIUM | Data | Foundation |"
+     },
+     {
+      "source": "projects/crm-three-scenarios/brief.md",
+      "locator": "lines 271-272",
+      "quote": "foundation : L1+L2"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+    "locator": "lines 2-6 (PHASE, ENGINE columns)",
+    "quote": "[Data] Score each object in the CRM pertaining to defined criteria.,Realistic assessment of stale records in the CRM.,,Foundation,Remediation",
+    "status": "confirmed",
+    "verified": "2026-10-12",
+    "confidence": "tracker words",
+    "story_link": "sequel · chunking rule (two 'Foundation' labels)",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "note": "side finding of the 2026-10-12 verification pass; filed and re-checked against the source by the maintainer"
+   }
+  },
+  {
+   "id": "C181",
+   "type": "evidence_fact",
+   "label": "The 21/09/26 tracker's legend gives a colour per engine (E2 yellow, E3 pale green, E4 pale blue) and its form…",
+   "depth": 4,
+   "parent": "plan_remediation",
+   "attrs": {
+    "kind": "mapping",
+    "claim": "The 21/09/26 tracker's legend gives a colour per engine (E2 yellow, E3 pale green, E4 pale blue) and its formatting note states that Foundation intentionally has no colour; usable as the slide colour key for the layer-to-engine chunks.",
+    "used_by": [],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/sources/AYA_trackerv4_210926-xlsx-extract.txt",
+      "locator": "lines 23-25 (sheet 'RevOps 6-month plan (2)', legend)",
+      "quote": "E2 = After Foundation we start rebuilding a cleaner data structure | Color code : yellow"
+     },
+     {
+      "source": "projects/crm-three-scenarios/sources/AYA_trackerv4_210926-xlsx-extract.txt",
+      "locator": "line 29 (formatting note of the same sheet)",
+      "quote": "E2 → yellow · E3 → pale green · E4 → pale blue / Foundation intentionally stays unfilled (no color assigned in your legend)"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/sources/AYA_trackerv4_210926-xlsx-extract.txt",
+    "locator": "lines 23-25 (sheet 'RevOps 6-month plan (2)', legend)",
+    "quote": "E2 = After Foundation we start rebuilding a cleaner data structure | Color code : yellow",
+    "status": "confirmed",
+    "verified": "2026-10-12",
+    "confidence": "cross-reference",
+    "story_link": "sequel · colour key for the three slides",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "note": "side finding of the 2026-10-12 verification pass; filed and re-checked against the source by the maintainer"
+   }
+  },
+  {
+   "id": "C182",
+   "type": "evidence_fact",
+   "label": "Hs-Logic defines 'orphan' only for companies ('A company is an orphan when ALL of the following are true'); t…",
+   "depth": 4,
+   "parent": "layer_l1",
+   "attrs": {
+    "kind": "mapping",
+    "claim": "Hs-Logic defines 'orphan' only for companies ('A company is an orphan when ALL of the following are true'); the plan's 'orphan contacts' (CSV line 8) has no written definition in any admissible repository (grep 'orphan contact' over Hs-Logic and HubSpot-Ruler: 0 files).",
+    "used_by": [],
+    "evidence": [
+     {
+      "source": "Hs-Logic/backend/app/routes/hubspot.py",
+      "locator": "lines 306-308",
+      "quote": "Orphan companies ... A company is an orphan when ALL of the following are true:"
+     },
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "line 8",
+      "quote": "Delete 6,570 orphan contacts"
+     }
+    ],
+    "source": "Hs-Logic/backend/app/routes/hubspot.py",
+    "locator": "lines 306-308",
+    "quote": "Orphan companies ... A company is an orphan when ALL of the following are true:",
+    "status": "confirmed",
+    "verified": "2026-10-12",
+    "confidence": "cross-reference",
+    "story_link": "sequel · L1 purge vocabulary against the code",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "note": "side finding of the 2026-10-12 verification pass; filed and re-checked against the source by the maintainer"
+   }
+  },
+  {
+   "id": "C183",
+   "type": "evidence_fact",
+   "label": "The ledger already states an '8.1%' for a different fact (deals with no company association, 160 of 1,972, C0…",
+   "depth": 4,
+   "parent": "layer_l3",
+   "attrs": {
+    "kind": "number",
+    "claim": "The ledger already states an '8.1%' for a different fact (deals with no company association, 160 of 1,972, C098); the derived 8.1% of companies carrying at least one deal (1,105 of 13,679 = 8.08%, from C112) must be labelled so that the two figures are not read as one.",
+    "used_by": [],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/evidence-ledger.md",
+      "locator": "row C098",
+      "quote": "Deals with no company association at all: 160 of 1,972 (8.1%); 1,812 have one (live)."
+     },
+     {
+      "source": "projects/crm-three-scenarios/evidence-ledger.md",
+      "locator": "row C112",
+      "quote": "Companies with no deal association: 12,574 of 13,679 (91.9%); only 1,105 companies carry a deal"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/evidence-ledger.md",
+    "locator": "row C098",
+    "quote": "Deals with no company association at all: 160 of 1,972 (8.1%); 1,812 have one (live).",
+    "status": "confirmed",
+    "verified": "2026-10-12",
+    "confidence": "cross-reference",
+    "story_link": "sequel · L3 orphan target baseline (two 8.1% figures)",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "note": "side finding of the 2026-10-12 verification pass; filed and re-checked against the source by the maintainer"
+   }
+  },
+  {
+   "id": "C184",
+   "type": "evidence_fact",
+   "label": "The brief fixes the scope wording for every number taken from the remediation plan: the tracker is the user's…",
+   "depth": 4,
+   "parent": "plan_remediation",
+   "attrs": {
+    "kind": "quote",
+    "claim": "The brief fixes the scope wording for every number taken from the remediation plan: the tracker is the user's plan, admissible as 'what is planned', never as a measurement.",
+    "used_by": [],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/brief.md",
+      "locator": "line 285 (section 5a)",
+      "quote": "The tracker is the user's plan: it is admissible as \"what is planned\", never as a measurement."
+     }
+    ],
+    "source": "projects/crm-three-scenarios/brief.md",
+    "locator": "line 285 (section 5a)",
+    "quote": "The tracker is the user's plan: it is admissible as \"what is planned\", never as a measurement.",
+    "status": "confirmed",
+    "verified": "2026-10-12",
+    "confidence": "cross-reference",
+    "story_link": "sequel · scope rule for every plan number",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "note": "side finding of the 2026-10-12 verification pass; filed and re-checked against the source by the maintainer"
+   }
+  },
+  {
+   "id": "C185",
+   "type": "evidence_fact",
+   "label": "The name 'hs-standalone' used by the health check for Hs-Logic comes from the user's brief, not from the repo…",
+   "depth": 4,
+   "parent": "layer_l2",
+   "attrs": {
+    "kind": "mapping",
+    "claim": "The name 'hs-standalone' used by the health check for Hs-Logic comes from the user's brief, not from the repository: grep finds no 'hs-standalone' in Hs-Logic (its README line 5 says 'Standalone microservice').",
+    "used_by": [],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/brief.md",
+      "locator": "line 76",
+      "quote": "multiple duplicates (show with the hs-standalone project = Hs-Logic)"
+     },
+     {
+      "source": "Hs-Logic/README.md",
+      "locator": "line 5",
+      "quote": "Standalone microservice (FastAPI backend + React/Vite frontend, docker-compose)"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/brief.md",
+    "locator": "line 76",
+    "quote": "multiple duplicates (show with the hs-standalone project = Hs-Logic)",
+    "status": "confirmed",
+    "verified": "2026-10-12",
+    "confidence": "cross-reference",
+    "story_link": "sequel · L2 'HS-Standalone connector' name origin",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "note": "side finding of the 2026-10-12 verification pass; filed and re-checked against the source by the maintainer"
+   }
+  },
+  {
+   "id": "C186",
+   "type": "evidence_fact",
+   "label": "Arithmetic around the L1 purge row's '~33% of total CRM records': companies are 13,679 of the 41,944 live rec…",
+   "depth": 4,
+   "parent": "layer_l1",
+   "attrs": {
+    "kind": "number",
+    "claim": "Arithmetic around the L1 purge row's '~33% of total CRM records': companies are 13,679 of the 41,944 live records of 2026-10-01 = 32.6% (the closest admissible recomputation) and companies without a deal are 12,574 / 41,944 = 30.0%; separately, 2,043 + 10,574 = 12,617, within 43 records (0.3%) of the 12,574 companies without a deal (C112), so the two plan counts may partition companies without a deal, in which case '10,574 contacts-only auto-creations' would designate companies, not contacts. Neither reading is asserted by any source; a question for the plan's author.",
+    "used_by": [],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/implementation-health-check.md",
+      "locator": "line 46 (record-count basis)",
+      "quote": "13,679 companies + 26,293 contacts + 1,972 deals = **41,944 CRM records**"
+     },
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "line 8",
+      "quote": "2,043 companies with neither deals nor contacts, 10,574 contacts-only auto-creations"
+     },
+     {
+      "source": "projects/crm-three-scenarios/evidence-ledger.md",
+      "locator": "row C112",
+      "quote": "Companies with no deal association: 12,574 of 13,679 (91.9%)"
+     }
+    ],
+    "source": "projects/crm-three-scenarios/implementation-health-check.md",
+    "locator": "line 46 (record-count basis)",
+    "quote": "13,679 companies + 26,293 contacts + 1,972 deals = **41,944 CRM records**",
+    "status": "caveat",
+    "verified": "2026-10-12",
+    "confidence": "cross-reference",
+    "story_link": "sequel · L1 purge numbers: nearest admissible recomputations",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "note": "side finding of the 2026-10-12 verification pass; filed and re-checked against the source by the maintainer",
+    "caveat": "[caveat] All four ratios recompute (32.6%, 30.0%, 12,617, 43). The partition reading is a hypothesis, not a fact: no source says what the row's denominator is or what '10,574 contacts-only auto-creations' counts. → Slide wording (notes only): 'The row's ~33% has no stated denominator; all companies are 32.6% of the 41,944 live records of 2026-10-01. 2,043 + 10,574 = 12,617, 43 away from the 12,574 companies without a deal: possibly a partition of those companies — not asserted by any source; to confirm with the plan's author.'"
+   }
+  },
+  {
+   "id": "C187",
+   "type": "evidence_fact",
+   "label": "HubSpot-Ruler's Claude.md, as summarised in the brief, names three companies sharing the CRM (SEALSQ, IC'Alps…",
+   "depth": 4,
+   "parent": "layer_l1",
+   "attrs": {
+    "kind": "mapping",
+    "claim": "HubSpot-Ruler's Claude.md, as summarised in the brief, names three companies sharing the CRM (SEALSQ, IC'Alps, WISeKey) and four context agents (SEALSQ, IC'Alps, MIRAEX, WeCan); 'Connex' belongs to neither list, and the L1 documentation row (line 10) names only the SEALSQ / IC'Alps boundary.",
+    "used_by": [],
+    "evidence": [
+     {
+      "source": "projects/crm-three-scenarios/brief.md",
+      "locator": "section 2e, HubSpot-Ruler bullet (line 220)",
+      "quote": "Claude.md (3 companies share the CRM: SEALSQ, IC'Alps, WISeKey; ... 4 context agents: SEALSQ, IC'Alps, MIRAEX, WeCan"
+     },
+     {
+      "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+      "locator": "line 10",
+      "quote": "[Document] Document the full set of properties within the CRM and the boundaries between SEALSQ and IC'Alps."
+     }
+    ],
+    "source": "projects/crm-three-scenarios/brief.md",
+    "locator": "section 2e, HubSpot-Ruler bullet (line 220)",
+    "quote": "Claude.md (3 companies share the CRM: SEALSQ, IC'Alps, WISeKey; ... 4 context agents: SEALSQ, IC'Alps, MIRAEX, WeCan",
+    "status": "confirmed",
+    "verified": "2026-10-12",
+    "confidence": "cross-reference",
+    "story_link": "sequel · a new name (Connex) against the known entity lists",
+    "source_tag": "tracker-remediation-2026-10-13",
+    "note": "side finding of the 2026-10-12 verification pass; filed and re-checked against the source by the maintainer"
    }
   }
  ],
@@ -9684,6 +10845,390 @@
    "to": "C157",
    "type": "grounded_in",
    "weight": 1.0
+  },
+  {
+   "from": "plan_remediation",
+   "to": "C158",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "plan_remediation",
+   "to": "C159",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l1",
+   "to": "C160",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l1",
+   "to": "C161",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l1",
+   "to": "C162",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l2",
+   "to": "C163",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l2",
+   "to": "C164",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l3",
+   "to": "C165",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "plan_remediation",
+   "to": "C166",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l1",
+   "to": "C167",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l2",
+   "to": "C168",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l1",
+   "to": "C169",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l3",
+   "to": "C170",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "plan_remediation",
+   "to": "C171",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "plan_remediation",
+   "to": "C172",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "plan_remediation",
+   "to": "C173",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "plan_remediation",
+   "to": "C174",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "plan_remediation",
+   "to": "C175",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l2",
+   "to": "C176",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "plan_remediation",
+   "to": "C177",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "plan_remediation",
+   "to": "C178",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l1",
+   "to": "C179",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "plan_remediation",
+   "to": "C180",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "plan_remediation",
+   "to": "C181",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l1",
+   "to": "C182",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l3",
+   "to": "C183",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "plan_remediation",
+   "to": "C184",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l2",
+   "to": "C185",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l1",
+   "to": "C186",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l1",
+   "to": "C187",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l1",
+   "to": "dp_duplicates",
+   "type": "connects_to",
+   "weight": 1.0,
+   "note": "the L1 purge rows act on the duplicates / orphans problem"
+  },
+  {
+   "from": "layer_l2",
+   "to": "dp_cardinality",
+   "type": "connects_to",
+   "weight": 1.0,
+   "note": "the L2 final-customer row restates the cardinality measurement (C112)"
+  },
+  {
+   "from": "layer_l2",
+   "to": "dp_modelling",
+   "type": "connects_to",
+   "weight": 1.0,
+   "note": "the L2 property rows (project type, property audit) touch the modelling problem"
+  },
+  {
+   "from": "layer_l3",
+   "to": "pe_not_there_yet",
+   "type": "connects_to",
+   "weight": 1.0,
+   "note": "the L3 confirmations are the plan's answer to 'we are not there yet'"
+  },
+  {
+   "from": "layer_l3",
+   "to": "img_teamB",
+   "type": "connects_to",
+   "weight": 1.0,
+   "note": "engines E2-E4 are the intended connected team's horizon"
+  },
+  {
+   "from": "plan_remediation",
+   "to": "C166",
+   "type": "depends_on",
+   "weight": 1.0,
+   "note": "the three slides exist only under the user's chunking rule"
+  },
+  {
+   "from": "layer_l2",
+   "to": "C112",
+   "type": "grounded_in",
+   "weight": 1.0,
+   "note": "C164: the L2 row restates C112"
+  },
+  {
+   "from": "layer_l1",
+   "to": "C111",
+   "type": "grounded_in",
+   "weight": 1.0,
+   "note": "C169: the L1 purge counts against the deck's measurements"
+  },
+  {
+   "from": "layer_l1",
+   "to": "C112",
+   "type": "grounded_in",
+   "weight": 1.0,
+   "note": "C169: the L1 purge counts against the deck's measurements"
+  },
+  {
+   "from": "layer_l1",
+   "to": "C053",
+   "type": "grounded_in",
+   "weight": 1.0,
+   "note": "C169: the L1 purge counts against the deck's measurements"
+  },
+  {
+   "from": "layer_l3",
+   "to": "C051",
+   "type": "grounded_in",
+   "weight": 1.0,
+   "note": "C170: the L3 targets against the deck's baselines"
+  },
+  {
+   "from": "layer_l3",
+   "to": "C052",
+   "type": "grounded_in",
+   "weight": 1.0,
+   "note": "C170: the L3 targets against the deck's baselines"
+  },
+  {
+   "from": "layer_l3",
+   "to": "C053",
+   "type": "grounded_in",
+   "weight": 1.0,
+   "note": "C170: the L3 targets against the deck's baselines"
+  },
+  {
+   "from": "layer_l3",
+   "to": "C062",
+   "type": "grounded_in",
+   "weight": 1.0,
+   "note": "C170: the L3 targets against the deck's baselines"
+  },
+  {
+   "from": "layer_l3",
+   "to": "C086",
+   "type": "grounded_in",
+   "weight": 1.0,
+   "note": "C170: the L3 targets against the deck's baselines"
+  },
+  {
+   "from": "layer_l3",
+   "to": "C112",
+   "type": "grounded_in",
+   "weight": 1.0,
+   "note": "C170: the L3 targets against the deck's baselines"
+  },
+  {
+   "from": "layer_l2",
+   "to": "C051",
+   "type": "grounded_in",
+   "weight": 1.0,
+   "note": "C170: the L2 targets (50% duplicates, 25% properties) against the deck's baselines"
+  },
+  {
+   "from": "layer_l2",
+   "to": "C053",
+   "type": "grounded_in",
+   "weight": 1.0,
+   "note": "C170: the L2 targets (50% duplicates, 25% properties) against the deck's baselines"
+  },
+  {
+   "from": "layer_l2",
+   "to": "C062",
+   "type": "grounded_in",
+   "weight": 1.0,
+   "note": "C170: the L2 targets (50% duplicates, 25% properties) against the deck's baselines"
+  },
+  {
+   "from": "layer_l2",
+   "to": "C086",
+   "type": "grounded_in",
+   "weight": 1.0,
+   "note": "C170: the L2 targets (50% duplicates, 25% properties) against the deck's baselines"
+  },
+  {
+   "from": "layer_l2",
+   "to": "p_hs_logic",
+   "type": "grounded_in",
+   "weight": 1.0,
+   "note": "C168: by name only (HS-Standalone -> Hs-Logic; Quarto-BQ -> Bq-dbt)"
+  },
+  {
+   "from": "layer_l2",
+   "to": "p_bq_dbt",
+   "type": "grounded_in",
+   "weight": 1.0,
+   "note": "C168: by name only (HS-Standalone -> Hs-Logic; Quarto-BQ -> Bq-dbt)"
+  },
+  {
+   "from": "layer_l2",
+   "to": "C095",
+   "type": "grounded_in",
+   "weight": 1.0,
+   "note": "C176: final_customer is a deal property, a different test from C112"
+  },
+  {
+   "from": "layer_l3",
+   "to": "C098",
+   "type": "grounded_in",
+   "weight": 1.0,
+   "note": "C183: the ledger's other 8.1%"
+  },
+  {
+   "from": "layer_l3",
+   "to": "C159",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l2",
+   "to": "C170",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l1",
+   "to": "C166",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l2",
+   "to": "C166",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l3",
+   "to": "C166",
+   "type": "grounded_in",
+   "weight": 1.0
+  },
+  {
+   "from": "layer_l2",
+   "to": "C171",
+   "type": "grounded_in",
+   "weight": 1.0
   }
  ],
  "views": [
@@ -10206,6 +11751,56 @@
     "cl_s3_exit",
     "cl_s3_data_hub_starter",
     "C145"
+   ]
+  },
+  {
+   "id": "V23",
+   "title": "Sequel · Foundation engine · Layer L1 — prepare the pass, archive the first pass (from 13 Oct)",
+   "cites": [
+    "plan_remediation",
+    "layer_l1",
+    "dp_duplicates",
+    "C158",
+    "C159",
+    "C160",
+    "C161",
+    "C162",
+    "C169",
+    "C111",
+    "C053",
+    "C166"
+   ]
+  },
+  {
+   "id": "V24",
+   "title": "Sequel · Foundation engine · Layer L2 — 16 to 30 November, eight critical tasks",
+   "cites": [
+    "layer_l2",
+    "dp_cardinality",
+    "dp_modelling",
+    "C163",
+    "C164",
+    "C168",
+    "C170",
+    "C112",
+    "C171",
+    "C166"
+   ]
+  },
+  {
+   "id": "V25",
+   "title": "Sequel · Engines E2 → E4 · Layer L3 — 1 to 20 December, four confirmations",
+   "cites": [
+    "layer_l3",
+    "pe_not_there_yet",
+    "img_teamB",
+    "C165",
+    "C170",
+    "C166",
+    "C159",
+    "C052",
+    "C062",
+    "C150"
    ]
   }
  ]

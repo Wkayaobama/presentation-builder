@@ -1,0 +1,269 @@
+{
+ "source_family": "tracker-remediation-2026-10-13",
+ "file": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+ "written_by": "orchestrator (deterministic read of the CSV, 2026-10-12); every fact below is to be verified before use",
+ "items": [
+  {
+   "name": "Remediation plan (tracker 13-Oct-26)",
+   "kind": "plan",
+   "lives_in": "CSV export of the tracker, copied to sources/",
+   "built_on": "four phases Foundation, L1, L2, L3 under one engine 'Remediation'",
+   "status": "22 tasks, all pending, 0% progress, no owner",
+   "owner_dependency": "owner column empty on every row",
+   "scenario_relevance": "sequel: the user's own plan after the three-scenario deck",
+   "gate_rows": [
+    "Rules to comply",
+    "Declarative action layer"
+   ],
+   "evidence": [
+    {
+     "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+     "locator": "lines 2-23",
+     "quote": "Remediation plan,13-Oct-26,13-Oct-26"
+    }
+   ]
+  }
+ ],
+ "facts": [
+  {
+   "id": "C158",
+   "kind": "status",
+   "confidence": "tracker words",
+   "story_link": "sequel · plan overview",
+   "statement": "Remediation plan tracker dated 13-Oct-26: 22 tasks in four phases (Foundation 5, L1 5, L2 8, L3 4), engine 'Remediation' on every row, status pending, progress 0%, owner and priority empty on every row.",
+   "evidence": [
+    {
+     "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+     "locator": "lines 2-23 (PHASE, ENGINE, OWNER, PROGRESS, Status columns)",
+     "quote": "Foundation,Remediation,,13-Oct-26,,,0,0%,,pending"
+    }
+   ]
+  },
+  {
+   "id": "C159",
+   "kind": "number",
+   "confidence": "tracker words",
+   "story_link": "sequel · layers tied to dates",
+   "statement": "Foundation (5 rows) and L1 (5 rows) start 13-Oct-26 with no end date or duration; L2 (8 rows) runs 16-Nov-26 to 30-Nov-26, 11 days, every row Critical = yes; L3 (4 rows) runs 01-Dec-26 to 20-Dec-26, 14 days, every row Critical = yes.",
+   "evidence": [
+    {
+     "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+     "locator": "lines 2-11 (START 13-Oct-26, END empty); lines 12-19 (16-Nov-26,11,30-Nov-26,...,yes); lines 20-23 (01-Dec-26,14,20-Dec-26,...,yes)",
+     "quote": "L2,Remediation,,16-Nov-26,11,30-Nov-26,0,0%,yes,pending"
+    }
+   ]
+  },
+  {
+   "id": "C160",
+   "kind": "quote",
+   "confidence": "tracker words",
+   "story_link": "sequel · Foundation engine · layer L1 (preparation rows)",
+   "statement": "Foundation phase, five [Data] tasks: score each object in the CRM against defined criteria (goal 'Realistic assessment of stale records in the CRM'); define each bucket by its total ratio in the pipeline; write the script to archive stale records (SEALSQ only); prevent the entry of non-relevant records; document the set of properties: SEALSQ, IC'Alps, Connex.",
+   "evidence": [
+    {
+     "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+     "locator": "lines 2-6",
+     "quote": "[Data] Score each object in the CRM pertaining to defined criteria.,Realistic assessment of stale records in the CRM."
+    }
+   ]
+  },
+  {
+   "id": "C161",
+   "kind": "quote",
+   "confidence": "tracker words",
+   "story_link": "sequel · Foundation engine · layer L1",
+   "statement": "L1, five tasks: [Ops] ledger the previous pass for all records and properties; [Ops] archive the first pass of records; [Ops] survey the sales director and ensure best practices in the daily workflow; [Document] document the full property set and the boundaries between SEALSQ and IC'Alps; [Ops] remove all object auto-creation workflows.",
+   "evidence": [
+    {
+     "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+     "locator": "lines 7-11",
+     "quote": "[Ops] Remove all object auto-creation workflows.,,,L1,Remediation"
+    }
+   ]
+  },
+  {
+   "id": "C162",
+   "kind": "number",
+   "confidence": "tracker words",
+   "story_link": "sequel · L1 purge scope",
+   "statement": "L1 archive row as written: 'Archive the first pass of records (full NQL, full Orphan companies ~33% of total CRM records). Delete 6,570 orphan contacts, 2,043 companies with neither deals nor contacts, 10,574 contacts-only auto-creations.' Goal: 'Low-risk purge of records strictly polluting the CRM.'",
+   "evidence": [
+    {
+     "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+     "locator": "line 8",
+     "quote": "Delete 6,570 orphan contacts, 2,043 companies with neither deals nor contacts, 10,574 contacts-only auto-creations."
+    }
+   ]
+  },
+  {
+   "id": "C163",
+   "kind": "quote",
+   "confidence": "tracker words",
+   "story_link": "sequel · Foundation engine · layer L2",
+   "statement": "L2, eight tasks (16-30 Nov, all critical): solve the final-customer target '91.9%; only 1,105 companies have a deal'; delete all contacts without a legitimate source (no owner, no recent activities); delete all duplicates with no record attached (goal '50% of duplicates suppressed'); implement reports and quality checks generated automatically via Quarto-BQ (HS-Standalone connector); reduce friction in form settings for new records; add the 'project type' property; surface/audit the property set based on L1 and remove unfilled properties (goal 'Remove 25% of SEALSQ properties'); define a co-owner of quality metrics in the CRM.",
+   "evidence": [
+    {
+     "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+     "locator": "lines 12-19",
+     "quote": "[Ops] Delete all duplicates with no record attached.,50% of duplicates suppressed.,,L2"
+    }
+   ]
+  },
+  {
+   "id": "C164",
+   "kind": "number",
+   "confidence": "measured (cross-reference)",
+   "story_link": "sequel · L2 final-customer target vs the deck's measurement",
+   "statement": "The L2 target '91.9%; only 1,105 companies have a deal' is the deck's own live measurement of 2026-10-01 (claim C112: 12,574 of 13,679 companies carry no deal, 91.9%; 1,105 carry one); the plan quotes the measurement as its target.",
+   "evidence": [
+    {
+     "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+     "locator": "line 12",
+     "quote": "[Ops] Solve the final-customer target: 91.9%; only 1,105 companies have a deal."
+    },
+    {
+     "source": "projects/crm-three-scenarios/evidence-ledger.md",
+     "locator": "row C112",
+     "quote": "Companies with no deal association: 12,574 of 13,679 (91.9%); only 1,105 companies carry a deal (live, uncapped"
+    }
+   ]
+  },
+  {
+   "id": "C165",
+   "kind": "quote",
+   "confidence": "tracker words",
+   "story_link": "sequel · engines E2-E4 · layer L3",
+   "statement": "L3, four confirmation tasks (1-20 Dec, all critical): confirm 90% of SEALSQ companies are not orphaned; confirm 80% of SEALSQ contacts have at least email + telephone/LinkedIn; confirm all users are trained for CRM best practice in data; confirm all deals are properly documented and categorised (goal 'Remove 50% of SEALSQ properties').",
+   "evidence": [
+    {
+     "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+     "locator": "lines 20-23",
+     "quote": "[Data] Confirm all deals are properly documented and categorised.,Remove 50% of SEALSQ properties.,,L3"
+    }
+   ]
+  },
+  {
+   "id": "C166",
+   "kind": "mapping",
+   "confidence": "user statement",
+   "story_link": "sequel · chunking rule",
+   "statement": "The user's chunking rule for the three appended slides: the Foundation engine of the 21/09/26 roadmap corresponds to layers L1 + L2 of the remediation plan; engines E2 to E4 correspond to layer L3. The engine ladder itself (Foundation -> E2 rebuild a cleaner data structure -> E3 leverage the data for GTM/RevOps -> E4 self-autonomous AI-powered CRM) is the 21/09/26 tracker's legend.",
+   "evidence": [
+    {
+     "source": "projects/crm-three-scenarios/brief.md",
+     "locator": "section 5 (sequel request, verbatim)",
+     "quote": "foundation : L1+L2 / E2:E4 : L3"
+    },
+    {
+     "source": "projects/crm-three-scenarios/sources/AYA_trackerv4_210926-xlsx-extract.txt",
+     "locator": "sheet 'RevOps 6-month plan (2)' legend lines (E2 = After Foundation ...; E3 = ...; E4 = ...)",
+     "quote": "E2 = After Foundation we start rebuilding a cleaner data structure"
+    }
+   ]
+  },
+  {
+   "id": "C167",
+   "kind": "mapping",
+   "confidence": "repo check",
+   "story_link": "sequel · a new tenant name",
+   "statement": "'Connex' appears in the Foundation documentation task as a third entity beside SEALSQ and IC'Alps; the name occurs in no earlier admissible source (the brief, the review deck, the 21/09/26 tracker, the SEALSQ property set, the three repositories) — a grep returns nothing — so it is a new tenant name with no measured footprint.",
+   "evidence": [
+    {
+     "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+     "locator": "line 6",
+     "quote": "[Data] Document the set of properties: SEALSQ, IC'Alps, Connex."
+    },
+    {
+     "source": "grep -rli connex over Hs-Logic, HubSpot-Ruler, presentation-builder/projects/crm-three-scenarios/sources and brief.md (2026-10-12)",
+     "locator": "repo_check",
+     "quote": "0 files outside the remediation CSV"
+    }
+   ]
+  },
+  {
+   "id": "C168",
+   "kind": "mapping",
+   "confidence": "project docs",
+   "story_link": "sequel · L2 reporting task tied to what is built",
+   "statement": "The L2 task 'reports and quality checks automatically generated via Quarto-BQ (HS-Standalone connector)' names two items of the implementation health check: Hs-Logic / hs-standalone (rank 6, verdict simplify) and the DBT + BigQuery pipeline Bq-dbt (rank 1, verdict keep); neither repository contains a Quarto document today.",
+   "evidence": [
+    {
+     "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+     "locator": "line 15",
+     "quote": "[Ops] Implement reports and quality checks automatically generated via Quarto-BQ (HS-Standalone connector)."
+    },
+    {
+     "source": "projects/crm-three-scenarios/implementation-health-check.md",
+     "locator": "ranked table rows 1 and 6",
+     "quote": "Bq-dbt — DBT + BigQuery merge / transformation pipeline → keep; Hs-Logic / hs-standalone → simplify"
+    },
+    {
+     "source": "grep -rli quarto over Hs-Logic and HubSpot-Ruler (2026-10-12)",
+     "locator": "repo_check",
+     "quote": "0 files"
+    }
+   ]
+  },
+  {
+   "id": "C169",
+   "kind": "number",
+   "confidence": "measured (cross-reference) + arithmetic",
+   "story_link": "sequel · L1 purge numbers against the deck's measurements",
+   "statement": "Of the three L1 purge counts, 6,570 'orphan contacts' equals the deck's live count of contacts with no company association on 2026-10-01 (C111: 6,570 of 26,293, 25.0%); 2,043 'companies with neither deals nor contacts' and 10,574 'contacts-only auto-creations' were measured neither by the live probe (which counted 12,574 companies without a deal, C112) nor by Hs-Logic (9,150 orphan companies in a capped 10,000 scan, C053). The three counts sum to 19,187, which is 45.7% of the 41,944 records measured on 2026-10-01 (13,679 companies + 26,293 contacts + 1,972 deals), not the '~33% of total CRM records' the row states; the 33% is not recomputable from any admissible source.",
+   "evidence": [
+    {
+     "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+     "locator": "line 8",
+     "quote": "full Orphan companies ~33% of total CRM records). Delete 6,570 orphan contacts, 2,043 companies with neither deals nor contacts, 10,574 contacts-only auto-creations"
+    },
+    {
+     "source": "projects/crm-three-scenarios/evidence-ledger.md",
+     "locator": "rows C111, C112, C053, C089 and the record-count basis line of implementation-health-check.md (41,944)",
+     "quote": "Contacts with no company association: 6,570 of 26,293 (25.0%)"
+    }
+   ]
+  },
+  {
+   "id": "C170",
+   "kind": "mapping",
+   "confidence": "measured baselines (ledger)",
+   "story_link": "sequel · L2/L3 targets against the deck's baselines",
+   "statement": "The plan's ratio targets, read against the baselines already in the ledger: '50% of duplicates suppressed' against 226 company and 281 contact duplicate clusters found by exact match in a capped 10,000-record scan (C051, C053: floors, not counts); 'remove 25% of SEALSQ properties' (L2) then '50%' (L3) against the 2026-09-14 snapshots: 498 deal / 30 company / 30 contact properties in the SEALSQ-scope set (C062) and 565 DEAL / 40 COMPANY / 24 CONTACT rows in the Data-Toolkit schema (C086); '90% of SEALSQ companies not orphaned' against 8.1% of companies carrying a deal portal-wide on 2026-10-01 (C112; SEALSQ-only baseline not measured); '80% of contacts with email + telephone/LinkedIn' against phone missing on 53.3% and email on 1.7% of the first 10,000 contacts (C052, capped; LinkedIn not measured).",
+   "evidence": [
+    {
+     "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+     "locator": "lines 14, 18, 20, 21, 23 (Goal and TASK columns)",
+     "quote": "50% of duplicates suppressed. ... Remove 25% of SEALSQ properties. ... Confirm 90% of SEALSQ companies are not orphaned. ... Confirm 80% of SEALSQ contacts have at least email + telephone/LinkedIn."
+    },
+    {
+     "source": "projects/crm-three-scenarios/evidence-ledger.md",
+     "locator": "rows C051, C052, C053, C062, C086, C112",
+     "quote": "duplicate clusters 281 ... Duplicate clusters = 226 ... 498 deal / 30 contact / 30 company ... 565 DEAL / 40 COMPANY / 24 CONTACT ... phone 53.3%"
+    }
+   ]
+  },
+  {
+   "id": "C171",
+   "kind": "status",
+   "confidence": "tracker words",
+   "story_link": "sequel · what the plan does not yet say",
+   "statement": "The plan names no owner on any of its 22 rows and no priority; Foundation and L1 rows carry no end date or duration; the 'co-owner of quality metrics' row gives one example name in parentheses; the L2 property-audit row and the L3 deal-documentation row carry different removal targets for the same SEALSQ property set (25% then 50%).",
+   "evidence": [
+    {
+     "source": "projects/crm-three-scenarios/sources/tracker2026-10-13_remediation-plan.csv",
+     "locator": "OWNER and 'Priority level' columns, lines 2-23; line 19; lines 18 and 23",
+     "quote": "[Admin] Define a co-owner of quality metrics in the CRM (e.g. Mike).,,,L2"
+    }
+   ]
+  }
+ ],
+ "gaps": [
+  "No owner, no priority on any row; Foundation and L1 have no end date, so the 13-Oct start is the only date for ten tasks.",
+  "The '~33% of total CRM records' figure cannot be reproduced from the deck's measurements (the three counts sum to 45.7% of the 41,944 records of 2026-10-01); it may use a different denominator or a different definition of 'record'.",
+  "2,043 companies with neither deals nor contacts and 10,574 contacts-only auto-creations are not measured by any admissible source; they are the plan's own counts.",
+  "Connex is a new entity name with no footprint in the admissible sources.",
+  "'Quarto-BQ (HS-Standalone connector)' is not in any repository; the tie to Hs-Logic and Bq-dbt is by name only.",
+  "The SEALSQ-only baselines for L3 (companies not orphaned, contacts with phone/LinkedIn) were not measured; the ledger holds portal-wide or capped figures only."
+ ],
+ "output_file": "projects/crm-three-scenarios/explore/explore-remediation-plan.json"
+}

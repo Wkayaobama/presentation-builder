@@ -1,0 +1,23 @@
+TASK,Goal,Priority level,PHASE,ENGINE,OWNER,START,ESTIMATED DURATION,END,COMPLETED,PROGRESS,Critical,Status,Project Name,Project Start date,Date for tracking progress
+[Data] Score each object in the CRM pertaining to defined criteria.,Realistic assessment of stale records in the CRM.,,Foundation,Remediation,,13-Oct-26,,,0,0%,,pending,Remediation plan,13-Oct-26,13-Oct-26
+[Data] Define each bucket in the CRM based on their total ratio in the pipeline.,,,Foundation,Remediation,,13-Oct-26,,,0,0%,,pending,Remediation plan,13-Oct-26,13-Oct-26
+[Data] Write the script to archive stale records in the CRM (SEALSQ only).,,,Foundation,Remediation,,13-Oct-26,,,0,0%,,pending,Remediation plan,13-Oct-26,13-Oct-26
+[Data] Prevent the entry of non-relevant records in the CRM.,,,Foundation,Remediation,,13-Oct-26,,,0,0%,,pending,Remediation plan,13-Oct-26,13-Oct-26
+"[Data] Document the set of properties: SEALSQ, IC'Alps, Connex.",,,Foundation,Remediation,,13-Oct-26,,,0,0%,,pending,Remediation plan,13-Oct-26,13-Oct-26
+[Ops] Ledger the previous pass for all records and properties.,,,L1,Remediation,,13-Oct-26,,,0,0%,,pending,Remediation plan,13-Oct-26,13-Oct-26
+"[Ops] Archive the first pass of records (full NQL, full Orphan companies ~33% of total CRM records). Delete 6,570 orphan contacts, 2,043 companies with neither deals nor contacts, 10,574 contacts-only auto-creations.",Low-risk purge of records strictly polluting the CRM.,,L1,Remediation,,13-Oct-26,,,0,0%,,pending,Remediation plan,13-Oct-26,13-Oct-26
+[Ops] Survey the sales director and ensure best practices are applied in the daily workflow.,,,L1,Remediation,,13-Oct-26,,,0,0%,,pending,Remediation plan,13-Oct-26,13-Oct-26
+[Document] Document the full set of properties within the CRM and the boundaries between SEALSQ and IC'Alps.,,,L1,Remediation,,13-Oct-26,,,0,0%,,pending,Remediation plan,13-Oct-26,13-Oct-26
+[Ops] Remove all object auto-creation workflows.,,,L1,Remediation,,13-Oct-26,,,0,0%,,pending,Remediation plan,13-Oct-26,13-Oct-26
+"[Ops] Solve the final-customer target: 91.9%; only 1,105 companies have a deal.",,,L2,Remediation,,16-Nov-26,11,30-Nov-26,0,0%,yes,pending,Remediation plan,13-Oct-26,13-Oct-26
+"[Ops] Delete all contacts that don't have a legitimate source (no owner, no recent activities).",,,L2,Remediation,,16-Nov-26,11,30-Nov-26,0,0%,yes,pending,Remediation plan,13-Oct-26,13-Oct-26
+[Ops] Delete all duplicates with no record attached.,50% of duplicates suppressed.,,L2,Remediation,,16-Nov-26,11,30-Nov-26,0,0%,yes,pending,Remediation plan,13-Oct-26,13-Oct-26
+[Ops] Implement reports and quality checks automatically generated via Quarto-BQ (HS-Standalone connector).,,,L2,Remediation,,16-Nov-26,11,30-Nov-26,0,0%,yes,pending,Remediation plan,13-Oct-26,13-Oct-26
+[Data] Reduce friction in form settings for new records.,,,L2,Remediation,,16-Nov-26,11,30-Nov-26,0,0%,yes,pending,Remediation plan,13-Oct-26,13-Oct-26
+[Data] Add the 'project type' property.,,,L2,Remediation,,16-Nov-26,11,30-Nov-26,0,0%,yes,pending,Remediation plan,13-Oct-26,13-Oct-26
+[Data] Surface/audit the property set based on L1 and remove unfilled properties.,Remove 25% of SEALSQ properties.,,L2,Remediation,,16-Nov-26,11,30-Nov-26,0,0%,yes,pending,Remediation plan,13-Oct-26,13-Oct-26
+[Admin] Define a co-owner of quality metrics in the CRM (e.g. Mike).,,,L2,Remediation,,16-Nov-26,11,30-Nov-26,0,0%,yes,pending,Remediation plan,13-Oct-26,13-Oct-26
+[Data] Confirm 90% of SEALSQ companies are not orphaned.,,,L3,Remediation,,01-Dec-26,14,20-Dec-26,0,0%,yes,pending,Remediation plan,13-Oct-26,13-Oct-26
+[Data] Confirm 80% of SEALSQ contacts have at least email + telephone/LinkedIn.,,,L3,Remediation,,01-Dec-26,14,20-Dec-26,0,0%,yes,pending,Remediation plan,13-Oct-26,13-Oct-26
+[Admin] Confirm all users are trained for CRM best practice in data.,,,L3,Remediation,,01-Dec-26,14,20-Dec-26,0,0%,yes,pending,Remediation plan,13-Oct-26,13-Oct-26
+[Data] Confirm all deals are properly documented and categorised.,Remove 50% of SEALSQ properties.,,L3,Remediation,,01-Dec-26,14,20-Dec-26,0,0%,yes,pending,Remediation plan,13-Oct-26,13-Oct-26
